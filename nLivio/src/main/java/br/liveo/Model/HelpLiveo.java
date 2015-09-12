@@ -30,6 +30,13 @@ public class HelpLiveo {
         this.listHelp.add(helpItem);
     }
 
+    public void addColor(String name, int color){
+        this.newHelpItem();
+        this.helpItem.setName(name);
+        this.helpItem.setColor(color);
+        this.listHelp.add(helpItem);
+    }
+
     public void addHide(String name){
         this.newHelpItem();
         this.helpItem.setName(name);
@@ -41,6 +48,14 @@ public class HelpLiveo {
         this.newHelpItem();
         this.helpItem.setName(name);
         this.helpItem.setIcon(icon);
+        this.listHelp.add(helpItem);
+    }
+
+    public void addColor(String name, int icon, int color){
+        this.newHelpItem();
+        this.helpItem.setName(name);
+        this.helpItem.setIcon(icon);
+        this.helpItem.setColor(color);
         this.listHelp.add(helpItem);
     }
 
@@ -57,6 +72,15 @@ public class HelpLiveo {
         this.helpItem.setName(name);
         this.helpItem.setIcon(icon);
         this.helpItem.setCounter(counter);
+        this.listHelp.add(helpItem);
+    }
+
+    public void addColor(String name, int icon, int counter, int color){
+        this.newHelpItem();
+        this.helpItem.setName(name);
+        this.helpItem.setIcon(icon);
+        this.helpItem.setCounter(counter);
+        this.helpItem.setColor(color);
         this.listHelp.add(helpItem);
     }
 

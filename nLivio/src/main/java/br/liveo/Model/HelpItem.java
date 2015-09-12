@@ -10,6 +10,7 @@ public class HelpItem implements Parcelable {
 
     public String name;
     public int icon = 0;
+    public int color = 0;
     public int counter = 0;
 
     public boolean hide = false;
@@ -55,6 +56,14 @@ public class HelpItem implements Parcelable {
         this.hide = hide;
     }
 
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -64,6 +73,7 @@ public class HelpItem implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.name);
         dest.writeInt(this.icon);
+        dest.writeInt(this.color);
         dest.writeByte(header ? (byte) 1 : (byte) 0);
         dest.writeInt(this.counter);
         dest.writeByte(hide ? (byte) 1 : (byte) 0);
@@ -75,6 +85,7 @@ public class HelpItem implements Parcelable {
     private HelpItem(Parcel in) {
         this.name = in.readString();
         this.icon = in.readInt();
+        this.color = in.readInt();
         this.header = in.readByte() != 0;
         this.counter = in.readInt();
         this.hide = in.readByte() != 0;

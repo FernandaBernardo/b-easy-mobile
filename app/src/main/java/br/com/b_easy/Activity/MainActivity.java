@@ -24,22 +24,21 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
     private Toolbar toolbar;
     private HelpLiveo mHelpLiveo;
 
-    /*@Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //super.setChildActivity(this);
+        super.setChildLayoutRes(R.layout.activity_main);
+        super.setChildToolbarRes(R.id.app_bar);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-
-        /*toolbar = (Toolbar) findViewById(R.id.app_bar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         if(savedInstanceState == null){
-            trocaFragment("Home");
+            trocaFragment("home");
         }
 
+
+
     }
-    */
+
 
     public void onInt(Bundle savedInstanceState) {
 
@@ -58,7 +57,7 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
          *        Pegar do Banco de Dados       *
          ***************************************/
 
-        mHelpLiveo.add(getString(R.string.drawer_pag_IA),  R.drawable.ic_navigate_next_white_24dp);
+        mHelpLiveo.add(getString(R.string.drawer_pag_IA), R.drawable.ic_navigate_next_white_24dp);
         mHelpLiveo.add(getString(R.string.drawer_pag_BD),  R.drawable.ic_navigate_next_white_24dp);
         mHelpLiveo.add(getString(R.string.drawer_pag_SO),  R.drawable.ic_navigate_next_white_24dp);
         mHelpLiveo.add(getString(R.string.drawer_pag_MD),  R.drawable.ic_navigate_next_white_24dp);
@@ -89,7 +88,7 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
     @Override
     public void onItemClick(int position) {
         Log.d("Item Clicked", "Position " + position);
-        trocaFragment("Home");
+        trocaFragment("home");
     }
 
     private OnPrepareOptionsMenuLiveo onPrepare = new OnPrepareOptionsMenuLiveo() {
@@ -117,7 +116,7 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
     public void trocaFragment(String tag){
         Fragment fragment = new HomeFragment();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.container,fragment,tag).commit();
+        ft.replace(R.id.main_container,fragment,tag).commit();
 
     }
 

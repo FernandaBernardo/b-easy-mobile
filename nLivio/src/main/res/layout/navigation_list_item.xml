@@ -15,7 +15,6 @@
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -23,9 +22,9 @@
 
     <LinearLayout
         android:id="@+id/layoutSeparator"
-        android:visibility="gone"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="gone">
 
         <View
             android:id="@+id/separator"
@@ -37,52 +36,55 @@
     <RelativeLayout
         android:id="@+id/layoutDados"
         android:layout_width="match_parent"
-        android:layout_height="48dp">
+        android:layout_height="48dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true">
 
         <ImageView
+            android:id="@+id/icon"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:id="@+id/icon"
-            android:alpha="0.54"
-            android:layout_marginStart="16dp"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:alpha="0.54"
             android:contentDescription="@string/clear" />
 
         <TextView
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/title"
             android:layout_centerVertical="true"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_toRightOf="@+id/icon"
-            android:layout_toEndOf="@+id/icon"
-            android:textSize="@dimen/default_textSize"
-            android:textColor="@color/nliveo_black"
-            android:alpha="0.87"
-            android:layout_toLeftOf="@+id/counter"
-            android:layout_toStartOf="@+id/counter"
-            android:layout_marginRight="8dp"
             android:layout_marginEnd="8dp"
-            fontPath="fonts/Roboto-Medium.ttf" />
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@+id/icon"
+            android:layout_toLeftOf="@+id/counter"
+            android:layout_toRightOf="@+id/icon"
+            android:layout_toStartOf="@+id/counter"
+            android:alpha="0.87"
+            android:fontFamily="sans-serif-medium"
+            android:text="Renato"
+            android:textColor="@color/nliveo_black"
+            android:textSize="@dimen/default_textSize" />
 
         <TextView
+            android:id="@+id/counter"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
-            android:id="@+id/counter"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="8dp"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="8dp"
-            android:lines="1"
-            android:alpha="0.87"
-            android:textColor="@color/nliveo_black"
-            android:maxLength="3"
-            android:textSize="@dimen/default_textSize"
-            android:textStyle="bold"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:gravity="center_horizontal" />
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:alpha="0.87"
+            android:gravity="center_horizontal"
+            android:lines="1"
+            android:maxLength="3"
+            android:textColor="@color/nliveo_black"
+            android:textSize="@dimen/default_textSize"
+            android:textStyle="bold" />
     </RelativeLayout>
 </LinearLayout>

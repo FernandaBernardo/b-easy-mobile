@@ -35,6 +35,7 @@ public class NavigationLiveoList {
         }
 
         int icon;
+        int color;
         int count;
         boolean isHeader;
 
@@ -47,6 +48,7 @@ public class NavigationLiveoList {
             icon = (navigation.iconItem != null ? navigation.iconItem.get(i) : 0);
             isHeader = (navigation.headerItem != null && navigation.headerItem.contains(i));
             count = (navigation.countItem != null ? navigation.countItem.get(i, -1) : -1);
+            color = android.R.color.black;
 
             boolean isVisible = false;
             if(navigation.hideItem != null){
@@ -75,7 +77,7 @@ public class NavigationLiveoList {
                 }
             }
 
-            mItemAdapter = new NavigationLiveoItemAdapter(title, icon, isHeader, count, navigation.colorSelected, navigation.removeSelector, !isVisible);
+            mItemAdapter = new NavigationLiveoItemAdapter(title, icon, color, isHeader, count, navigation.colorSelected, navigation.removeSelector, !isVisible);
             mList.add(mItemAdapter);
         }
         return mList;
@@ -89,6 +91,7 @@ public class NavigationLiveoList {
         }
 
         int icon;
+        int color;
         int count;
         boolean isHeader;
 
@@ -101,6 +104,7 @@ public class NavigationLiveoList {
             icon = listHelpItem.get(i).getIcon();
             isHeader = listHelpItem.get(i).isHeader();
             count = listHelpItem.get(i).getCounter();
+            color = listHelpItem.get(i).getColor();
 
             boolean isVisible = listHelpItem.get(i).isHide();
 
@@ -126,7 +130,7 @@ public class NavigationLiveoList {
                 }
             }
 
-            mItemAdapter = new NavigationLiveoItemAdapter(title, icon, isHeader, count, colorSelected, removeSelector, !isVisible);
+            mItemAdapter = new NavigationLiveoItemAdapter(title, icon, color, isHeader, count, colorSelected, removeSelector, !isVisible);
             mList.add(mItemAdapter);
         }
         return mList;
