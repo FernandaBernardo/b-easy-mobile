@@ -1,16 +1,15 @@
 package br.com.b_easy.Activity;
 
-import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import com.melnykov.fab.FloatingActionButton;
 
 import br.com.b_easy.Fragment.HomeFragment;
 import br.com.b_easy.Fragment.TaskFragment;
@@ -22,8 +21,8 @@ import br.liveo.navigationliveo.NavigationLiveo;
 
 public class MainActivity extends NavigationLiveo implements OnItemClickListener{
 
-    private Toolbar toolbar;
     private HelpLiveo mHelpLiveo;
+    private FloatingActionButton faButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +35,25 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
             trocaFragment("home");
         }
 
+        /****************************************
+         *       Seta Float Action Button       *
+         ***************************************/
+
+        faButton = (FloatingActionButton) findViewById(R.id.fabMain);
+        faButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Click Float Action Button ", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
 
     }
+
+    /****************************************
+     *        Inicializa Menu Lateral       *
+     ***************************************/
 
 
     public void onInt(Bundle savedInstanceState) {
@@ -89,6 +104,10 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
 
     }
 
+    /****************************************
+     *          Click Menu Lateral          *
+     ***************************************/
+
     @Override
     public void onItemClick(int position) {
         Log.d("Item Clicked", "Position " + position);
@@ -101,6 +120,10 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
         else
             trocaFragment("task");
     }
+
+    /****************************************
+     *      Click Menu Lateral Foto        *
+     ***************************************/
 
     private OnPrepareOptionsMenuLiveo onPrepare = new OnPrepareOptionsMenuLiveo() {
         @Override
@@ -116,13 +139,9 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
         }
     };
 
-    private View.OnClickListener onClickFooter = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            //startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
-            closeDrawer();
-        }
-    };
+    /****************************************
+     *           Troca Fragments            *
+     ***************************************/
 
     public void trocaFragment(String tag){
         Fragment fragment;

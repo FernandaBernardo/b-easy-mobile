@@ -9,6 +9,8 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/FABDemo" />
+            <option value="$PROJECT_DIR$/FABLibray" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/nLivio" />
             <option value="$PROJECT_DIR$/nLivioDemo" />
