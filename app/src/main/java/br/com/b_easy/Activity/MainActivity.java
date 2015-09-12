@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import br.com.b_easy.Fragment.HomeFragment;
+import br.com.b_easy.Fragment.TaskFragment;
 import br.com.b_easy.R;
 import br.liveo.Model.HelpLiveo;
 import br.liveo.interfaces.OnItemClickListener;
@@ -50,45 +51,55 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
 
         // Creating items navigation
         mHelpLiveo = new HelpLiveo();
-        mHelpLiveo.add(getString(R.string.drawer_pag_inicial), R.drawable.ic_home_white_24dp);
+        mHelpLiveo.addColor(getString(R.string.drawer_pag_inicial), R.drawable.ic_home_white_24dp, R.color.primaryTextColor);
         mHelpLiveo.addSubHeader(getString(R.string.drawer_pag_tarefas));
 
         /****************************************
          *        Pegar do Banco de Dados       *
          ***************************************/
 
-        mHelpLiveo.add(getString(R.string.drawer_pag_IA), R.drawable.ic_navigate_next_white_24dp);
-        mHelpLiveo.add(getString(R.string.drawer_pag_BD),  R.drawable.ic_navigate_next_white_24dp);
-        mHelpLiveo.add(getString(R.string.drawer_pag_SO),  R.drawable.ic_navigate_next_white_24dp);
-        mHelpLiveo.add(getString(R.string.drawer_pag_MD),  R.drawable.ic_navigate_next_white_24dp);
-        mHelpLiveo.add(getString(R.string.drawer_pag_Calc), R.drawable.ic_navigate_next_white_24dp);
+        mHelpLiveo.addColor(getString(R.string.drawer_pag_IA), R.drawable.ic_navigate_next_white_24dp, R.color.primaryTextColor);
+        mHelpLiveo.addColor(getString(R.string.drawer_pag_BD), R.drawable.ic_navigate_next_white_24dp, R.color.primaryTextColor);
+        mHelpLiveo.addColor(getString(R.string.drawer_pag_SO), R.drawable.ic_navigate_next_white_24dp, R.color.primaryTextColor);
+        mHelpLiveo.addColor(getString(R.string.drawer_pag_MD), R.drawable.ic_navigate_next_white_24dp, R.color.primaryTextColor);
+        mHelpLiveo.addColor(getString(R.string.drawer_pag_Calc), R.drawable.ic_navigate_next_white_24dp,  R.color.primaryTextColor);
 
         mHelpLiveo.addSeparator();
 
-        mHelpLiveo.add(getString(R.string.drawer_pag_about), R.drawable.ic_info_white_24dp);
+        mHelpLiveo.addColor(getString(R.string.drawer_pag_about), R.drawable.ic_info_white_24dp, R.color.primaryTextColor);
 
         //{optional} - Header Customization - method customHeader
 //        View mCustomHeader = getLayoutInflater().inflate(R.layout.custom_header_user, this.getListView(), false);
 //        ImageView imageView = (ImageView) mCustomHeader.findViewById(R.id.imageView);
 
-        with(this).startingPosition(0) //Starting position in the list
+        int startPosition = 0;
+
+        with(this).startingPosition(startPosition) //Starting position in the list
                 .addAllHelpItem(mHelpLiveo.getHelp())
+                .colorItemDefault(R.color.primaryTextColor)
+                .removeFooter()
                 .colorItemSelected(R.color.accentColor)
+                .colorLineSeparator(R.color.dividerColor)
                 .setOnClickUser(onClickPhoto)
                 .setOnPrepareOptionsMenu(onPrepare)
-                .removeFooter()
-                .colorItemDefault(R.color.primaryTextColor)
-                .colorLineSeparator(R.color.dividerColor)
                 .build();
 
-        int position = this.getCurrentPosition();
-        this.setElevationToolBar(position != 2 ? 15 : 0);
+        super.setCurrentPosition(startPosition);
+        super.setCheckedItemNavigation(startPosition,true);
+
     }
 
     @Override
     public void onItemClick(int position) {
         Log.d("Item Clicked", "Position " + position);
-        trocaFragment("home");
+
+        super.setCurrentPosition(position);
+        super.setCheckedItemNavigation(position,true);
+
+        if(position == 0)
+            trocaFragment("home");
+        else
+            trocaFragment("task");
     }
 
     private OnPrepareOptionsMenuLiveo onPrepare = new OnPrepareOptionsMenuLiveo() {
@@ -114,7 +125,13 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
     };
 
     public void trocaFragment(String tag){
-        Fragment fragment = new HomeFragment();
+        Fragment fragment;
+
+        if(tag.equals("home"))
+            fragment = new HomeFragment();
+        else{
+            fragment = new TaskFragment();
+        }
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.main_container,fragment,tag).commit();
 
