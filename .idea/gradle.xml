@@ -12,8 +12,12 @@
             <option value="$PROJECT_DIR$/FABDemo" />
             <option value="$PROJECT_DIR$/FABLibray" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/commons" />
+            <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/materialDialog" />
             <option value="$PROJECT_DIR$/nLivio" />
             <option value="$PROJECT_DIR$/nLivioDemo" />
+            <option value="$PROJECT_DIR$/sample" />
           </set>
         </option>
       </GradleProjectSettings>

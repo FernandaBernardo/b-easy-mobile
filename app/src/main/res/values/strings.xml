@@ -7,6 +7,14 @@
     <string name="next">next</string>
     <string name="title_activity_base_nav_drawer">BaseNavDrawerActivity</string>
 
+
+
+    <!--Create Task-->
+    <string name="createTask.titulo">Título:</string>
+    <string name="createTask.descricao">Descrição:</string>
+    <string name="createTask.relevancia">Relevância:</string>
+    <string name="createTask.dataFinal">Data Final:</string>
+
     <!--SlideBar-->
     <string name="drawer_pag_inicial">Home</string>
     <string name="drawer_pag_tarefas">Tasks</string>
