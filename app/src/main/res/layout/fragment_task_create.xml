@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/activity_default_margin"
+
+    >
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="@dimen/card_radius"
+        card_view:cardElevation="@dimen/card_elevation"
+        >
+
+
+            <RelativeLayout
+                android:id="@+id/rlTituloFragmentTaskCreate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/activity_default_margin"
+                android:paddingLeft="@dimen/activity_default_margin"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                >
+
+                <TextView
+                    android:id="@+id/tvTitleFragmentTaskCreate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text = "@string/createTask.titulo"
+                    android:fontFamily="sans-serif-medium"
+                    android:textSize="@dimen/fontsize_conteudo"
+                    android:textColor="@color/primaryTextColor"
+                    android:layout_alignBaseline="@+id/etTitleFragmentTaskCreate"
+                    />
+
+                <EditText
+                    android:id="@+id/etTitleFragmentTaskCreate"
+                    android:layout_alignLeft="@+id/etDescritionFragmentTaskCreate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center"
+                    android:layout_toRightOf="@+id/tvTitleFragmentTaskCreate"
+                    android:hint="Nome da Atividade"
+                    android:textSize="@dimen/fontsize_conteudo"
+
+                    />
+
+                <TextView
+                    android:paddingTop="25dp"
+                    android:id="@+id/tvDescritionFragmentTaskCreate"
+                    android:layout_below="@+id/tvTitleFragmentTaskCreate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text = "@string/createTask.descricao"
+                    android:fontFamily="sans-serif-medium"
+                    android:textSize="@dimen/fontsize_conteudo"
+                    android:textColor="@color/primaryTextColor"
+                    android:layout_alignBaseline="@+id/etDescritionFragmentTaskCreate"
+                    />
+
+                <EditText
+                    android:id="@+id/etDescritionFragmentTaskCreate"
+                    android:layout_below="@+id/etTitleFragmentTaskCreate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center"
+                    android:layout_marginLeft="@dimen/activity_default_margin"
+                    android:layout_toRightOf="@+id/tvDescritionFragmentTaskCreate"
+                    android:textSize="@dimen/fontsize_conteudo"
+                    android:hint="Descrição da Atividade"/>
+
+                <TextView
+                    android:paddingTop="25dp"
+                    android:id="@+id/tvRelevanciaFragmentTaskCreate"
+                    android:layout_below="@+id/tvDescritionFragmentTaskCreate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text = "@string/createTask.relevancia"
+                    android:fontFamily="sans-serif-medium"
+                    android:textSize="@dimen/fontsize_conteudo"
+                    android:textColor="@color/primaryTextColor"
+                    android:layout_alignBaseline="@+id/etRelevanciaFragmentTaskCreate"
+                    />
+
+                <EditText
+                    android:id="@+id/etRelevanciaFragmentTaskCreate"
+                    android:layout_below="@+id/etDescritionFragmentTaskCreate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center"
+                    android:layout_marginLeft="@dimen/activity_default_margin"
+                    android:layout_toRightOf="@+id/tvDescritionFragmentTaskCreate"
+                    android:textSize="@dimen/fontsize_conteudo"
+                    android:hint="Relevância da Atividade"/>
+
+                <TextView
+                    android:paddingTop="25dp"
+                    android:id="@+id/tvDataFinalFragmentTaskCreate"
+                    android:layout_below="@+id/tvRelevanciaFragmentTaskCreate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text = "@string/createTask.dataFinal"
+                    android:fontFamily="sans-serif-medium"
+                    android:textSize="@dimen/fontsize_conteudo"
+                    android:textColor="@color/primaryTextColor"
+                    />
+
+            </RelativeLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

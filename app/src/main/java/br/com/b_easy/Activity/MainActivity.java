@@ -8,8 +8,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.melnykov.fab.FloatingActionButton;
 
 import java.io.Serializable;
@@ -35,6 +37,7 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
 
     private final String TAG_HOME = "HOME";
     private final String TAG_TASK = "TASK";
+    private String ATUAL_TAG;
     private final String SUBJECT_KEY = "NEW_SUBJECT";
 
     private Subject selectedSubject;
@@ -58,17 +61,14 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
         faButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                subjects.add(new Subject("Teste"));
-                Toast.makeText(MainActivity.this, "Number of Subjects: " + subjects.size(), Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(MainActivity.this, MainActivity.class);
-                i.putExtra(SUBJECT_KEY,new Subject("Teste"));
-                MainActivity.this.startActivity(i);
-                MainActivity.this.finish();
+                createDialogAddOptions();
             }
         });
 
         INITIAL_INDEX_TASKS = 2;
         FINAL_INDEX_TASKS = INITIAL_INDEX_TASKS + subjects.size() -1 ;
+
+        Log.d("SUBJECT", selectedSubject == null ? "IS NULL" : "IS NOT NULL");
 
     }
 
@@ -148,10 +148,12 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
     public void onItemClick(int position) {
         Log.d("Item Clicked", "Position " + position);
 
-        if(position == 0)
+        if(position == 0) {
             trocaFragment(TAG_HOME);
-        else if(position == 1)
+        }
+        else if(position == 1) {
             return;
+        }
         else if( !subjects.isEmpty() && position >= INITIAL_INDEX_TASKS && position <= FINAL_INDEX_TASKS){
             setSelectedSubject(subjects.get(getSubjectIndexOnList(position)));
             trocaFragment(TAG_TASK);
@@ -198,8 +200,10 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
             fragment = new TaskFragment();
         }
 
+        ATUAL_TAG = tag;
+
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.main_container,fragment,tag).commit();
+        ft.replace(R.id.main_container, fragment, tag).commit();
 
     }
 
@@ -236,4 +240,86 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
     public int getSubjectIndexOnList(int position){
         return position - INITIAL_INDEX_TASKS;
     }
+
+    public void createDialogAddOptions(){
+
+        new MaterialDialog.Builder(this)
+                .title("Selecione a Ação")
+                .items( getAtualTag().equals(TAG_HOME)  ? R.array.optionsFABNoSubject : R.array.optionsFAB)
+                .itemsCallback(new MaterialDialog.ListCallback() {
+                    @Override
+                    public void onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
+                        Log.d("Click", "OnSelection " + which);
+                        if (which == 0) {
+                            createDialogAddSubject();
+                        } else {
+                            createDialogAddTask();
+                        }
+                    }
+                })
+                .show();
+    }
+
+    public void createDialogAddSubject(){
+
+        MaterialDialog dialog =  new MaterialDialog.Builder(this)
+                .title("Adicionar Matéria")
+                .customView(R.layout.fragment_subject_create, false)
+                .positiveText("Concluir")
+                .negativeText("Cancelar")
+                .negativeColorRes(R.color.secondaryTextColor)
+                .callback(new MaterialDialog.ButtonCallback(){
+                    @Override
+                    public void onPositive(MaterialDialog dialog) {
+
+                        String sName = ((EditText)dialog.findViewById(R.id.etTitleFragmentSubjectCreate)).getText().toString();
+
+                        Intent i = new Intent(MainActivity.this, MainActivity.class);
+                        i.putExtra(SUBJECT_KEY,new Subject(sName));
+                        MainActivity.this.startActivity(i);
+                        MainActivity.this.finish();
+                        super.onPositive(dialog);
+                    }
+
+                    @Override
+                    public void onNegative(MaterialDialog dialog) {
+                        super.onNegative(dialog);
+                    }
+                }).build();
+
+        dialog.show();
+    }
+
+    public void createDialogAddTask(){
+        MaterialDialog dialog = new MaterialDialog.Builder(this)
+                .title("Adicionar Tarefa")
+                .customView(R.layout.fragment_task_create, false)
+                .positiveText("Concluir")
+                .negativeText("Cancelar")
+                .negativeColorRes(R.color.secondaryTextColor)
+                .callback(new MaterialDialog.ButtonCallback(){
+                    @Override
+                    public void onPositive(MaterialDialog dialog) {
+                        String sName = ((EditText)dialog.findViewById(R.id.etTitleFragmentTaskCreate)).getText().toString();
+                        String sDesc = ((EditText)dialog.findViewById(R.id.etDescritionFragmentTaskCreate)).getText().toString();
+                        String sRel  = ((EditText)dialog.findViewById(R.id.etRelevanciaFragmentTaskCreate)).getText().toString();
+
+                        Log.d("CreateTask", "Name: " + sName + " Descricao: " + sDesc + " Relevancia: " +sRel);
+
+                        // getData
+                        // createObject
+
+                        super.onPositive(dialog);
+                    }
+
+                    @Override
+                    public void onNegative(MaterialDialog dialog) {
+                        super.onNegative(dialog);
+                    }
+                }).build();
+
+        dialog.show();
+    }
+
+    public String getAtualTag(){return this.ATUAL_TAG;}
 }

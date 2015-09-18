@@ -15,6 +15,16 @@
     <string name="createTask.relevancia">Relevância:</string>
     <string name="createTask.dataFinal">Data Final:</string>
 
+    <!--Option Float Action Button -->
+    <string-array name="optionsFABNoSubject">
+        <item>Criar Nova Matéria</item>
+    </string-array>
+
+    <string-array name="optionsFAB">
+        <item>Criar Nova Matéria</item>
+        <item>Criar Nova Tarefa</item>
+    </string-array>
+
     <!--SlideBar-->
     <string name="drawer_pag_inicial">Home</string>
     <string name="drawer_pag_tarefas">Tasks</string>
