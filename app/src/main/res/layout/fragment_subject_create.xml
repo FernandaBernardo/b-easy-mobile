@@ -1,48 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="@dimen/activity_default_margin"
-
-    >
 
 
-        <RelativeLayout
-            android:id="@+id/rlTituloFragmentSubjectCreate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingRight="@dimen/activity_default_margin"
-            android:paddingLeft="@dimen/activity_default_margin"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
-            >
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlTituloFragmentSubjectCreate"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/tvTitleFragmentSubjectCreate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text = "@string/createTask.titulo"
-                android:fontFamily="sans-serif-medium"
-                android:textSize="@dimen/fontsize_conteudo"
-                android:textColor="@color/primaryTextColor"
-                android:layout_alignBaseline="@+id/etTitleFragmentSubjectCreate"
-                android:layout_marginRight="@dimen/activity_default_margin"
-                />
+    <TextView
+        android:id="@+id/tvTitleFragmentSubjectCreate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/etTitleFragmentSubjectCreate"
+        android:layout_marginRight="@dimen/md_dialog_margin_right_to_second_element"
+        android:fontFamily="@string/app_font"
+        android:gravity="center"
+        android:text="@string/createTask.titulo"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="@dimen/md_fontsize_subhead" />
 
-            <EditText
-                android:id="@+id/etTitleFragmentSubjectCreate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:gravity="center"
-                android:layout_toRightOf="@+id/tvTitleFragmentSubjectCreate"
-                android:hint="Nome da Atividade"
-                android:textSize="@dimen/fontsize_conteudo"
+    <EditText
+        android:id="@+id/etTitleFragmentSubjectCreate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/tvTitleFragmentSubjectCreate"
+        android:fontFamily="@string/app_font"
+        android:gravity="center"
+        android:hint="Nome da Atividade"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="@dimen/md_fontsize_subhead"
 
-                />
+        />
 
-
-        </RelativeLayout>
 
 </RelativeLayout>

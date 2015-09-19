@@ -14,4 +14,71 @@
     <dimen name="fontsize_conteudo">14sp</dimen>
     <dimen name="fontsize_pequeno">12sp</dimen>
 
+    <!--Material Design-->
+
+    <!--Activity-->
+    <dimen name="md_activity_left_margin">16dp</dimen>
+    <dimen name="md_activity_right_margin">16dp</dimen>
+
+    <!--FAB-->
+    <dimen name="md_fab_elevation_resting">6dp</dimen>
+    <dimen name="md_fab_elevation_pressed">12dp</dimen>
+    <dimen name="md_fab_height">56dp</dimen>
+    <dimen name="md_fab_width">56dp</dimen>
+    <dimen name="md_fab_mini_height">40dp</dimen>
+    <dimen name="md_fab_mini_width">40dp</dimen>
+    <dimen name="md_fab_margin_bottom">16dp</dimen>
+
+    <!--Button-->
+    <dimen name="md_button_elevation_resting">2dp</dimen>
+    <dimen name="md_button_elevation_pressed">8dp</dimen>
+
+    <!--Card-->
+    <dimen name="md_card_elevation_resting">2dp</dimen>
+    <dimen name="md_card_elevation_pressed">8dp</dimen>
+    <dimen name="md_card_rounded_corners">2dp</dimen>
+
+
+    <!--Dialog-->
+    <dimen name="md_dialog_elevation_resting">24dp</dimen>
+    <dimen name="md_dialog_margin_left">24dp</dimen>
+    <dimen name="md_dialog_margin_right">24dp</dimen>
+    <dimen name="md_dialog_margin_top">24dp</dimen>
+    <dimen name="md_dialog_margin_bottom">24dp</dimen>
+    <dimen name="md_dialog_margin_right_to_second_element">16dp</dimen>
+
+    <!--List-->
+    <dimen name="md_element_margin_top">10dp</dimen>
+
+    <!--Picker-->
+    <dimen name="md_picker_elevation_resting">24dp</dimen>
+
+    <!--AppBar-->
+    <dimen name="md_appbar_elevation">4dp</dimen>
+    <dimen name="md_appbar_portrait_height">56dp</dimen>
+    <dimen name="md_appbar_landscape_height">56dp</dimen>
+    <dimen name="md_appbar_left_padding">16dp</dimen>
+    <dimen name="md_appbar_right_padding">16dp</dimen>
+    <dimen name="md_appbar_title_left_padding">72dp</dimen>
+    <dimen name="md_appbar_title_bottom_padding">20dp</dimen>
+    <dimen name="md_appbar_icon_top_padding">16dp</dimen>
+    <dimen name="md_appbar_icon_bottom_padding">16dp</dimen>
+    <dimen name="md_appbar_icon_left_padding">16dp</dimen>
+
+    <!--Tab-->
+    <dimen name="md_tab_height">48dp</dimen>
+    <dimen name="md_tab_padding_right">12dp</dimen>
+    <dimen name="md_tab_padding_left">12dp</dimen>
+    <dimen name="md_tab_padding_bottom">20dp</dimen>
+
+    <!--Indicator-->
+    <dimen name="md_indicator_height">2dp</dimen>
+
+    <!--Font-Size-->
+    <dimen name="md_fontsize_title">20sp</dimen>
+    <dimen name="md_fontsize_subhead">16sp</dimen>
+    <dimen name="md_fontsize_body">14sp</dimen>
+    <dimen name="md_fontsize_caption">12sp</dimen>
+
+
 </resources>

@@ -20,9 +20,11 @@ package br.com.b_easy.customView;
         import android.content.Context;
         import android.graphics.Typeface;
         import android.os.Build;
+        import android.support.v4.content.ContextCompat;
         import android.support.v4.view.PagerAdapter;
         import android.support.v4.view.ViewPager;
         import android.util.AttributeSet;
+        import android.util.Log;
         import android.util.SparseArray;
         import android.util.TypedValue;
         import android.view.Gravity;
@@ -186,6 +188,42 @@ public class SlidingTabLayout extends HorizontalScrollView {
         return textView;
     }
 
+
+
+    public void setContentDescription(int i, String desc) {
+        mContentDescriptions.put(i, desc);
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+
+        if (mViewPager != null) {
+            scrollToTab(mViewPager.getCurrentItem(), 0);
+        }
+    }
+
+    private void scrollToTab(int tabIndex, int positionOffset) {
+        final int tabStripChildCount = mTabStrip.getChildCount();
+        if (tabStripChildCount == 0 || tabIndex < 0 || tabIndex >= tabStripChildCount) {
+            return;
+        }
+
+        View selectedChild = mTabStrip.getChildAt(tabIndex);
+        if (selectedChild != null) {
+            int targetScrollX = selectedChild.getLeft() + positionOffset;
+
+            if (tabIndex > 0 || positionOffset > 0) {
+                // If we're not at the first child and are mid-scroll, make sure we obey the offset
+                targetScrollX -= mTitleOffset;
+            }
+
+            scrollTo(targetScrollX, 0);
+        }
+
+
+    }
+
     private void populateTabStrip() {
         final PagerAdapter adapter = mViewPager.getAdapter();
         final View.OnClickListener tabClickListener = new TabClickListener();
@@ -226,38 +264,14 @@ public class SlidingTabLayout extends HorizontalScrollView {
             if (i == mViewPager.getCurrentItem()) {
                 tabView.setSelected(true);
             }
-        }
-    }
-
-    public void setContentDescription(int i, String desc) {
-        mContentDescriptions.put(i, desc);
-    }
-
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-
-        if (mViewPager != null) {
-            scrollToTab(mViewPager.getCurrentItem(), 0);
-        }
-    }
-
-    private void scrollToTab(int tabIndex, int positionOffset) {
-        final int tabStripChildCount = mTabStrip.getChildCount();
-        if (tabStripChildCount == 0 || tabIndex < 0 || tabIndex >= tabStripChildCount) {
-            return;
-        }
-
-        View selectedChild = mTabStrip.getChildAt(tabIndex);
-        if (selectedChild != null) {
-            int targetScrollX = selectedChild.getLeft() + positionOffset;
-
-            if (tabIndex > 0 || positionOffset > 0) {
-                // If we're not at the first child and are mid-scroll, make sure we obey the offset
-                targetScrollX -= mTitleOffset;
+            else{
+                tabView.setSelected(false);
             }
 
-            scrollTo(targetScrollX, 0);
+            Log.d("TAB_VIEW", "TAB_VIEW is selected: " + tabView.isSelected());
+
+           // tabTitleView.setTextColor(ContextCompat.getColor(getContext(), R.color.tab_selector));
+            tabTitleView.setTextSize(14);
         }
     }
 
@@ -302,55 +316,14 @@ public class SlidingTabLayout extends HorizontalScrollView {
             }
             for (int i = 0; i < mTabStrip.getChildCount(); i++) {
                 mTabStrip.getChildAt(i).setSelected(position == i);
+                Log.d("TAB_VIEW", "TAB_VIEW is selected: " + mTabStrip.getChildAt(i).isSelected());
+//                if(mTabStrip.getChildAt(i).isSelected())
+//                    ((TextView)mTabStrip.getChildAt(i)).setTextColor(getResources().getColor(R.color.tab_selector));
+//                else
+//                    ((TextView)mTabStrip.getChildAt(i)).setTextColor(getResources().getColor(R.color.tab_selector));
             }
             if (mViewPagerPageChangeListener != null) {
                 mViewPagerPageChangeListener.onPageSelected(position);
-            }
-        }
-
-        private void populateTabStrip() {
-            final PagerAdapter adapter = mViewPager.getAdapter();
-            final View.OnClickListener tabClickListener = new TabClickListener();
-
-            for (int i = 0; i < adapter.getCount(); i++) {
-                View tabView = null;
-                TextView tabTitleView = null;
-
-                if (mTabViewLayoutId != 0) {
-                    // If there is a custom tab view layout id set, try and inflate it
-                    tabView = LayoutInflater.from(getContext()).inflate(mTabViewLayoutId, mTabStrip,
-                            false);
-                    tabTitleView = (TextView) tabView.findViewById(mTabViewTextViewId);
-                }
-
-                if (tabView == null) {
-                    tabView = createDefaultTabView(getContext());
-                }
-
-                if (tabTitleView == null && TextView.class.isInstance(tabView)) {
-                    tabTitleView = (TextView) tabView;
-                }
-
-                if (mDistributeEvenly) {
-                    LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) tabView.getLayoutParams();
-                    lp.width = 0;
-                    lp.weight = 1;
-                }
-
-                tabTitleView.setText(adapter.getPageTitle(i));
-                tabView.setOnClickListener(tabClickListener);
-                String desc = mContentDescriptions.get(i, null);
-                if (desc != null) {
-                    tabView.setContentDescription(desc);
-                }
-
-                mTabStrip.addView(tabView);
-                if (i == mViewPager.getCurrentItem()) {
-                    tabView.setSelected(true);
-                }
-
-                tabTitleView.setTextColor(getResources().getColor(R.color.white));
-                tabTitleView.setTextSize(14);
             }
         }
 

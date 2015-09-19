@@ -65,6 +65,7 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
             }
         });
 
+
         INITIAL_INDEX_TASKS = 2;
         FINAL_INDEX_TASKS = INITIAL_INDEX_TASKS + subjects.size() -1 ;
 
@@ -222,9 +223,7 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -264,7 +263,7 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
 
         MaterialDialog dialog =  new MaterialDialog.Builder(this)
                 .title("Adicionar Matéria")
-                .customView(R.layout.fragment_subject_create, false)
+                .customView(R.layout.fragment_subject_create, true)
                 .positiveText("Concluir")
                 .negativeText("Cancelar")
                 .negativeColorRes(R.color.secondaryTextColor)
@@ -293,7 +292,7 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
     public void createDialogAddTask(){
         MaterialDialog dialog = new MaterialDialog.Builder(this)
                 .title("Adicionar Tarefa")
-                .customView(R.layout.fragment_task_create, false)
+                .customView(R.layout.fragment_task_create, true)
                 .positiveText("Concluir")
                 .negativeText("Cancelar")
                 .negativeColorRes(R.color.secondaryTextColor)

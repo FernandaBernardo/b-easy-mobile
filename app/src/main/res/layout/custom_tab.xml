@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/tvTab"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:textSize="@dimen/fontsize_conteudo"
-    android:textStyle="bold"
-    android:textColor="@color/white"
-    android:padding="12dp"
-    android:gravity="center"
-    android:text="TESTE"
+    android:layout_height="@dimen/md_tab_height"
+    android:paddingBottom="@dimen/md_tab_padding_bottom"
+    android:paddingLeft="@dimen/md_tab_padding_left"
+    android:paddingRight="@dimen/md_tab_padding_right"
+    android:textSize="@dimen/md_fontsize_subhead"
+    android:fontFamily="@string/app_font_bold"
+    android:gravity="bottom|center_horizontal"
+    android:textColor="@color/tab_selector"
     />

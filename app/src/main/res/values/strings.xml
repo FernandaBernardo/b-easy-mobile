@@ -1,6 +1,10 @@
 <resources>
-    <string name="app_name">BEasy</string>
+    <string name="app_name">B-Easy</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="app_font">sans-serif</string>
+    <string name="app_font_bold">sans-serif-medium</string>
+    <string name="app_font_light">sans-serif-light</string>
+
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -26,9 +30,9 @@
     </string-array>
 
     <string-array name="TabsTaskFragments">
-        <item>To Do</item>
-        <item>Doing</item>
-        <item>Done</item>
+        <item>TO DO</item>
+        <item>DOING</item>
+        <item>DONE</item>
     </string-array>
 
 
