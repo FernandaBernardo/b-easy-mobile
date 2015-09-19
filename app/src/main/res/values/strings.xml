@@ -25,6 +25,13 @@
         <item>Criar Nova Tarefa</item>
     </string-array>
 
+    <string-array name="TabsTaskFragments">
+        <item>To Do</item>
+        <item>Doing</item>
+        <item>Done</item>
+    </string-array>
+
+
     <!--SlideBar-->
     <string name="drawer_pag_inicial">Home</string>
     <string name="drawer_pag_tarefas">Tasks</string>
