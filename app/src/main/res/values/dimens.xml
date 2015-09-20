@@ -37,6 +37,17 @@
     <dimen name="md_card_elevation_resting">2dp</dimen>
     <dimen name="md_card_elevation_pressed">8dp</dimen>
     <dimen name="md_card_rounded_corners">2dp</dimen>
+    <dimen name="md_card_padding_left">16dp</dimen>
+    <dimen name="md_card_padding_right">16dp</dimen>
+    <dimen name="md_card_margin_left">8dp</dimen>
+    <dimen name="md_card_margin_right">8dp</dimen>
+    <dimen name="md_card_margin_top">4dp</dimen>
+    <dimen name="md_card_margin_bottom">4dp</dimen>
+    <dimen name="md_card_padding_top">24dp</dimen>
+    <dimen name="md_card_padding_bottom">24dp</dimen>
+    <dimen name="md_card_row_action_padding">8dp</dimen>
+    <dimen name="md_card_support_text_padding_top">16dp</dimen>
+    <dimen name="md_card_support_text_padding_bottom">16dp</dimen>
 
 
     <!--Dialog-->
@@ -75,6 +86,7 @@
     <dimen name="md_indicator_height">2dp</dimen>
 
     <!--Font-Size-->
+    <dimen name="md_fontsize_headline">24sp</dimen>
     <dimen name="md_fontsize_title">20sp</dimen>
     <dimen name="md_fontsize_subhead">16sp</dimen>
     <dimen name="md_fontsize_body">14sp</dimen>

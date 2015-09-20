@@ -7,11 +7,15 @@
     android:layout_marginRight="@dimen/md_activity_right_margin"
     >
 
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvToDoneFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="DONE" />
+        android:clipToPadding="false"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        >
+
+    </android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>

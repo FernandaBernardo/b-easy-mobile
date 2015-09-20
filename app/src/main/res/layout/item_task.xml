@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    android:layout_marginLeft="@dimen/md_card_margin_left"
+    android:layout_marginRight="@dimen/md_card_margin_right"
+    android:layout_marginTop="@dimen/md_card_margin_top"
+    android:layout_marginBottom="@dimen/md_card_margin_bottom"
+    card:cardCornerRadius="@dimen/md_card_rounded_corners"
+    card:cardElevation="@dimen/md_card_elevation_resting">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/md_card_padding_bottom"
+        android:paddingLeft="@dimen/md_card_padding_left"
+        android:paddingRight="@dimen/md_card_padding_right"
+        android:paddingTop="@dimen/md_card_padding_top">
+
+        <TextView
+            android:id="@+id/tvTitleItemTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/tvFinalDateItemTask"
+            android:fontFamily="@string/app_font"
+            android:text="Titulo"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="@dimen/md_fontsize_headline"
+
+            />
+
+        <TextView
+            android:id="@+id/tvFinalDateItemTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tvTitleItemTask"
+            android:layout_alignParentRight="true"
+            android:fontFamily="@string/app_font"
+            android:text="31/12/2015"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="@dimen/md_fontsize_body" />
+
+        <TextView
+            android:id="@+id/tvSubtitleItemTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/tvTitleItemTask"
+            android:layout_marginTop="@dimen/md_card_support_text_padding_top"
+            android:fontFamily="@string/app_font"
+            android:text="Description Here"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="@dimen/md_fontsize_body"
+
+            />
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

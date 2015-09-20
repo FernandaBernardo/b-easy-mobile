@@ -22,6 +22,7 @@ import br.com.b_easy.Fragment.HomeFragment;
 import br.com.b_easy.Fragment.TaskFragment;
 import br.com.b_easy.Model.Subject;
 import br.com.b_easy.R;
+import br.com.b_easy.Util;
 import br.liveo.Model.HelpLiveo;
 import br.liveo.interfaces.OnItemClickListener;
 import br.liveo.interfaces.OnPrepareOptionsMenuLiveo;
@@ -96,15 +97,7 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
          *        Pegar do Banco de Dados       *
          ***************************************/
 
-        subjects = new ArrayList<Subject>(){
-            {
-                add(new Subject(getString(R.string.drawer_pag_IA)));
-                add(new Subject(getString(R.string.drawer_pag_BD)));
-                add(new Subject(getString(R.string.drawer_pag_MD)));
-                add(new Subject(getString(R.string.drawer_pag_SO)));
-                add(new Subject(getString(R.string.drawer_pag_Calc)));
-            }
-        };
+        subjects = Util.getListSubject();
 
         Subject s = (Subject) getIntent().getSerializableExtra(SUBJECT_KEY);
         if(s != null){
