@@ -44,9 +44,11 @@
     <dimen name="md_card_margin_top">4dp</dimen>
     <dimen name="md_card_margin_bottom">4dp</dimen>
     <dimen name="md_card_padding_top">24dp</dimen>
+    <dimen name="md_card_padding_top_custom">12dp</dimen>
     <dimen name="md_card_padding_bottom">24dp</dimen>
     <dimen name="md_card_row_action_padding">8dp</dimen>
     <dimen name="md_card_support_text_padding_top">16dp</dimen>
+    <dimen name="md_card_support_text_padding_top_custom">8dp</dimen>
     <dimen name="md_card_support_text_padding_bottom">16dp</dimen>
 
 
@@ -91,6 +93,11 @@
     <dimen name="md_fontsize_subhead">16sp</dimen>
     <dimen name="md_fontsize_body">14sp</dimen>
     <dimen name="md_fontsize_caption">12sp</dimen>
+
+    <!--Icon -->
+    <dimen name="md_icon_height">48dp</dimen>
+    <dimen name="md_icon_width">48dp</dimen>
+
 
 
 </resources>

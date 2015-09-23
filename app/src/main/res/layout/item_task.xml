@@ -2,6 +2,7 @@
 
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardItemTask"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_centerVertical="true"
@@ -15,10 +16,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/md_card_padding_bottom"
         android:paddingLeft="@dimen/md_card_padding_left"
-        android:paddingRight="@dimen/md_card_padding_right"
-        android:paddingTop="@dimen/md_card_padding_top">
+
+        android:paddingTop="@dimen/md_card_padding_top_custom">
 
         <TextView
             android:id="@+id/tvTitleItemTask"
@@ -29,7 +29,7 @@
             android:fontFamily="@string/app_font"
             android:text="Titulo"
             android:textColor="@color/primaryTextColor"
-            android:textSize="@dimen/md_fontsize_headline"
+            android:textSize="@dimen/md_fontsize_title"
 
             />
 
@@ -39,24 +39,76 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/tvTitleItemTask"
             android:layout_alignParentRight="true"
+            android:paddingRight="@dimen/md_card_padding_right"
             android:fontFamily="@string/app_font"
             android:text="31/12/2015"
             android:textColor="@color/secondaryTextColor"
-            android:textSize="@dimen/md_fontsize_body" />
+            android:textSize="@dimen/md_fontsize_body"
+
+            />
 
         <TextView
             android:id="@+id/tvSubtitleItemTask"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:paddingRight="@dimen/md_card_padding_right"
             android:layout_below="@+id/tvTitleItemTask"
-            android:layout_marginTop="@dimen/md_card_support_text_padding_top"
+            android:layout_marginTop="@dimen/md_card_support_text_padding_top_custom"
             android:fontFamily="@string/app_font"
             android:text="Description Here"
             android:textColor="@color/primaryTextColor"
             android:textSize="@dimen/md_fontsize_body"
 
             />
+
+        <LinearLayout
+
+            android:layout_below="@+id/tvSubtitleItemTask"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="right"
+            >
+
+            <ImageView
+                android:id="@+id/ivBackItemTask"
+                android:layout_width="@dimen/md_icon_width"
+                android:layout_height="@dimen/md_icon_height"
+                android:src="@drawable/ic_reply_black_24dp"
+                android:scaleType="center"
+                android:clickable="true"
+            />
+
+            <ImageView
+                android:id="@+id/ivNextItemTask"
+                android:layout_width="@dimen/md_icon_width"
+                android:layout_height="@dimen/md_icon_height"
+                android:src="@drawable/ic_reply_black_24dp"
+                android:scaleType="center"
+                android:scaleX="-1"
+                android:clickable="true"
+                />
+
+            <ImageView
+                android:id="@+id/ivEditItemTask"
+                android:layout_width="@dimen/md_icon_width"
+                android:layout_height="@dimen/md_icon_height"
+                android:src="@drawable/ic_edit_black_24dp"
+                android:scaleType="center"
+                android:clickable="true"
+                />
+
+            <ImageView
+                android:id="@+id/ivDeleteItemTask"
+                android:layout_width="@dimen/md_icon_width"
+                android:layout_height="@dimen/md_icon_height"
+                android:src="@drawable/ic_delete_black_24dp"
+                android:scaleType="center"
+                android:clickable="true"
+                />
+
+        </LinearLayout>
 
     </RelativeLayout>
 

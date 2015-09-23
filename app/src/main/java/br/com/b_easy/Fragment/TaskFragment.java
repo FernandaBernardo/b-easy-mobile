@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -62,13 +63,12 @@ public class TaskFragment extends Fragment {
         tabs.setCustomTabView(R.layout.custom_tab, R.id.tvTab);
         tabs.setDistributeEvenly(true);
         tabs.setViewPager(mViewPager);
-        tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer(){
+        tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override
             public int getIndicatorColor(int position) {
                 return getResources().getColor(R.color.accentColor);
             }
         });
-
 
         return v;
     }

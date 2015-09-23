@@ -34,6 +34,7 @@ package br.com.b_easy.customView;
         import android.widget.HorizontalScrollView;
         import android.widget.LinearLayout;
         import android.widget.TextView;
+        import android.widget.Toast;
 
         import br.com.b_easy.R;
 
@@ -332,6 +333,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
     private class TabClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
+            Toast.makeText(getContext(), "RV Click", Toast.LENGTH_SHORT);
             for (int i = 0; i < mTabStrip.getChildCount(); i++) {
                 if (v == mTabStrip.getChildAt(i)) {
                     mViewPager.setCurrentItem(i);

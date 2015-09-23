@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -33,6 +34,12 @@ public class ToDoFragment extends Fragment {
         adapter = new TaskAdapter(getContext(), tasks);
         Util.setRecicleView(getContext(),rv,false);
         rv.setAdapter(adapter);
+        rv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(),"RV Click", Toast.LENGTH_SHORT);
+            }
+        });
 
         return v;
     }
