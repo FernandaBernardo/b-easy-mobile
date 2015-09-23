@@ -64,15 +64,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c8e29728-b446-4673-bac0-a7d882bc88e3" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/customView/SlidingTabLayout.java" afterPath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/customView/SlidingTabLayout.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Adapter/TaskAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Adapter/TaskAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Fragment/TaskFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Fragment/TaskFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Fragment/ToDoFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Fragment/ToDoFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_task.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_task.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_task.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_task.xml" />
+    <list default="true" id="c8e29728-b446-4673-bac0-a7d882bc88e3" name="Default" comment="Icones nos Cards Recycle View">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="b-easy-mobile.iws" />
@@ -8229,7 +8221,13 @@
       <option name="project" value="LOCAL" />
       <updated>1442781745922</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Icones nos Cards Recycle View">
+      <created>1442974226083</created>
+      <option name="number" value="00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1442974226083</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -8248,7 +8246,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32481363" sideWeight="0.4642857" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32481363" sideWeight="0.7521322" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32481363" sideWeight="0.7521322" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32903227" sideWeight="0.50437635" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1391258" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -8282,7 +8280,8 @@
     <MESSAGE value="Adicionado SlidingTabLayout | CustomTab.xml | Implementado esqueleto TaskFragment.java" />
     <MESSAGE value="Material Design Guidelines" />
     <MESSAGE value="Layout Cards, Layout TODO/DOING/DONE fragments/ RecycleView TaskAdapter" />
-    <option name="LAST_COMMIT_MESSAGE" value="Layout Cards, Layout TODO/DOING/DONE fragments/ RecycleView TaskAdapter" />
+    <MESSAGE value="Icones nos Cards Recycle View" />
+    <option name="LAST_COMMIT_MESSAGE" value="Icones nos Cards Recycle View" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
