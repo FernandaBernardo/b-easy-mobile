@@ -3,8 +3,7 @@
     android:id="@+id/rlToDoFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="@dimen/md_activity_left_margin"
-    android:layout_marginRight="@dimen/md_activity_right_margin"
+
     >
 
     <android.support.v7.widget.RecyclerView

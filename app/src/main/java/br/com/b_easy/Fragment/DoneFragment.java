@@ -30,7 +30,7 @@ public class DoneFragment extends Fragment {
         tasks = ((MainActivity)getActivity()).getTasks(Util.Task_Enum.DONE);
 
         rv = (RecyclerView) v.findViewById(R.id.rvToDoneFragment);
-        adapter = new TaskAdapter((MainActivity)getContext(), tasks, Util.Task_Enum.DONE);
+//        adapter = new TaskAdapter((MainActivity)getContext(), tasks, Util.Task_Enum.DONE);
         Util.setRecicleView(getContext(),rv,false);
         rv.setAdapter(adapter);
 

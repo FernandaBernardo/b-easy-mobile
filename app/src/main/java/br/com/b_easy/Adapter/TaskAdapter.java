@@ -16,6 +16,7 @@ import org.w3c.dom.Text;
 import java.util.List;
 
 import br.com.b_easy.Activity.MainActivity;
+import br.com.b_easy.Fragment.TaskFragment;
 import br.com.b_easy.Model.Task;
 import br.com.b_easy.R;
 import br.com.b_easy.Util;
@@ -25,14 +26,16 @@ import br.com.b_easy.Util;
  */
 public class TaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private MainActivity mContext;
+    private Context mContext;
+    private TaskFragment fragment;
     private List<Task> mTasks;
     private Util.Task_Enum mCod;
 
-    public TaskAdapter(MainActivity mContext, List<Task> mTasks, Util.Task_Enum mCod) {
+    public TaskAdapter(Context mContext, List<Task> mTasks, Util.Task_Enum mCod, TaskFragment fragment) {
         this.mContext = mContext;
         this.mTasks = mTasks;
         this.mCod = mCod;
+        this.fragment = fragment;
     }
 
     @Override
@@ -64,12 +67,12 @@ public class TaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 public void onClick(View view) {
                     Toast.makeText(mContext, "Click on Next", Toast.LENGTH_SHORT).show();
                     if(mCod == Util.Task_Enum.DO_TO)
-                        mContext.createTask(Util.Task_Enum.DOING, mTasks.get(position));
+                        fragment.createTask(Util.Task_Enum.DOING, mTasks.get(position));
 
                     else if(mCod == Util.Task_Enum.DOING)
-                        mContext.createTask(Util.Task_Enum.DOING, mTasks.get(position));
+                        fragment.createTask(Util.Task_Enum.DOING, mTasks.get(position));
 
-                    mContext.deleteTask(mCod, position);
+                    fragment.deleteTask(mCod, position);
                 }
             });
 
@@ -78,12 +81,12 @@ public class TaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 public void onClick(View view) {
                     Toast.makeText(mContext, "Click on Back", Toast.LENGTH_SHORT).show();
                     if(mCod == Util.Task_Enum.DONE)
-                        mContext.createTask(Util.Task_Enum.DOING, mTasks.get(position));
+                        fragment.createTask(Util.Task_Enum.DOING, mTasks.get(position));
 
                     else if(mCod == Util.Task_Enum.DOING)
-                        mContext.createTask(Util.Task_Enum.DO_TO, mTasks.get(position));
+                        fragment.createTask(Util.Task_Enum.DO_TO, mTasks.get(position));
 
-                    mContext.deleteTask(mCod, position);
+                    fragment.deleteTask(mCod, position);
                 }
             });
 
@@ -91,6 +94,7 @@ public class TaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(mContext, "Click on Edit", Toast.LENGTH_SHORT).show();
+                    fragment.createDialogTask(mCod,position);
                 }
             });
 
@@ -98,7 +102,7 @@ public class TaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(mContext, "Click on Delete", Toast.LENGTH_SHORT).show();
-                    mContext.deleteTask(mCod, position);
+                    fragment.deleteTask(mCod, position);
                 }
             });
 

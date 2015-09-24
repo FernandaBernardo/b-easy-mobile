@@ -4,8 +4,6 @@
     android:id="@+id/rlDoingFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="@dimen/md_activity_left_margin"
-    android:layout_marginRight="@dimen/md_activity_right_margin"
     android:visibility="gone"
     >
 

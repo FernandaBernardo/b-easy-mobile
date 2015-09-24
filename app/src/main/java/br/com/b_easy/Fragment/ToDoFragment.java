@@ -32,7 +32,7 @@ public class ToDoFragment extends Fragment {
         tasks = ((MainActivity)getActivity()).getTasks(Util.Task_Enum.DO_TO);
 
         rv = (RecyclerView) v.findViewById(R.id.rvToDoFragment);
-        adapter = new TaskAdapter((MainActivity)getContext(), tasks, Util.Task_Enum.DO_TO);
+//        adapter = new TaskAdapter((MainActivity)getContext(), tasks, Util.Task_Enum.DO_TO);
         Util.setRecicleView(getContext(), rv, false);
         rv.setAdapter(adapter);
 
