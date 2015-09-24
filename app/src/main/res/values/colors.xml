@@ -5,6 +5,7 @@
     <color name="accentColor">#5147A3</color>
     <color name="accentColorDark">#3F367C</color>
     <color name="white">#FFF</color>
+    <color name="whiteLight">#B3FFFFFF</color>
     <color name="background">#F5F3EE</color>
     <!--#48475C-->
     <color name="primaryTextColor">#212121</color>

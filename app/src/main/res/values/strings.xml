@@ -35,6 +35,10 @@
         <item>DONE</item>
     </string-array>
 
+    <!--Tab-->
+    <string name="tabToDo">TO DO</string>
+    <string name="tabDoing">DOING</string>
+    <string name="tabDone">DONE</string>
 
     <!--SlideBar-->
     <string name="drawer_pag_inicial">Home</string>

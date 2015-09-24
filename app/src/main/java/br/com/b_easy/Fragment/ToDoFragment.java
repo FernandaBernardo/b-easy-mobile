@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import br.com.b_easy.Activity.MainActivity;
 import br.com.b_easy.Adapter.TaskAdapter;
 import br.com.b_easy.Model.Task;
 import br.com.b_easy.R;
@@ -28,20 +29,17 @@ public class ToDoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_to_do,container,false);
-        tasks = Util.getListTasks();
+        tasks = ((MainActivity)getActivity()).getTasks(Util.Task_Enum.DO_TO);
 
         rv = (RecyclerView) v.findViewById(R.id.rvToDoFragment);
-        adapter = new TaskAdapter(getContext(), tasks);
-        Util.setRecicleView(getContext(),rv,false);
+        adapter = new TaskAdapter((MainActivity)getContext(), tasks, Util.Task_Enum.DO_TO);
+        Util.setRecicleView(getContext(), rv, false);
         rv.setAdapter(adapter);
-        rv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(),"RV Click", Toast.LENGTH_SHORT);
-            }
-        });
 
         return v;
+    }
+
+    public void updateAdapter(){rv.getAdapter().notifyDataSetChanged();
     }
 
 }

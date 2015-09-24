@@ -21,6 +21,7 @@ import java.util.List;
 import br.com.b_easy.Fragment.HomeFragment;
 import br.com.b_easy.Fragment.TaskFragment;
 import br.com.b_easy.Model.Subject;
+import br.com.b_easy.Model.Task;
 import br.com.b_easy.R;
 import br.com.b_easy.Util;
 import br.liveo.Model.HelpLiveo;
@@ -40,6 +41,7 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
     private final String TAG_TASK = "TASK";
     private String ATUAL_TAG;
     private final String SUBJECT_KEY = "NEW_SUBJECT";
+    private Fragment fragment;
 
     private Subject selectedSubject;
 
@@ -185,7 +187,10 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
 
     public void trocaFragment(String tag){
 
-        Fragment fragment;
+        if(tag.equals(getAtualTag())){
+            if(fragment instanceof TaskFragment)
+                ((TaskFragment) fragment).updateFragment();
+        }
 
         if(tag.equals(TAG_HOME)) {
             fragment = new HomeFragment();
@@ -296,7 +301,7 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
                         String sDesc = ((EditText)dialog.findViewById(R.id.etDescritionFragmentTaskCreate)).getText().toString();
                         String sRel  = ((EditText)dialog.findViewById(R.id.etRelevanciaFragmentTaskCreate)).getText().toString();
 
-                        Log.d("CreateTask", "Name: " + sName + " Descricao: " + sDesc + " Relevancia: " +sRel);
+                        Log.d("CreateTask", "Name: " + sName + " Descricao: " + sDesc + " Relevancia: " + sRel);
 
                         // getData
                         // createObject
@@ -314,4 +319,39 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
     }
 
     public String getAtualTag(){return this.ATUAL_TAG;}
+
+    public void deleteTask(Util.Task_Enum cod, int index){
+        if(fragment != null){
+            if(fragment instanceof TaskFragment)
+                ((TaskFragment)fragment).deleteTask(cod,index);
+        }
+    }
+
+    public void updateTask(Util.Task_Enum cod){
+        if(fragment != null){
+            if(fragment instanceof TaskFragment)
+                ((TaskFragment)fragment).getToDoTasks();
+        }
+    }
+
+    public void createTask(Util.Task_Enum cod, Task new_Task){
+        if(fragment != null){
+            if(fragment instanceof TaskFragment)
+                ((TaskFragment)fragment).createTask(cod,new_Task);
+        }
+    }
+
+    public List<Task> getTasks(Util.Task_Enum cod){
+        if(fragment != null){
+            if(fragment instanceof TaskFragment){
+               switch (cod){
+                   case DO_TO : return ((TaskFragment) fragment).getToDoTasks();
+                   case DOING : return ((TaskFragment) fragment).getDoingTasks();
+                   case DONE : return ((TaskFragment) fragment).getDoneTasks();
+               }
+            }
+        }
+
+        return null;
+    }
 }

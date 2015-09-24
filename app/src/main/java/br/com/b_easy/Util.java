@@ -16,6 +16,13 @@ import br.com.b_easy.Model.Task;
  */
 public class Util {
 
+    public enum Task_Enum{
+        DO_TO(0), DOING(1), DONE(2);
+        private final int cod;
+        Task_Enum(int cod){this.cod = cod;}
+        public int getCod(){return this.cod;}
+    }
+
     public static void setRecicleView(Context context,RecyclerView v, boolean divisor) {
         v.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(context);
