@@ -64,22 +64,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Debug" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c8e29728-b446-4673-bac0-a7d882bc88e3" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/DataBase/DatabaseConfigUtil.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/DataBase/DatabaseManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/DataBaseModel/SubjectBD.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/DataBaseModel/TaskBD.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/DataBaseModel/UserBD.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/DAO/UserDao.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/DataBaseModel/UserSubjectBD.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/ormlite_android_4_48.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/ormlite_core_4_48.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/DataBase/DatabaseHelper.java" afterPath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/DataBase/DatabaseHelper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Activity/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Activity/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Util.java" afterPath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Util.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sample/sample.iml" afterPath="$PROJECT_DIR$/sample/sample.iml" />
+    <list default="true" id="c8e29728-b446-4673-bac0-a7d882bc88e3" name="Default" comment="Configuracao BD">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="b-easy-mobile.iws" />
@@ -8231,7 +8216,13 @@
       <option name="project" value="LOCAL" />
       <updated>1443115338813</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Configuracao BD">
+      <created>1443146283955</created>
+      <option name="number" value="00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1443146283955</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="ToolWindowManager">
