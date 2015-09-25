@@ -15,9 +15,13 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.melnykov.fab.FloatingActionButton;
 
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.b_easy.DAO.SubjectDao;
+import br.com.b_easy.DataBase.DatabaseHelper;
+import br.com.b_easy.DataBaseModel.SubjectBD;
 import br.com.b_easy.Fragment.HomeFragment;
 import br.com.b_easy.Fragment.TaskFragment;
 import br.com.b_easy.Model.Subject;
@@ -45,12 +49,31 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
 
     private Subject selectedSubject;
 
+    private DatabaseHelper helper;
+    private SubjectDao subjectDao;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         Log.d("FIRST", "onCreateFirst");
         super.setChildLayoutRes(R.layout.activity_main);
         super.setChildToolbarRes(R.id.app_bar);
         super.onCreate(savedInstanceState);
+
+        SubjectBD s = new SubjectBD();
+        s.setName("ORMlite");
+        helper = Util.openBD(this);
+        try {
+            subjectDao = new SubjectDao(helper.getConnectionSource());
+            Log.d("DATABASE", subjectDao.create(s) == 1 ? "Inserido" : "Nao Inserido");
+
+            for(SubjectBD aux : subjectDao.queryForAll())
+                Log.d("DATABASE", "SUBJECT : " + aux.getName());
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
 
         if(savedInstanceState == null){
             trocaFragment(TAG_HOME);
@@ -73,6 +96,7 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
         FINAL_INDEX_TASKS = INITIAL_INDEX_TASKS + subjects.size() -1 ;
 
         Log.d("SUBJECT", selectedSubject == null ? "IS NULL" : "IS NOT NULL");
+
 
     }
 
@@ -353,5 +377,11 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
         }
 
         return null;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Util.closeBD(helper);
     }
 }

@@ -3,11 +3,15 @@ package br.com.b_easy;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import br.com.b_easy.DataBase.DatabaseHelper;
+import br.com.b_easy.DataBase.DatabaseManager;
+import br.com.b_easy.DataBaseModel.SubjectBD;
 import br.com.b_easy.Model.Subject;
 import br.com.b_easy.Model.Task;
 
@@ -58,6 +62,18 @@ public class Util {
             }
         };
     }
+
+    public static DatabaseHelper openBD(Context ctx){
+        DatabaseManager.init(ctx);
+        return DatabaseManager.getHelper();
+
+    }
+
+    public static void closeBD(DatabaseHelper helper){
+        helper.close();
+    }
+
+
 
 
 }
