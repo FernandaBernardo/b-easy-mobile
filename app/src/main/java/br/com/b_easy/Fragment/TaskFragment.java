@@ -23,6 +23,7 @@ import java.util.List;
 
 import br.com.b_easy.Activity.MainActivity;
 import br.com.b_easy.Adapter.TaskAdapter;
+import br.com.b_easy.DataBaseModel.SubjectBD;
 import br.com.b_easy.Model.Subject;
 import br.com.b_easy.Model.Task;
 import br.com.b_easy.R;
@@ -34,7 +35,7 @@ import br.com.b_easy.customView.SlidingTabLayout;
  */
 public class TaskFragment extends Fragment {
 
-    private Subject subject;
+    private SubjectBD subject;
     private TextView tvTabToDo, tvTabDoing, tvTabDone;
     private MainActivity context;
     private List<Task> toDoTasks, doingTasks, doneTasks;

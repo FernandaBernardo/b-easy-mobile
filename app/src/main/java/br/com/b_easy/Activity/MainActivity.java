@@ -20,8 +20,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.b_easy.DAO.SubjectDao;
+import br.com.b_easy.DAO.UserDao;
+import br.com.b_easy.DAO.UserSubjectDao;
 import br.com.b_easy.DataBase.DatabaseHelper;
 import br.com.b_easy.DataBaseModel.SubjectBD;
+import br.com.b_easy.DataBaseModel.TaskBD;
+import br.com.b_easy.DataBaseModel.UserBD;
+import br.com.b_easy.DataBaseModel.UserSubjectBD;
 import br.com.b_easy.Fragment.HomeFragment;
 import br.com.b_easy.Fragment.TaskFragment;
 import br.com.b_easy.Model.Subject;
@@ -37,7 +42,7 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
 
     private HelpLiveo mHelpLiveo;
     private FloatingActionButton faButton;
-    private List<Subject> subjects;
+    private List<SubjectBD> subjects;
     private int INITIAL_INDEX_TASKS;
     private int FINAL_INDEX_TASKS;
 
@@ -47,33 +52,15 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
     private final String SUBJECT_KEY = "NEW_SUBJECT";
     private Fragment fragment;
 
-    private Subject selectedSubject;
+    private SubjectBD selectedSubject;
 
-    private DatabaseHelper helper;
-    private SubjectDao subjectDao;
+    private UserBD user;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-        Log.d("FIRST", "onCreateFirst");
         super.setChildLayoutRes(R.layout.activity_main);
         super.setChildToolbarRes(R.id.app_bar);
         super.onCreate(savedInstanceState);
-
-        SubjectBD s = new SubjectBD();
-        s.setName("ORMlite");
-        helper = Util.openBD(this);
-        try {
-            subjectDao = new SubjectDao(helper.getConnectionSource());
-            Log.d("DATABASE", subjectDao.create(s) == 1 ? "Inserido" : "Nao Inserido");
-
-            for(SubjectBD aux : subjectDao.queryForAll())
-                Log.d("DATABASE", "SUBJECT : " + aux.getName());
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-
 
         if(savedInstanceState == null){
             trocaFragment(TAG_HOME);
@@ -108,9 +95,11 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
     public void onInt(Bundle savedInstanceState) {
 
         Log.d("FIRST", "onIntFirst");
-        // User Information
-        this.userName.setText("Tiago Missão");
-        this.userEmail.setText("t.missao@gmail.com");
+        loadDatabase();
+        Log.d("FIRST", "onIntFirst: DATABASE");
+
+        this.userName.setText(user.getName());
+        this.userEmail.setText(user.getEmail());
         this.userPhoto.setImageResource(R.mipmap.ic_tiago);
         this.userBackground.setImageResource(R.drawable.ic_user_background_first);
 
@@ -119,19 +108,14 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
         mHelpLiveo.addColor(getString(R.string.drawer_pag_inicial), R.drawable.ic_home_white_24dp, R.color.primaryTextColor);
         mHelpLiveo.addSubHeader(getString(R.string.drawer_pag_tarefas));
 
-        /****************************************
-         *        Pegar do Banco de Dados       *
-         ***************************************/
-
-        subjects = Util.getListSubject();
 
         Subject s = (Subject) getIntent().getSerializableExtra(SUBJECT_KEY);
         if(s != null){
             Log.d("PARSE", s.getName());
-            subjects.add(s);
+            //subjects.add(s);
         }
 
-        for(Subject aux : subjects){
+        for(SubjectBD aux : subjects){
             mHelpLiveo.addColor(aux.getName(), R.drawable.ic_navigate_next_white_24dp, R.color.primaryTextColor);
         }
 
@@ -158,6 +142,45 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
         super.setCurrentPosition(startPosition);
         super.setCheckedItemNavigation(startPosition,true);
 
+    }
+
+    public void loadDatabase(){
+
+        Log.d("Database", "OnLoadDatabase");
+
+        try {
+            UserDao userDao = new UserDao(Util.openBD().getConnectionSource());
+            SubjectDao subjectDao = new SubjectDao(Util.openBD().getConnectionSource());
+
+            this.user = userDao.queryForId(Util.getUserId());
+            this.subjects = subjectDao.getUserSubjects(Util.getUserId());
+
+            for(SubjectBD aux : subjectDao.queryForAll()){
+                Log.d("DataBase", aux.getName());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean saveSubject(SubjectBD nSubject){
+
+        if(user == null) return false;
+
+        int statusQ1 = 0;
+        int statusQ2 = 0;
+
+        try {
+            UserSubjectDao userSubjectDao = new UserSubjectDao(Util.openBD().getConnectionSource());
+            SubjectDao subjectDao = new SubjectDao(Util.openBD().getConnectionSource());
+
+            statusQ2 = subjectDao.create(nSubject);
+            statusQ1 = userSubjectDao.create(new UserSubjectBD(this.user,nSubject));
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (statusQ1 == 1 && statusQ2 == 1) ? true : false;
     }
 
     /****************************************
@@ -250,11 +273,11 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
         return super.onOptionsItemSelected(item);
     }
 
-    public Subject getSelectedSubject() {
+    public SubjectBD getSelectedSubject() {
         return selectedSubject;
     }
 
-    public void setSelectedSubject(Subject selectedSubject) {
+    public void setSelectedSubject(SubjectBD selectedSubject) {
         this.selectedSubject = selectedSubject;
     }
 
@@ -289,16 +312,24 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
                 .positiveText("Concluir")
                 .negativeText("Cancelar")
                 .negativeColorRes(R.color.secondaryTextColor)
-                .callback(new MaterialDialog.ButtonCallback(){
+                .callback(new MaterialDialog.ButtonCallback() {
                     @Override
                     public void onPositive(MaterialDialog dialog) {
 
-                        String sName = ((EditText)dialog.findViewById(R.id.etTitleFragmentSubjectCreate)).getText().toString();
+                        boolean status = false;
 
-                        Intent i = new Intent(MainActivity.this, MainActivity.class);
-                        i.putExtra(SUBJECT_KEY,new Subject(sName));
-                        MainActivity.this.startActivity(i);
-                        MainActivity.this.finish();
+                        String sName = ((EditText) dialog.findViewById(R.id.etTitleFragmentSubjectCreate)).getText().toString();
+
+                        status = saveSubject(new SubjectBD(sName));
+
+                        if (status) {
+                            Log.d("DataBase", "SUCESS: Saved Subject");
+                            MainActivity.this.startActivity(new Intent(MainActivity.this, MainActivity.class));
+                            MainActivity.this.finish();
+                        }
+                        else
+                            Log.e("DataBase", "ERROR: Save Subject");
+
                         super.onPositive(dialog);
                     }
 
@@ -381,7 +412,7 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
 
     @Override
     protected void onDestroy() {
+        Util.closeBD();
         super.onDestroy();
-        Util.closeBD(helper);
     }
 }

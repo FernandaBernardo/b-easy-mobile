@@ -31,4 +31,8 @@ public class UserSubjectBD {
         this.subject = subject;
     }
 
+    public UserSubjectBD(UserBD user, SubjectBD subject) {
+        this.user = user;
+        this.subject = subject;
+    }
 }

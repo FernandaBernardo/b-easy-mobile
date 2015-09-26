@@ -21,10 +21,16 @@ import br.com.b_easy.Model.Task;
 public class Util {
 
     public enum Task_Enum{
-        DO_TO(0), DOING(1), DONE(2);
+        DO_TO(0,"TODO"), DOING(1,"DOING"), DONE(2,"DONE");
         private final int cod;
-        Task_Enum(int cod){this.cod = cod;}
+        private final String name;
+        Task_Enum(int cod,String name){this.cod = cod; this.name = name;}
         public int getCod(){return this.cod;}
+
+        @Override
+        public String toString() {
+            return this.name;
+        }
     }
 
     public static void setRecicleView(Context context,RecyclerView v, boolean divisor) {
@@ -63,15 +69,20 @@ public class Util {
         };
     }
 
-    public static DatabaseHelper openBD(Context ctx){
-        DatabaseManager.init(ctx);
+    public static DatabaseHelper openBD(){
+
         return DatabaseManager.getHelper();
 
     }
 
-    public static void closeBD(DatabaseHelper helper){
-        helper.close();
+    public static void closeBD(){
+        DatabaseManager.getHelper().close();
     }
+
+    public static long getUserId(){
+        return 1L;
+    }
+
 
 
 

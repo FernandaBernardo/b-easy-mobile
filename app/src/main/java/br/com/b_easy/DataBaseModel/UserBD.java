@@ -18,6 +18,9 @@ public class UserBD {
     private String name;
 
     @DatabaseField
+    private String email;
+
+    @DatabaseField
     private String password;
 
     @DatabaseField
@@ -35,9 +38,20 @@ public class UserBD {
     public UserBD() {
     }
 
-    public UserBD(long id, String name, String password, int age, String college, String course, int semester) {
+    public UserBD(long id, String name, String email, String password, int age, String college, String course, int semester) {
         this.id = id;
         this.name = name;
+        this.email = email;
+        this.password = password;
+        this.age = age;
+        this.college = college;
+        this.course = course;
+        this.semester = semester;
+    }
+
+    public UserBD(String name, String email, String password, int age, String college, String course, int semester) {
+        this.name = name;
+        this.email = email;
         this.password = password;
         this.age = age;
         this.college = college;
@@ -59,6 +73,13 @@ public class UserBD {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
