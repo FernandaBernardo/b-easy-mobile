@@ -66,19 +66,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c8e29728-b446-4673-bac0-a7d882bc88e3" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\Users\Tiago\Documents\git\android\EACH\b-easy-mobile\app\src\main\java\br\com\b_easy\Fragment\DoingFragment.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Tiago\Documents\git\android\EACH\b-easy-mobile\app\src\main\java\br\com\b_easy\Fragment\DoneFragment.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Tiago\Documents\git\android\EACH\b-easy-mobile\app\src\main\java\br\com\b_easy\Fragment\ToDoFragment.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Activity/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Activity/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nLivio/src/main/java/br/liveo/navigationliveo/NavigationLiveo.java" afterPath="$PROJECT_DIR$/nLivio/src/main/java/br/liveo/navigationliveo/NavigationLiveo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/DataBaseModel/SubjectBD.java" afterPath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/DataBaseModel/SubjectBD.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Adapter/TaskAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Adapter/TaskAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/DataBaseModel/TaskBD.java" afterPath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/DataBaseModel/TaskBD.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/DAO/TaskDao.java" afterPath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/DAO/TaskDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Fragment/TaskFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Fragment/TaskFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/DataBaseModel/UserBD.java" afterPath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/DataBaseModel/UserBD.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/DataBaseModel/UserSubjectBD.java" afterPath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/DataBaseModel/UserSubjectBD.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/DataBase/DatabaseHelper.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/DAO/SubjectDao.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="b-easy-mobile.iws" />
@@ -8150,7 +8139,13 @@
       <option name="project" value="LOCAL" />
       <updated>1443286676202</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Correcao BUGS Portrait -&gt; Landscape">
+      <created>1443325407811</created>
+      <option name="number" value="00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1443325407811</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="ToolWindowManager">
