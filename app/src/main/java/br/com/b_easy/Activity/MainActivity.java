@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -356,7 +357,7 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
                         super.onNegative(dialog);
                     }
                 }).build();
-
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE| WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         dialog.show();
     }
 
@@ -387,7 +388,7 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
                         super.onNegative(dialog);
                     }
                 }).build();
-
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE|WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         dialog.show();
     }
 
