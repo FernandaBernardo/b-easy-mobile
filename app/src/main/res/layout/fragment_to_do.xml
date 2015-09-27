@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rlToDoFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:visibility="gone"
 
     >
 
@@ -16,6 +18,19 @@
         >
 
     </android.support.v7.widget.RecyclerView>
+
+    <com.melnykov.fab.FloatingActionButton
+        android:id="@+id/fabToDoFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/md_activity_right_margin"
+        android:src="@drawable/ic_add_white_24dp"
+        android:layout_marginBottom="@dimen/md_fab_margin_bottom"
+        fab:fab_colorNormal="@color/accentColor"
+        fab:fab_colorPressed="@color/accentColorDark"
+        />
 
 
 

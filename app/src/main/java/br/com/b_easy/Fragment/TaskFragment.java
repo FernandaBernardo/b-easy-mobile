@@ -1,5 +1,6 @@
 package br.com.b_easy.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -17,10 +18,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.melnykov.fab.FloatingActionButton;
 
 import org.w3c.dom.Text;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import br.com.b_easy.Activity.MainActivity;
@@ -49,8 +52,10 @@ public class TaskFragment extends Fragment {
     private Util.Task_Enum tabVisible;
     private RecyclerView rvToDo, rvDoing, rvDone;
     private TaskAdapter adTodo, adDoing, adDone;
+    private FloatingActionButton fabTodo, fabDoing, fabDone;
 
     private final String STATE_CURRENT_LAYOUT = "currentLayout";
+    public static final String STATE_NEW_ACTIVITY = "newActivity";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,12 +65,14 @@ public class TaskFragment extends Fragment {
 
         }
 
-        setRetainInstance(true);
+        Log.d("SaveState", "OnCreateView");
+
+        //setRetainInstance(true);
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_task, container, false);
-
+        Log.d("SaveState", "OnCreateView");
         context = ((MainActivity)getActivity());
         subject = context.getSelectedSubject();
         tvTabToDo = (TextView) v.findViewById(R.id.tvTabToDo);
@@ -77,6 +84,34 @@ public class TaskFragment extends Fragment {
         rvToDo = (RecyclerView) v.findViewById(R.id.rvToDoFragment);
         rvDoing = (RecyclerView) v.findViewById(R.id.rvDoingFragment);
         rvDone = (RecyclerView) v.findViewById(R.id.rvToDoneFragment);
+        fabTodo = (FloatingActionButton) v.findViewById(R.id.fabToDoFragment);
+        fabDoing = (FloatingActionButton) v.findViewById(R.id.fabDoingFragment);
+        fabDone = (FloatingActionButton) v.findViewById(R.id.fabDoneFragment);
+
+        fabTodo.attachToRecyclerView(rvToDo);
+        fabDoing.attachToRecyclerView(rvDoing);
+        fabDone.attachToRecyclerView(rvDone);
+
+        fabTodo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createDialogAddOptions();
+            }
+        });
+
+        fabDoing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createDialogAddOptions();
+            }
+        });
+
+        fabDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createDialogAddOptions();
+            }
+        });
 
         try {
 
@@ -120,6 +155,7 @@ public class TaskFragment extends Fragment {
                 tvTabToDo.setTextColor(getResources().getColor(R.color.white));
                 tvTabDoing.setTextColor(getResources().getColor(R.color.whiteLight));
                 tvTabDone.setTextColor(getResources().getColor(R.color.whiteLight));
+                Log.d("SaveState", "TAB TO DO Calling ShowFragment: ");
                 showFragment(Util.Task_Enum.DO_TO);
             }
         });
@@ -131,6 +167,7 @@ public class TaskFragment extends Fragment {
                 tvTabDoing.setTextColor(getResources().getColor(R.color.white));
                 tvTabToDo.setTextColor(getResources().getColor(R.color.whiteLight));
                 tvTabDone.setTextColor(getResources().getColor(R.color.whiteLight));
+                Log.d("SaveState", "TAB DOING Calling ShowFragment: ");
                 showFragment(Util.Task_Enum.DOING);
             }
         });
@@ -142,30 +179,51 @@ public class TaskFragment extends Fragment {
                 tvTabDone.setTextColor(getResources().getColor(R.color.white));
                 tvTabDoing.setTextColor(getResources().getColor(R.color.whiteLight));
                 tvTabToDo.setTextColor(getResources().getColor(R.color.whiteLight));
+                Log.d("SaveState", "TAB DONE Calling ShowFragment: ");
                 showFragment(Util.Task_Enum.DONE);
             }
         });
 
-        showFragment(tabVisible);
-
         if(savedInstanceState != null){
             tabVisible = (Util.Task_Enum) savedInstanceState.getSerializable(STATE_CURRENT_LAYOUT);
 
-            switch(tabVisible){
-                case DO_TO: tvTabToDo.performClick();
+                switch (tabVisible) {
+                    case DO_TO:
+                        tvTabToDo.performClick();
+                        break;
+                    case DOING:
+                        tvTabDoing.performClick();
+                        break;
+                    case DONE:
+                        tvTabDone.performClick();
+                        break;
+                }
+
+        }
+        else if(getArguments() != null){
+            tabVisible = (Util.Task_Enum) getArguments().getSerializable(STATE_CURRENT_LAYOUT);
+
+            switch (tabVisible) {
+                case DO_TO:
+                    tvTabToDo.performClick();
                     break;
-                case DOING: tvTabDoing.performClick();
+                case DOING:
+                    tvTabDoing.performClick();
                     break;
-                case DONE: tvTabDone.performClick();
+                case DONE:
+                    tvTabDone.performClick();
                     break;
             }
-
+        }
+        else{
+            tvTabToDo.performClick();
         }
 
         return v;
     }
 
-    public void showFragment(Util.Task_Enum tab){
+    private void showFragment(Util.Task_Enum tab){
+        Log.d("SaveState", "Called ShowFragment: ");
         if(rlVisible != null)
             rlVisible.setVisibility(View.GONE);
 
@@ -182,16 +240,15 @@ public class TaskFragment extends Fragment {
             }
             rlVisible.setVisibility(View.VISIBLE);
             tabVisible = tab;
+            Log.d("SaveState", "IF TabVisible " + tabVisible.toString());
+
         }
         else{
             rlVisible = rlToDo;
             rlVisible.setVisibility(View.VISIBLE);
             tabVisible = Util.Task_Enum.DO_TO;
+            Log.d("SaveState", "ELSE TabVisible " + tabVisible.toString());
         }
-
-    }
-
-    public void updateFragment(){
 
     }
 
@@ -351,21 +408,109 @@ public class TaskFragment extends Fragment {
         }
     }
 
-    public List<TaskBD> getToDoTasks(){
-        return this.toDoTasks;
+
+    public void createDialogAddOptions(){
+
+        new MaterialDialog.Builder(getContext())
+                .title("Selecione a Ação")
+                .items( R.array.optionsFAB)
+                .itemsCallback(new MaterialDialog.ListCallback() {
+                    @Override
+                    public void onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
+                        Log.d("Click", "OnSelection " + which);
+                        if (which == 0) {
+                            createDialogAddSubject();
+                        } else {
+                            createDialogAddTask();
+                        }
+                    }
+                })
+                .show();
     }
 
-    public List<TaskBD> getDoingTasks(){
-        return this.doingTasks;
+    public void createDialogAddSubject(){
+
+        MaterialDialog dialog =  new MaterialDialog.Builder(getContext())
+                .title("Adicionar Matéria")
+                .customView(R.layout.fragment_subject_create, true)
+                .positiveText("Concluir")
+                .negativeText("Cancelar")
+                .negativeColorRes(R.color.secondaryTextColor)
+                .callback(new MaterialDialog.ButtonCallback() {
+                    @Override
+                    public void onPositive(MaterialDialog dialog) {
+
+                        boolean status = false;
+
+                        String sName = ((EditText) dialog.findViewById(R.id.etTitleFragmentSubjectCreate)).getText().toString();
+
+                        status = ((MainActivity)getActivity()).saveSubject(new SubjectBD(sName));
+
+                        if (status) {
+                            Log.d("DataBase", "SUCESS: Saved Subject");
+                            Intent i = new Intent(getContext(), MainActivity.class);
+                            i.putExtras(createBundleState());
+                            getActivity().startActivity(i);
+                            getActivity().finish();
+                        }
+                        else
+                            Log.e("DataBase", "ERROR: Save Subject");
+
+                        super.onPositive(dialog);
+                    }
+
+                    @Override
+                    public void onNegative(MaterialDialog dialog) {
+                        super.onNegative(dialog);
+                    }
+                }).build();
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE| WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        dialog.show();
     }
 
-    public List<TaskBD> getDoneTasks(){
-        return this.doneTasks;
+    public void createDialogAddTask(){
+        MaterialDialog dialog = new MaterialDialog.Builder(getContext())
+                .title("Adicionar Tarefa")
+                .customView(R.layout.fragment_task_create, true)
+                .positiveText("Concluir")
+                .negativeText("Cancelar")
+                .negativeColorRes(R.color.secondaryTextColor)
+                .callback(new MaterialDialog.ButtonCallback(){
+                    @Override
+                    public void onPositive(MaterialDialog dialog) {
+                        String sName = ((EditText)dialog.findViewById(R.id.etTitleFragmentTaskCreate)).getText().toString();
+                        String sDesc = ((EditText)dialog.findViewById(R.id.etDescritionFragmentTaskCreate)).getText().toString();
+                        String sRel  = ((EditText)dialog.findViewById(R.id.etRelevanciaFragmentTaskCreate)).getText().toString();
+
+                        Log.d("CreateTask", "Name: " + sName + " Descricao: " + sDesc + " Relevancia: " + sRel);
+
+                        boolean success = createTask(null, tabVisible, new TaskBD(sName, sDesc, sRel, tabVisible.toString(), new Date(), subject));
+
+                        Log.d("Database", "Task Created: " + (success ? "SUCCESS" : "FAILED"));
+
+                        super.onPositive(dialog);
+                    }
+
+                    @Override
+                    public void onNegative(MaterialDialog dialog) {
+                        super.onNegative(dialog);
+                    }
+                }).build();
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE|WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        dialog.show();
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         outState.putSerializable(STATE_CURRENT_LAYOUT, tabVisible);
         super.onSaveInstanceState(outState);
+    }
+
+    public Bundle createBundleState(){
+        Bundle state = ((MainActivity)getActivity()).createBundleState();
+        state.putSerializable(STATE_CURRENT_LAYOUT,tabVisible);
+        state.putBoolean(STATE_NEW_ACTIVITY,true);
+        return state;
+
     }
 }

@@ -1,13 +1,9 @@
 package br.com.b_easy.Activity;
 
-
-import android.annotation.TargetApi;
 import android.content.Intent;
-import android.os.Build;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,23 +16,17 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.melnykov.fab.FloatingActionButton;
 
-import java.io.Serializable;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import br.com.b_easy.DAO.SubjectDao;
 import br.com.b_easy.DAO.UserDao;
 import br.com.b_easy.DAO.UserSubjectDao;
-import br.com.b_easy.DataBase.DatabaseHelper;
 import br.com.b_easy.DataBaseModel.SubjectBD;
-import br.com.b_easy.DataBaseModel.TaskBD;
 import br.com.b_easy.DataBaseModel.UserBD;
 import br.com.b_easy.DataBaseModel.UserSubjectBD;
 import br.com.b_easy.Fragment.HomeFragment;
 import br.com.b_easy.Fragment.TaskFragment;
-import br.com.b_easy.Model.Subject;
-import br.com.b_easy.Model.Task;
 import br.com.b_easy.R;
 import br.com.b_easy.Util;
 import br.liveo.Model.HelpLiveo;
@@ -67,6 +57,8 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
     private final String STATE_SELECTED_SUBJECT = "selectedSubject";
     private final String STATE_TOOLBAR_TEXT = "toolbarText";
     private final String STATE_TOOLBAR_ELEVATION = "toolbarElevation";
+    private final String STATE_ATUAL_TAG = "atualTag";
+    private final String STATE_ = "atualTag";
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -75,21 +67,9 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
         super.setChildToolbarRes(R.id.app_bar);
         super.onCreate(savedInstanceState);
 
-        if(savedInstanceState == null){
-            trocaFragment(TAG_HOME);
-        }
-
          /***************************************
          *       Seta Float Action Button       *
          ***************************************/
-
-        faButton = (FloatingActionButton) findViewById(R.id.fabMain);
-        faButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createDialogAddOptions();
-            }
-        });
 
 
         INITIAL_INDEX_TASKS = 2;
@@ -110,12 +90,28 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
         String toolbarText = "";
         float toolbarElevation = getResources().getDimension(R.dimen.md_appbar_elevation);
 
+        Bundle saved = getIntent().getExtras();
+
         if(savedInstanceState != null){
             startPosition = savedInstanceState.getInt(STATE_CURRENT_POSITION);
             setSelectedSubject((SubjectBD) savedInstanceState.getSerializable(STATE_SELECTED_SUBJECT));
             tvToolbar.setText(savedInstanceState.getString(STATE_TOOLBAR_TEXT));
             toolbarElevation = savedInstanceState.getFloat(STATE_TOOLBAR_ELEVATION);
-
+            ATUAL_TAG = savedInstanceState.getString(STATE_ATUAL_TAG);
+        }
+        else if(saved != null){
+            Log.d("SaveInstance", "Activity Bundle NOT NULL");
+            startPosition = saved.getInt(STATE_CURRENT_POSITION);
+            setSelectedSubject((SubjectBD) saved.getSerializable(STATE_SELECTED_SUBJECT));
+            tvToolbar.setText(saved.getString(STATE_TOOLBAR_TEXT));
+            toolbarElevation = saved.getFloat(STATE_TOOLBAR_ELEVATION);
+            ATUAL_TAG = saved.getString(STATE_ATUAL_TAG);
+            if(saved.getBoolean(TaskFragment.STATE_NEW_ACTIVITY))
+                trocaFragment(ATUAL_TAG,saved);
+        }
+        else{
+            Log.d("SaveInstance", "Activity Bundle NULL");
+            trocaFragment(TAG_HOME, null);
         }
 
         Log.d("FIRST", "onIntFirst");
@@ -209,16 +205,17 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
     @Override
     public void onItemClick(int position) {
         Log.d("Item Clicked", "Position " + position);
+        Log.d("SaveState", "onItemClick action perfomed");
 
         if(position == 0) {
-            trocaFragment(TAG_HOME);
+            trocaFragment(TAG_HOME, null);
         }
         else if(position == 1) {
             return;
         }
         else if( !subjects.isEmpty() && position >= INITIAL_INDEX_TASKS && position <= FINAL_INDEX_TASKS){
             setSelectedSubject(subjects.get(getSubjectIndexOnList(position)));
-            trocaFragment(TAG_TASK);
+            trocaFragment(TAG_TASK, null);
         }
         else{
             // Fragment About
@@ -251,7 +248,7 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
      *           Troca Fragments            *
      ***************************************/
 
-    public void trocaFragment(String tag){
+    public void trocaFragment(String tag, Bundle savedState){
 
         if(tag.equals(TAG_HOME)) {
             fragment = new HomeFragment();
@@ -266,7 +263,7 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
         }
 
         ATUAL_TAG = tag;
-
+        fragment.setArguments(savedState);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.main_container, fragment, tag).commit();
 
@@ -304,94 +301,6 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
         return position - INITIAL_INDEX_TASKS;
     }
 
-    public void createDialogAddOptions(){
-
-        new MaterialDialog.Builder(this)
-                .title("Selecione a Ação")
-                .items( getAtualTag().equals(TAG_HOME)  ? R.array.optionsFABNoSubject : R.array.optionsFAB)
-                .itemsCallback(new MaterialDialog.ListCallback() {
-                    @Override
-                    public void onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
-                        Log.d("Click", "OnSelection " + which);
-                        if (which == 0) {
-                            createDialogAddSubject();
-                        } else {
-                            createDialogAddTask();
-                        }
-                    }
-                })
-                .show();
-    }
-
-    public void createDialogAddSubject(){
-
-        MaterialDialog dialog =  new MaterialDialog.Builder(this)
-                .title("Adicionar Matéria")
-                .customView(R.layout.fragment_subject_create, true)
-                .positiveText("Concluir")
-                .negativeText("Cancelar")
-                .negativeColorRes(R.color.secondaryTextColor)
-                .callback(new MaterialDialog.ButtonCallback() {
-                    @Override
-                    public void onPositive(MaterialDialog dialog) {
-
-                        boolean status = false;
-
-                        String sName = ((EditText) dialog.findViewById(R.id.etTitleFragmentSubjectCreate)).getText().toString();
-
-                        status = saveSubject(new SubjectBD(sName));
-
-                        if (status) {
-                            Log.d("DataBase", "SUCESS: Saved Subject");
-                            MainActivity.this.startActivity(new Intent(MainActivity.this, MainActivity.class));
-                            MainActivity.this.finish();
-                        }
-                        else
-                            Log.e("DataBase", "ERROR: Save Subject");
-
-                        super.onPositive(dialog);
-                    }
-
-                    @Override
-                    public void onNegative(MaterialDialog dialog) {
-                        super.onNegative(dialog);
-                    }
-                }).build();
-        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE| WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-        dialog.show();
-    }
-
-    public void createDialogAddTask(){
-        MaterialDialog dialog = new MaterialDialog.Builder(this)
-                .title("Adicionar Tarefa")
-                .customView(R.layout.fragment_task_create, true)
-                .positiveText("Concluir")
-                .negativeText("Cancelar")
-                .negativeColorRes(R.color.secondaryTextColor)
-                .callback(new MaterialDialog.ButtonCallback(){
-                    @Override
-                    public void onPositive(MaterialDialog dialog) {
-                        String sName = ((EditText)dialog.findViewById(R.id.etTitleFragmentTaskCreate)).getText().toString();
-                        String sDesc = ((EditText)dialog.findViewById(R.id.etDescritionFragmentTaskCreate)).getText().toString();
-                        String sRel  = ((EditText)dialog.findViewById(R.id.etRelevanciaFragmentTaskCreate)).getText().toString();
-
-                        Log.d("CreateTask", "Name: " + sName + " Descricao: " + sDesc + " Relevancia: " + sRel);
-
-                        // getData
-                        // createObject
-
-                        super.onPositive(dialog);
-                    }
-
-                    @Override
-                    public void onNegative(MaterialDialog dialog) {
-                        super.onNegative(dialog);
-                    }
-                }).build();
-        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE|WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-        dialog.show();
-    }
-
     public String getAtualTag(){return this.ATUAL_TAG;}
 
     @Override
@@ -401,11 +310,21 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        Log.d("SaveInstance", "OnSaveInstance: currentPosition: " + getSupportActionBar().getElevation());
         outState.putInt(STATE_CURRENT_POSITION, this.getCurrentPosition());
         outState.putSerializable(STATE_SELECTED_SUBJECT, getSelectedSubject());
         outState.putFloat(STATE_TOOLBAR_ELEVATION, getSupportActionBar().getElevation());
         outState.putString(STATE_TOOLBAR_TEXT, tvToolbar.getText().toString());
+        outState.putString(STATE_ATUAL_TAG, ATUAL_TAG);
         super.onSaveInstanceState(outState);
+    }
+
+    public Bundle createBundleState(){
+        Bundle state = new Bundle();
+        state.putInt(STATE_CURRENT_POSITION, this.getCurrentPosition());
+        state.putSerializable(STATE_SELECTED_SUBJECT, getSelectedSubject());
+        state.putFloat(STATE_TOOLBAR_ELEVATION, getSupportActionBar().getElevation());
+        state.putString(STATE_TOOLBAR_TEXT, tvToolbar.getText().toString());
+        state.putString(STATE_ATUAL_TAG, ATUAL_TAG);
+       return state;
     }
 }
