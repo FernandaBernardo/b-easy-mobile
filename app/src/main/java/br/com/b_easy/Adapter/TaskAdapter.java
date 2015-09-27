@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import org.w3c.dom.Text;
 import java.util.List;
 
 import br.com.b_easy.Activity.MainActivity;
+import br.com.b_easy.DataBaseModel.TaskBD;
 import br.com.b_easy.Fragment.TaskFragment;
 import br.com.b_easy.Model.Task;
 import br.com.b_easy.R;
@@ -28,10 +30,10 @@ public class TaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context mContext;
     private TaskFragment fragment;
-    private List<Task> mTasks;
+    private List<TaskBD> mTasks;
     private Util.Task_Enum mCod;
 
-    public TaskAdapter(Context mContext, List<Task> mTasks, Util.Task_Enum mCod, TaskFragment fragment) {
+    public TaskAdapter(Context mContext, List<TaskBD> mTasks, Util.Task_Enum mCod, TaskFragment fragment) {
         this.mContext = mContext;
         this.mTasks = mTasks;
         this.mCod = mCod;
@@ -48,7 +50,7 @@ public class TaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         if(holder instanceof TaskViewHolder){
             final TaskViewHolder taskHolder = (TaskViewHolder) holder;
-            Task aux = mTasks.get(position);
+            TaskBD aux = mTasks.get(position);
             taskHolder.tvTitle.setText(aux.getTitle());
             taskHolder.tvDescription.setText(aux.getDescription());
             taskHolder.tvFinalDate.setText(aux.getFinalDateString());
@@ -65,28 +67,35 @@ public class TaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             taskHolder.ivNext.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
+                    boolean success = false;
+
                     Toast.makeText(mContext, "Click on Next", Toast.LENGTH_SHORT).show();
                     if(mCod == Util.Task_Enum.DO_TO)
-                        fragment.createTask(Util.Task_Enum.DOING, mTasks.get(position));
+                       success = fragment.createTask(mCod,Util.Task_Enum.DOING, mTasks.get(position));
 
                     else if(mCod == Util.Task_Enum.DOING)
-                        fragment.createTask(Util.Task_Enum.DOING, mTasks.get(position));
+                       success =  fragment.createTask(mCod,Util.Task_Enum.DONE, mTasks.get(position));
 
-                    fragment.deleteTask(mCod, position);
+                    Log.d("DataBase", "Move: " + (success ? "SUCCESS" : "FAIL"));
                 }
             });
 
             taskHolder.ivBack.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
+                    boolean success = false;
+
                     Toast.makeText(mContext, "Click on Back", Toast.LENGTH_SHORT).show();
                     if(mCod == Util.Task_Enum.DONE)
-                        fragment.createTask(Util.Task_Enum.DOING, mTasks.get(position));
+                        success = fragment.createTask(mCod,Util.Task_Enum.DOING, mTasks.get(position));
 
                     else if(mCod == Util.Task_Enum.DOING)
-                        fragment.createTask(Util.Task_Enum.DO_TO, mTasks.get(position));
+                        success = fragment.createTask(mCod,Util.Task_Enum.DO_TO,mTasks.get(position));
 
-                    fragment.deleteTask(mCod, position);
+                    Log.d("DataBase", "Move: " + (success ? "SUCCESS" : "FAIL"));
+
                 }
             });
 
@@ -102,7 +111,8 @@ public class TaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(mContext, "Click on Delete", Toast.LENGTH_SHORT).show();
-                    fragment.deleteTask(mCod, position);
+                    boolean success = fragment.deleteTask(mCod, position);
+                    Log.d("DataBase", "Delete: " + ( success ? "SUCCESS" : "FAIL"));
                 }
             });
 

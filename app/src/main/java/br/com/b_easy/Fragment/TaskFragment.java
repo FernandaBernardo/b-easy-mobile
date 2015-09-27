@@ -19,11 +19,14 @@ import com.afollestad.materialdialogs.MaterialDialog;
 
 import org.w3c.dom.Text;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import br.com.b_easy.Activity.MainActivity;
 import br.com.b_easy.Adapter.TaskAdapter;
+import br.com.b_easy.DAO.TaskDao;
 import br.com.b_easy.DataBaseModel.SubjectBD;
+import br.com.b_easy.DataBaseModel.TaskBD;
 import br.com.b_easy.Model.Subject;
 import br.com.b_easy.Model.Task;
 import br.com.b_easy.R;
@@ -38,13 +41,15 @@ public class TaskFragment extends Fragment {
     private SubjectBD subject;
     private TextView tvTabToDo, tvTabDoing, tvTabDone;
     private MainActivity context;
-    private List<Task> toDoTasks, doingTasks, doneTasks;
+    private List<TaskBD> toDoTasks, doingTasks, doneTasks;
     private Fragment[] fragments;
     private RelativeLayout rlToDo, rlDoing, rlDone;
     private RelativeLayout rlVisible;
+    private Util.Task_Enum tabVisible;
     private RecyclerView rvToDo, rvDoing, rvDone;
     private TaskAdapter adTodo, adDoing, adDone;
 
+    private final String STATE_CURRENT_LAYOUT = "currentLayout";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,9 +76,29 @@ public class TaskFragment extends Fragment {
         rvToDo = (RecyclerView) v.findViewById(R.id.rvToDoFragment);
         rvDoing = (RecyclerView) v.findViewById(R.id.rvDoingFragment);
         rvDone = (RecyclerView) v.findViewById(R.id.rvToDoneFragment);
-        toDoTasks = Util.getListTasks();
-        doingTasks = Util.getListTasks();
-        doneTasks = Util.getListTasks();
+
+        try {
+
+            TaskDao taskDao = new TaskDao(Util.openBD().getConnectionSource());
+
+            toDoTasks = taskDao.getTasksToDoBySubject(subject.getId());
+            doingTasks= taskDao.getTasksDoingBySubject(subject.getId());
+            doneTasks = taskDao.getTasksDoneBySubject(subject.getId());
+
+            for(TaskBD aux : toDoTasks){
+                Log.d("DataBase", "TODO Task: " + aux.getTitle() + " ID: " + aux.getId());
+            }
+
+            for(TaskBD aux : doingTasks){
+                Log.d("DataBase", "DOING Task: " + aux.getTitle() + " ID: " + aux.getId());
+            }
+
+            for(TaskBD aux : doneTasks){
+                Log.d("DataBase", "Done Task: " + aux.getTitle() + " ID: " + aux.getId());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         Util.setRecicleView(getContext(),rvToDo,false);
         adTodo = new TaskAdapter(getContext(), toDoTasks, Util.Task_Enum.DO_TO, this);
@@ -87,8 +112,6 @@ public class TaskFragment extends Fragment {
         adDone = new TaskAdapter(getContext(), doneTasks, Util.Task_Enum.DONE, this);
         rvDone.setAdapter(adDone);
 
-        showFragment(rlToDo);
-
         tvTabToDo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -96,7 +119,7 @@ public class TaskFragment extends Fragment {
                 tvTabToDo.setTextColor(getResources().getColor(R.color.white));
                 tvTabDoing.setTextColor(getResources().getColor(R.color.whiteLight));
                 tvTabDone.setTextColor(getResources().getColor(R.color.whiteLight));
-                showFragment(rlToDo);
+                showFragment(Util.Task_Enum.DO_TO);
             }
         });
 
@@ -107,7 +130,7 @@ public class TaskFragment extends Fragment {
                 tvTabDoing.setTextColor(getResources().getColor(R.color.white));
                 tvTabToDo.setTextColor(getResources().getColor(R.color.whiteLight));
                 tvTabDone.setTextColor(getResources().getColor(R.color.whiteLight));
-                showFragment(rlDoing);
+                showFragment(Util.Task_Enum.DOING);
             }
         });
 
@@ -118,76 +141,95 @@ public class TaskFragment extends Fragment {
                 tvTabDone.setTextColor(getResources().getColor(R.color.white));
                 tvTabDoing.setTextColor(getResources().getColor(R.color.whiteLight));
                 tvTabToDo.setTextColor(getResources().getColor(R.color.whiteLight));
-                showFragment(rlDone);
+                showFragment(Util.Task_Enum.DONE);
             }
         });
 
+        showFragment(tabVisible);
 
-        //tvCardTitle = (TextView) v.findViewById(R.id.tvTitleCardFragmentTask);
-        //tvCardTitle.setText(subject.getName());
+        if(savedInstanceState != null){
+            tabVisible = (Util.Task_Enum) savedInstanceState.getSerializable(STATE_CURRENT_LAYOUT);
 
+            switch(tabVisible){
+                case DO_TO: tvTabToDo.performClick();
+                    break;
+                case DOING: tvTabDoing.performClick();
+                    break;
+                case DONE: tvTabDone.performClick();
+                    break;
+            }
 
-//        mViewPager = (ViewPager) v.findViewById(R.id.pager);
-//        tabs = (SlidingTabLayout) v.findViewById(R.id.tabs);
-//
-//        updateFragment();
+        }
 
         return v;
     }
 
-    public void showFragment(RelativeLayout rl){
+    public void showFragment(Util.Task_Enum tab){
         if(rlVisible != null)
             rlVisible.setVisibility(View.GONE);
-        rl.setVisibility(View.VISIBLE);
-        rlVisible = rl;
+
+        if(tab != null){
+            switch (tab){
+                case DO_TO:
+                    rlVisible = rlToDo;
+                    break;
+                case DOING:
+                    rlVisible = rlDoing;
+                    break;
+                case DONE:
+                    rlVisible = rlDone;
+            }
+            rlVisible.setVisibility(View.VISIBLE);
+            tabVisible = tab;
+        }
+        else{
+            rlVisible = rlToDo;
+            rlVisible.setVisibility(View.VISIBLE);
+            tabVisible = Util.Task_Enum.DO_TO;
+        }
+
     }
 
     public void updateFragment(){
-//        Log.d("UPDATE", "Calling");
-//        fragments = new Fragment[3];
-//        fragments[0] = new ToDoFragment();
-//        fragments[1] = new DoingFragment();
-//        fragments[2] = new DoneFragment();
-//
-//        toDoTasks = Util.getListTasks();
-//        doingTasks= Util.getListTasks();
-//        doneTasks = Util.getListTasks();
-//
-//        mPagerAdapter = new NavigationAdapter( context.getSupportFragmentManager(), context.getResources().getStringArray(R.array.TabsTaskFragments), fragments);
-//        mViewPager.setAdapter(mPagerAdapter);
-//        mViewPager.setCurrentItem(1);
-//
-//
-//        tabs.setCustomTabView(R.layout.custom_tab, R.id.tvTab);
-//        tabs.setDistributeEvenly(true);
-//        tabs.setViewPager(mViewPager);
-//        tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
-//            @Override
-//            public int getIndicatorColor(int position) {
-//                return getResources().getColor(R.color.accentColor);
-//            }
-//        });
+
     }
 
-    public void deleteTask(Util.Task_Enum cod, int index){
+    public boolean deleteTask(Util.Task_Enum cod, int index){
+
+        TaskBD aux = null;
+
         switch(cod){
             case DO_TO:
-                toDoTasks.remove(index);
+                aux = toDoTasks.remove(index);
                 adTodo.notifyDataSetChanged();
                 break;
             case DOING:
-                doingTasks.remove(index);
+                aux = doingTasks.remove(index);
                 adDoing.notifyDataSetChanged();
                 break;
             case DONE:
-                doneTasks.remove(index);
+                aux = doneTasks.remove(index);
                 adDone.notifyDataSetChanged();
                 break;
         }
+
+        if(aux != null){
+            try {
+
+                int status = new TaskDao(Util.openBD().getConnectionSource()).delete(aux);
+                return status == 1 ? true : false;
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return false;
     }
 
-    public void createTask(Util.Task_Enum cod, Task new_Task){
-        switch(cod){
+    public boolean createTask(Util.Task_Enum from, Util.Task_Enum to, TaskBD new_Task){
+
+        switch(to){
             case DO_TO:
                 toDoTasks.add(new_Task);
                 adTodo.notifyDataSetChanged();
@@ -200,12 +242,42 @@ public class TaskFragment extends Fragment {
                 doneTasks.add(new_Task);
                 adDone.notifyDataSetChanged();
                 break;
+            default:
+                return false;
         }
+
+        if(from != null){
+            switch (from){
+                case DO_TO:
+                    toDoTasks.remove(new_Task);
+                    adTodo.notifyDataSetChanged();
+                    break;
+                case DOING:
+                    doingTasks.remove(new_Task);
+                    adDoing.notifyDataSetChanged();
+                    break;
+                case DONE:
+                    doneTasks.remove(new_Task);
+                    adDone.notifyDataSetChanged();
+                    break;
+            }
+        }
+
+        try {
+            new_Task.setStatus(to.toString());
+            TaskDao taskDao = new TaskDao(Util.openBD().getConnectionSource());
+            int status = taskDao.idExists(new_Task.getId()) ? taskDao.update(new_Task) : taskDao.create(new_Task);
+            return status == 1 ? true : false;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public void createDialogTask(Util.Task_Enum cod, int index){
 
-        final Task aux;
+        final TaskBD aux;
         final TaskAdapter adapter;
 
         switch (cod){
@@ -245,7 +317,16 @@ public class TaskFragment extends Fragment {
                             aux.setTitle(sName);
                             aux.setDescription(sDesc);
                             aux.setRelevance(sRel);
-                            adapter.notifyDataSetChanged();
+
+                            try {
+                                int status = new TaskDao(Util.openBD().getConnectionSource()).update(aux);
+                                if(status == 1)
+                                    adapter.notifyDataSetChanged();
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
+
+
                         }
 
                         // getData
@@ -269,49 +350,21 @@ public class TaskFragment extends Fragment {
         }
     }
 
-    public List<Task> getToDoTasks(){
+    public List<TaskBD> getToDoTasks(){
         return this.toDoTasks;
     }
 
-    public List<Task> getDoingTasks(){
+    public List<TaskBD> getDoingTasks(){
         return this.doingTasks;
     }
 
-    public List<Task> getDoneTasks(){
+    public List<TaskBD> getDoneTasks(){
         return this.doneTasks;
     }
 
-//    static class NavigationAdapter extends FragmentPagerAdapter{
-//
-//        private CharSequence[] mTitles;
-//        private Fragment[] fragments;
-//
-//        public NavigationAdapter( FragmentManager fm, CharSequence[] mTitles, Fragment[] fragments) {
-//            super(fm);
-//            this.mTitles = mTitles;
-//            this.fragments = fragments;
-//        }
-//
-//        @Override
-//        public Fragment getItem(int position) {
-//            if(position < fragments.length)
-//                return fragments[position];
-//            else
-//                return null;
-//        }
-//
-//        @Override
-//        public int getCount() {
-//            return mTitles.length;
-//        }
-//
-//        public CharSequence getPageTitle(int position) {
-//            return mTitles[position];
-//        }
-//
-//
-//    }
-
-
-
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putSerializable(STATE_CURRENT_LAYOUT, tabVisible);
+        super.onSaveInstanceState(outState);
+    }
 }

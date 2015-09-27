@@ -1,14 +1,19 @@
 package br.com.b_easy.Activity;
 
+
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -43,6 +48,7 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
     private HelpLiveo mHelpLiveo;
     private FloatingActionButton faButton;
     private List<SubjectBD> subjects;
+    private TextView tvToolbar;
     private int INITIAL_INDEX_TASKS;
     private int FINAL_INDEX_TASKS;
 
@@ -56,8 +62,14 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
 
     private UserBD user;
 
+    private final String STATE_CURRENT_POSITION = "currentPosition";
+    private final String STATE_SELECTED_SUBJECT = "selectedSubject";
+    private final String STATE_TOOLBAR_TEXT = "toolbarText";
+    private final String STATE_TOOLBAR_ELEVATION = "toolbarElevation";
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
+
         super.setChildLayoutRes(R.layout.activity_main);
         super.setChildToolbarRes(R.id.app_bar);
         super.onCreate(savedInstanceState);
@@ -82,9 +94,6 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
         INITIAL_INDEX_TASKS = 2;
         FINAL_INDEX_TASKS = INITIAL_INDEX_TASKS + subjects.size() -1 ;
 
-        Log.d("SUBJECT", selectedSubject == null ? "IS NULL" : "IS NOT NULL");
-
-
     }
 
     /****************************************
@@ -94,9 +103,24 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
 
     public void onInt(Bundle savedInstanceState) {
 
+        tvToolbar = (TextView) findViewById(R.id.toolbar_title);
+
+        int startPosition = 0;
+        String toolbarText = "";
+        float toolbarElevation = getResources().getDimension(R.dimen.md_appbar_elevation);
+
+        if(savedInstanceState != null){
+            startPosition = savedInstanceState.getInt(STATE_CURRENT_POSITION);
+            setSelectedSubject((SubjectBD) savedInstanceState.getSerializable(STATE_SELECTED_SUBJECT));
+            tvToolbar.setText(savedInstanceState.getString(STATE_TOOLBAR_TEXT));
+            toolbarElevation = savedInstanceState.getFloat(STATE_TOOLBAR_ELEVATION);
+
+        }
+
         Log.d("FIRST", "onIntFirst");
         loadDatabase();
-        Log.d("FIRST", "onIntFirst: DATABASE");
+
+        Log.d("SaveInstance", "Saved IS " + (savedInstanceState == null ? "NULL" : "NOT NULL"));
 
         this.userName.setText(user.getName());
         this.userEmail.setText(user.getEmail());
@@ -108,12 +132,6 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
         mHelpLiveo.addColor(getString(R.string.drawer_pag_inicial), R.drawable.ic_home_white_24dp, R.color.primaryTextColor);
         mHelpLiveo.addSubHeader(getString(R.string.drawer_pag_tarefas));
 
-
-        Subject s = (Subject) getIntent().getSerializableExtra(SUBJECT_KEY);
-        if(s != null){
-            Log.d("PARSE", s.getName());
-            //subjects.add(s);
-        }
 
         for(SubjectBD aux : subjects){
             mHelpLiveo.addColor(aux.getName(), R.drawable.ic_navigate_next_white_24dp, R.color.primaryTextColor);
@@ -127,7 +145,6 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
 //        View mCustomHeader = getLayoutInflater().inflate(R.layout.custom_header_user, this.getListView(), false);
 //        ImageView imageView = (ImageView) mCustomHeader.findViewById(R.id.imageView);
 
-        int startPosition = 0;
 
         with(this).startingPosition(startPosition) //Starting position in the list
                 .addAllHelpItem(mHelpLiveo.getHelp())
@@ -140,7 +157,8 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
                 .build();
 
         super.setCurrentPosition(startPosition);
-        super.setCheckedItemNavigation(startPosition,true);
+        super.setCheckedItemNavigation(startPosition, true);
+        getSupportActionBar().setElevation(toolbarElevation);
 
     }
 
@@ -234,16 +252,16 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
 
     public void trocaFragment(String tag){
 
-        if(tag.equals(getAtualTag())){
-            if(fragment instanceof TaskFragment)
-                ((TaskFragment) fragment).updateFragment();
-        }
-
         if(tag.equals(TAG_HOME)) {
             fragment = new HomeFragment();
+            tvToolbar.setText("B-Easy");
+            getSupportActionBar().setElevation(getResources().getDimension(R.dimen.md_appbar_elevation));
+
         }
         else{
             fragment = new TaskFragment();
+            tvToolbar.setText(getSelectedSubject().getName());
+            getSupportActionBar().setElevation(0);
         }
 
         ATUAL_TAG = tag;
@@ -375,44 +393,18 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
 
     public String getAtualTag(){return this.ATUAL_TAG;}
 
-    public void deleteTask(Util.Task_Enum cod, int index){
-        if(fragment != null){
-            if(fragment instanceof TaskFragment)
-                ((TaskFragment)fragment).deleteTask(cod,index);
-        }
-    }
-
-    public void updateTask(Util.Task_Enum cod){
-        if(fragment != null){
-            if(fragment instanceof TaskFragment)
-                ((TaskFragment)fragment).getToDoTasks();
-        }
-    }
-
-    public void createTask(Util.Task_Enum cod, Task new_Task){
-        if(fragment != null){
-            if(fragment instanceof TaskFragment)
-                ((TaskFragment)fragment).createTask(cod,new_Task);
-        }
-    }
-
-    public List<Task> getTasks(Util.Task_Enum cod){
-        if(fragment != null){
-            if(fragment instanceof TaskFragment){
-               switch (cod){
-                   case DO_TO : return ((TaskFragment) fragment).getToDoTasks();
-                   case DOING : return ((TaskFragment) fragment).getDoingTasks();
-                   case DONE : return ((TaskFragment) fragment).getDoneTasks();
-               }
-            }
-        }
-
-        return null;
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     @Override
-    protected void onDestroy() {
-        Util.closeBD();
-        super.onDestroy();
+    protected void onSaveInstanceState(Bundle outState) {
+        Log.d("SaveInstance", "OnSaveInstance: currentPosition: " + getSupportActionBar().getElevation());
+        outState.putInt(STATE_CURRENT_POSITION, this.getCurrentPosition());
+        outState.putSerializable(STATE_SELECTED_SUBJECT, getSelectedSubject());
+        outState.putFloat(STATE_TOOLBAR_ELEVATION, getSupportActionBar().getElevation());
+        outState.putString(STATE_TOOLBAR_TEXT, tvToolbar.getText().toString());
+        super.onSaveInstanceState(outState);
     }
 }

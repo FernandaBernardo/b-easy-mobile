@@ -3,12 +3,14 @@ package br.com.b_easy.DataBaseModel;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.io.Serializable;
+
 /**
  * Created by Tiago on 9/24/2015.
  */
 
 @DatabaseTable(tableName = "user_subject")
-public class UserSubjectBD {
+public class UserSubjectBD implements Serializable{
 
     public final static String USER_ID_FIELD_NAME = "user_id";
     public final static String SUBJECT_ID_FIELD_NAME = "subject_id";

@@ -70,6 +70,7 @@ public abstract class NavigationLiveo extends AppCompatActivity {
     private int mCurrentPosition = 1;
     private int mSelectorDefault = 0;
     private float mElevationToolBar = 15;
+
     private boolean mRemoveAlpha = false;
     private List<HelpItem> mHelpItem;
     private DrawerLayout mDrawerLayout;
@@ -180,8 +181,6 @@ public abstract class NavigationLiveo extends AppCompatActivity {
             } catch (Exception e) {
                 e.getMessage();
             }
-
-            this.setElevationToolBar(mElevationToolBar);
         }
     }
 

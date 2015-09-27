@@ -5,6 +5,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import br.com.b_easy.Model.Task;
  */
 
 @DatabaseTable(tableName = "subject")
-public class SubjectBD {
+public class SubjectBD implements Serializable {
 
     @DatabaseField(generatedId=true)
     private long id;
