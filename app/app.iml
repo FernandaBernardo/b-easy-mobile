@@ -106,5 +106,6 @@
     <orderEntry type="module" module-name="nLivio" exported="" />
     <orderEntry type="module" module-name="FABLibray" exported="" />
     <orderEntry type="module" module-name="core" exported="" />
+    <orderEntry type="module" module-name="datetimepicker-library" exported="" />
   </component>
 </module>

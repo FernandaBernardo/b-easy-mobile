@@ -7,11 +7,35 @@
     android:layout_marginRight="@dimen/md_activity_right_margin"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World"
-        />
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Bem-Vindo ao "-->
+        <!--android:textColor="@color/primaryTextColor"-->
+        <!--android:fontFamily="@string/app_font_bold"-->
+        <!--android:textSize="@dimen/md_fontsize_headline"-->
+        <!--android:paddingTop="100dp"-->
+        <!--/>-->
+
+    <!--<ImageView-->
+        <!--android:id="@+id/ivLogo"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:src="@drawable/beasy_launcher_icon"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--/>-->
+
+    <!--<TextView-->
+        <!--android:layout_below="@+id/ivLogo"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text=" Texte"-->
+        <!--android:textColor="@color/primaryTextColor"-->
+        <!--android:fontFamily="@string/app_font_bold"-->
+        <!--android:textSize="@dimen/md_fontsize_headline"-->
+        <!--android:paddingTop="100dp"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--/>-->
 
     <com.melnykov.fab.FloatingActionButton
         android:id="@+id/fabHomeFragment"
