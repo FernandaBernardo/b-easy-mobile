@@ -9,13 +9,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 import com.melnykov.fab.FloatingActionButton;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import br.com.b_easy.Activity.MainActivity;
 import br.com.b_easy.DataBaseModel.SubjectBD;
 import br.com.b_easy.R;
+import br.com.b_easy.Volley.VolleySingleton;
+import br.com.b_easy.pojo.ListJson;
+import br.com.b_easy.pojo.TesteJson;
 
 /**
  * Created by Tiago on 9/12/2015.
@@ -42,8 +58,57 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        RequestQueue queue = VolleySingleton.getInstance().getRequestQueue();
+        String url = "http://jsonplaceholder.typicode.com/posts/1";
+
+//        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+//                (Request.Method.GET, url, (String) null, new Response.Listener<JSONObject>() {
+//
+//                    @Override
+//                    public void onResponse(JSONObject response) {
+//                        //Toast.makeText(getContext(), "" + response , Toast.LENGTH_LONG ).show();
+//                        Log.d("Json", response.toString());
+//                        parseJSONResponse(response);
+//                    }
+//                }, new Response.ErrorListener() {
+//
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        Toast.makeText(getContext(), "ERRO VOLLEY" , Toast.LENGTH_LONG ).show();
+//
+//                    }
+//                });
+
+        StringRequest jsObjRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("Json", response);
+                parseJSONString(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Json", "ERRO");
+            }
+        });
+
+    queue.add(jsObjRequest);
+
         return v;
     }
+
+    private void parseJSONString(String response){
+        if(response == null || response.length() == 0)
+            return;
+
+            Gson googleJson = new Gson();
+            TesteJson tj = googleJson.fromJson(response, TesteJson.class);
+
+            Log.d("Json", tj.toString());
+
+
+    }
+
 
     public void createDialogAddOptions(){
 
