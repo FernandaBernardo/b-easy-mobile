@@ -22,7 +22,6 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:22.2.1'
-    compile 'com.android.support:support-v4:21.0.3'
     compile 'com.mcxiaoke.volley:library:1.0.19'
     compile project(':nLivio')
     compile project(':FABLibray')
@@ -35,4 +34,5 @@ dependencies {
     compile 'com.j256.ormlite:ormlite-core:4.48'
     compile project(':datetimepicker-library')
     compile 'com.google.code.gson:gson:2.3.1'
+    compile 'com.jayway.android.robotium:robotium-solo:5.5.2'
 }
