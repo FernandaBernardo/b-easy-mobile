@@ -1,11 +1,8 @@
-package br.com.b_easy.MainActivityTests.Test;
+package br.com.b_easy.MainActivityTests.SlideMenuTest;
 
 import android.support.design.internal.ScrimInsetsFrameLayout;
 import android.support.v4.widget.DrawerLayout;
 import android.test.ActivityInstrumentationTestCase2;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import com.robotium.solo.Solo;
 
@@ -15,7 +12,7 @@ import br.com.b_easy.R;
 /**
  * Created by Tiago on 10/23/2015.
  */
-public class PreConditionsTest extends ActivityInstrumentationTestCase2 {
+public class SlideMenuPreConditionsTest extends ActivityInstrumentationTestCase2 {
     private Solo solo;
     private DrawerLayout slideMenu;
     private ScrimInsetsFrameLayout mRelativeDrawer;
@@ -32,7 +29,7 @@ public class PreConditionsTest extends ActivityInstrumentationTestCase2 {
     }
 
     @SuppressWarnings("unchecked")
-    public PreConditionsTest() throws ClassNotFoundException {
+    public SlideMenuPreConditionsTest() throws ClassNotFoundException {
         super(launcherActivityClass);
     }
 
@@ -44,6 +41,7 @@ public class PreConditionsTest extends ActivityInstrumentationTestCase2 {
 
         slideMenu = (DrawerLayout) solo.getView(R.id.drawerLayout);
         mRelativeDrawer = (ScrimInsetsFrameLayout) solo.getView(R.id.relativeDrawer);
+
     }
 
     @Override
@@ -53,6 +51,7 @@ public class PreConditionsTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void testPreconditions(){
+        solo.waitForActivity(MainActivity.class);
         assertNotNull("SlideMenu is Null", slideMenu);
         assertNotNull("RelativeDrawer is Null", mRelativeDrawer);
     }
