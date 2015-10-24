@@ -36,7 +36,6 @@ public class SlideMenuPreConditionsTest extends ActivityInstrumentationTestCase2
     public void setUp() throws Exception {
         super.setUp();
         solo = new Solo(getInstrumentation(), getActivity());
-
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
 
         slideMenu = (DrawerLayout) solo.getView(R.id.drawerLayout);

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -50,7 +51,6 @@ public class TaskFragmentTest extends ActivityInstrumentationTestCase2 {
     public void setUp() throws Exception {
         super.setUp();
         solo = new Solo(getInstrumentation(), getActivity());
-
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
 
         slideMenu = (DrawerLayout) solo.getView(R.id.drawerLayout);
@@ -58,7 +58,7 @@ public class TaskFragmentTest extends ActivityInstrumentationTestCase2 {
 
         solo.waitForActivity(MainActivity.class);
         solo.drag(0, 400, 300, 300, 10);
-        solo.sleep(3000);
+        solo.sleep(5000);
         assertEquals("Slide Menu Closed", true, slideMenu.isDrawerOpen(mRelativeDrawer));
         solo.clickInList(7);
         solo.waitForFragmentByTag(TASK_TAG_FRAGMENT);
@@ -85,7 +85,7 @@ public class TaskFragmentTest extends ActivityInstrumentationTestCase2 {
         super.tearDown();
     }
 
-    public void testClickTabToDo(){
+    public void testClickTabs(){
         solo.clickOnView(tvTabToDo);
         solo.sleep(1000);
         assertEquals(true, tvTabToDo.getCurrentTextColor() == solo.getCurrentActivity().getResources().getColor(R.color.white));
@@ -94,9 +94,7 @@ public class TaskFragmentTest extends ActivityInstrumentationTestCase2 {
         assertEquals(true, rlToDo.getVisibility() == View.VISIBLE);
         assertEquals(false, rlDoing.getVisibility() == View.VISIBLE);
         assertEquals(false, rlDone.getVisibility() == View.VISIBLE);
-    }
 
-    public void testClickTabDoing(){
         solo.clickOnView(tvTabDoing);
         solo.sleep(1000);
         assertEquals(true, tvTabToDo.getCurrentTextColor() == solo.getCurrentActivity().getResources().getColor(R.color.whiteLight));
@@ -105,9 +103,7 @@ public class TaskFragmentTest extends ActivityInstrumentationTestCase2 {
         assertEquals(false, rlToDo.getVisibility() == View.VISIBLE);
         assertEquals(true, rlDoing.getVisibility() == View.VISIBLE);
         assertEquals(false, rlDone.getVisibility() == View.VISIBLE);
-    }
 
-    public void testClickTabDone(){
         solo.clickOnView(tvTabDone);
         solo.sleep(1000);
         assertEquals(true, tvTabToDo.getCurrentTextColor() == solo.getCurrentActivity().getResources().getColor(R.color.whiteLight));
@@ -117,9 +113,5 @@ public class TaskFragmentTest extends ActivityInstrumentationTestCase2 {
         assertEquals(false, rlDoing.getVisibility() == View.VISIBLE);
         assertEquals(true, rlDone.getVisibility() == View.VISIBLE);
     }
-
-
-
-
 
 }

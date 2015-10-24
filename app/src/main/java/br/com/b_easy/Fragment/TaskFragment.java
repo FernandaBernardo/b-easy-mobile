@@ -481,8 +481,9 @@ public class TaskFragment extends Fragment implements DatePickerDialog.OnDateSet
                 .customView(R.layout.fragment_task_create, true)
                 .positiveText("Concluir")
                 .negativeText("Cancelar")
+                .autoDismiss(false)
                 .negativeColorRes(R.color.secondaryTextColor)
-                .callback(new MaterialDialog.ButtonCallback(){
+                .callback(new MaterialDialog.ButtonCallback() {
                     @Override
                     public void onPositive(MaterialDialog dialog) {
 
@@ -490,10 +491,15 @@ public class TaskFragment extends Fragment implements DatePickerDialog.OnDateSet
 
                         final DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(TaskFragment.this, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), true);
 
-                        String sName = ((EditText)dialog.findViewById(R.id.etTitleFragmentTaskCreate)).getText().toString();
-                        String sDesc = ((EditText)dialog.findViewById(R.id.etDescritionFragmentTaskCreate)).getText().toString();
-                        String sRel  = ((EditText)dialog.findViewById(R.id.etRelevanciaFragmentTaskCreate)).getText().toString();
+                        String sName = ((EditText) dialog.findViewById(R.id.etTitleFragmentTaskCreate)).getText().toString();
+                        String sDesc = ((EditText) dialog.findViewById(R.id.etDescritionFragmentTaskCreate)).getText().toString();
+                        String sRel = ((EditText) dialog.findViewById(R.id.etRelevanciaFragmentTaskCreate)).getText().toString();
                         TextView tvDate = (TextView) dialog.findViewById(R.id.etDateFragmentTaskCreate);
+
+                        if (sName == null || sName.toString().equals("")) {
+                            Toast.makeText(getContext(), "Invalid Task Name", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
 
                         tvDate.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -511,11 +517,13 @@ public class TaskFragment extends Fragment implements DatePickerDialog.OnDateSet
                         Log.d("Database", "Task Created: " + (success ? "SUCCESS" : "FAILED"));
 
                         super.onPositive(dialog);
+                        dialog.dismiss();
                     }
 
                     @Override
                     public void onNegative(MaterialDialog dialog) {
                         super.onNegative(dialog);
+                        dialog.dismiss();
                     }
                 }).build();
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE|WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);

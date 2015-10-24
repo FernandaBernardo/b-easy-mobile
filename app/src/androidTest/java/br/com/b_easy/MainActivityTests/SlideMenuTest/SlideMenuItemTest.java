@@ -58,7 +58,7 @@ public class SlideMenuItemTest extends ActivityInstrumentationTestCase2 {
         solo.waitForActivity(MainActivity.class);
 
         solo.drag(0, 400, 300, 300, 10);
-        solo.sleep(3000);
+        solo.sleep(5000);
         assertEquals("Slide Menu Closed", true, slideMenu.isDrawerOpen(mRelativeDrawer));
         Log.d("textView", solo.clickInList(8).get(0).getText().toString());
         solo.waitForFragmentByTag(TASK_TAG_FRAGMENT);
@@ -71,7 +71,7 @@ public class SlideMenuItemTest extends ActivityInstrumentationTestCase2 {
     public void testItemHomeSubjectListClick(){
         solo.waitForActivity(MainActivity.class);
         solo.drag(0, 400, 300, 300, 10);
-        solo.sleep(3000);
+        solo.sleep(5000);
         assertEquals("Slide Menu Closed", true, slideMenu.isDrawerOpen(mRelativeDrawer));
         Log.d("textView", solo.clickInList(2).get(0).getText().toString());
         solo.waitForFragmentByTag(HOME_TAG_FRAGMENT);

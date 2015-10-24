@@ -42,7 +42,6 @@ public class HomeFragmentPreConditionsTest extends ActivityInstrumentationTestCa
     public void setUp() throws Exception {
         super.setUp();
         solo = new Solo(getInstrumentation(), getActivity());
-
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
 
         slideMenu = (DrawerLayout) solo.getView(R.id.drawerLayout);
@@ -50,12 +49,11 @@ public class HomeFragmentPreConditionsTest extends ActivityInstrumentationTestCa
 
         solo.waitForActivity(MainActivity.class);
         solo.drag(0, 400, 300, 300, 10);
-        solo.sleep(3000);
+        solo.sleep(5000);
         assertEquals("Slide Menu Closed", true, slideMenu.isDrawerOpen(mRelativeDrawer));
         solo.clickInList(2);
         solo.waitForFragmentByTag(HOME_TAG_FRAGMENT);
         assertEquals("View Fragment Task UnVisible", true, ((AppCompatActivity) solo.getCurrentActivity()).getSupportFragmentManager().findFragmentByTag(HOME_TAG_FRAGMENT).isVisible());
-        solo.sleep(2000);
         FAButton = (FloatingActionButton) solo.getView(R.id.fabHomeFragment);
 
     }

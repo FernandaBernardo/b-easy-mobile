@@ -48,7 +48,6 @@ public class TaskFragmentPreConditionsTest extends ActivityInstrumentationTestCa
     public void setUp() throws Exception {
         super.setUp();
         solo = new Solo(getInstrumentation(), getActivity());
-
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
 
         slideMenu = (DrawerLayout) solo.getView(R.id.drawerLayout);
@@ -56,12 +55,11 @@ public class TaskFragmentPreConditionsTest extends ActivityInstrumentationTestCa
 
         solo.waitForActivity(MainActivity.class);
         solo.drag(0, 400, 300, 300, 10);
-        solo.sleep(3000);
+        solo.sleep(5000);
         assertEquals("Slide Menu Closed", true, slideMenu.isDrawerOpen(mRelativeDrawer));
         solo.clickInList(7);
         solo.waitForFragmentByTag(TASK_TAG_FRAGMENT);
         assertEquals("View Fragment Task UnVisible", true, ((AppCompatActivity) solo.getCurrentActivity()).getSupportFragmentManager().findFragmentByTag(TASK_TAG_FRAGMENT).isVisible());
-        solo.sleep(2000);
 
         FAButtonToDo = (FloatingActionButton) solo.getView(R.id.fabToDoFragment);
         FAButtonDoing = (FloatingActionButton) solo.getView(R.id.fabDoingFragment);

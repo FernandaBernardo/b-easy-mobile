@@ -4,6 +4,7 @@ import android.support.design.internal.ScrimInsetsFrameLayout;
 import android.support.v4.widget.DrawerLayout;
 import android.test.ActivityInstrumentationTestCase2;
 
+import com.robotium.solo.Condition;
 import com.robotium.solo.Solo;
 
 import br.com.b_easy.Activity.MainActivity;
@@ -36,7 +37,7 @@ public class SlideMenuTest extends ActivityInstrumentationTestCase2 {
     public void setUp() throws Exception {
         super.setUp();
         solo = new Solo(getInstrumentation(), getActivity());
-
+        solo.sleep(2000);
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
 
         slideMenu = (DrawerLayout) solo.getView(R.id.drawerLayout);
@@ -52,19 +53,20 @@ public class SlideMenuTest extends ActivityInstrumentationTestCase2 {
     public void testSlide(){
         solo.waitForActivity(MainActivity.class);
 
-        solo.drag(0, 400, 300, 300, 10);
-        solo.sleep(4000);
+        solo.drag(0, 400, 300, 300, 1);
+        solo.waitForView(solo.getView(R.id.drawerLayout));
+        solo.sleep(5000);
         assertEquals("Slide Menu Closed", true, slideMenu.isDrawerOpen(mRelativeDrawer));
 
-        solo.drag(300, 0, 300, 300, 10);
-        solo.sleep(4000);
+        solo.drag(300, 0, 300, 300, 1);
+        solo.sleep(5000);
         assertEquals("Slide Menu Open", false, slideMenu.isDrawerOpen(mRelativeDrawer));
 
-        solo.drag(300, 300, 300, 0, 10);
+        solo.drag(300, 300, 300, 0, 1);
         solo.sleep(2000);
         assertEquals("Slide Menu Open", false, slideMenu.isDrawerOpen(mRelativeDrawer));
 
-        solo.drag(300, 300, 50, 300, 10);
+        solo.drag(300, 300, 50, 300, 1);
         solo.sleep(2000);
         assertEquals("Slide Menu Open", false, slideMenu.isDrawerOpen(mRelativeDrawer));
 
@@ -73,14 +75,14 @@ public class SlideMenuTest extends ActivityInstrumentationTestCase2 {
     public void testClickToggleButton(){
         solo.waitForActivity(MainActivity.class);
         solo.clickOnScreen(45F,80F);
-        solo.sleep(2000);
+        solo.waitForView(solo.getView(R.id.drawerLayout));
         assertEquals("Slide Menu Closed",true, slideMenu.isDrawerOpen(mRelativeDrawer));
     }
 
     public void testContent(){
         solo.waitForActivity(MainActivity.class);
         solo.clickOnScreen(45F,80F);
-        solo.sleep(2000);
+        solo.sleep(5000);
         assertEquals("Text: Home Not Found ", true, solo.searchText("Home"));
         assertEquals("Text: About Not Found ", true, solo.searchText("About"));
         assertEquals("Text: Tasks Not Found ", true, solo.searchText("Tasks"));

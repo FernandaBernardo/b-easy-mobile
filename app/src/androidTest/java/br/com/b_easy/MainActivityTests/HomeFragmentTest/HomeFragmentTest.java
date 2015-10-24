@@ -52,12 +52,11 @@ public class HomeFragmentTest extends ActivityInstrumentationTestCase2 {
 
         solo.waitForActivity(MainActivity.class);
         solo.drag(0, 400, 300, 300, 10);
-        solo.sleep(3000);
+        solo.sleep(5000);
         assertEquals("Slide Menu Closed", true, slideMenu.isDrawerOpen(mRelativeDrawer));
         solo.clickInList(2);
         solo.waitForFragmentByTag(HOME_TAG_FRAGMENT);
         assertEquals("View Fragment Task UnVisible", true, ((AppCompatActivity) solo.getCurrentActivity()).getSupportFragmentManager().findFragmentByTag(HOME_TAG_FRAGMENT).isVisible());
-        solo.sleep(2000);
         FAButton = (FloatingActionButton) solo.getView(R.id.fabHomeFragment);
 
     }
@@ -85,7 +84,7 @@ public class HomeFragmentTest extends ActivityInstrumentationTestCase2 {
 
         solo.waitForActivity(MainActivity.class);
         solo.drag(0, 400, 300, 300, 10);
-        solo.sleep(3000);
+        solo.sleep(5000);
         assertEquals(true, solo.searchText("PSI"));
     }
 
