@@ -130,11 +130,12 @@ public class HomeFragment extends Fragment {
     public void createDialogAddSubject(){
 
         MaterialDialog dialog =  new MaterialDialog.Builder(getContext())
-                .title("Adicionar Matéria")
+                .title("Adicionar MatériaX")
                 .customView(R.layout.fragment_subject_create, true)
                 .positiveText("Concluir")
                 .negativeText("Cancelar")
                 .negativeColorRes(R.color.secondaryTextColor)
+                .autoDismiss(false)
                 .callback(new MaterialDialog.ButtonCallback() {
                     @Override
                     public void onPositive(MaterialDialog dialog) {
@@ -143,22 +144,27 @@ public class HomeFragment extends Fragment {
 
                         String sName = ((EditText) dialog.findViewById(R.id.etTitleFragmentSubjectCreate)).getText().toString();
 
-                        status = ((MainActivity)getActivity()).saveSubject(new SubjectBD(sName));
+                        if (sName == null || sName.trim().equals("")) {
+                            Toast.makeText(getContext(), "Invalid Subject Name", Toast.LENGTH_SHORT).show();
+                            return;
+                        } else {
+                            status = ((MainActivity) getActivity()).saveSubject(new SubjectBD(sName));
 
-                        if (status) {
-                            Log.d("DataBase", "SUCESS: Saved Subject");
-                            getActivity().startActivity(new Intent(getContext(), MainActivity.class));
-                            getActivity().finish();
+                            if (status) {
+                                Log.d("DataBase", "SUCCESS: Saved Subject");
+                                getActivity().startActivity(new Intent(getContext(), MainActivity.class));
+                                getActivity().finish();
+                            } else
+                                Log.e("DataBase", "ERROR: Save Subject");
+
+                            dialog.dismiss();
                         }
-                        else
-                            Log.e("DataBase", "ERROR: Save Subject");
-
-                        super.onPositive(dialog);
                     }
 
                     @Override
                     public void onNegative(MaterialDialog dialog) {
                         super.onNegative(dialog);
+                        dialog.dismiss();
                     }
                 }).build();
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE| WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
