@@ -53,20 +53,20 @@ public class SlideMenuTest extends ActivityInstrumentationTestCase2 {
     public void testSlide(){
         solo.waitForActivity(MainActivity.class);
 
-        solo.drag(0, 400, 300, 300, 1);
+        solo.drag(0, 400, 300, 300, 10);
         solo.waitForView(solo.getView(R.id.drawerLayout));
         solo.sleep(5000);
         assertEquals("Slide Menu Closed", true, slideMenu.isDrawerOpen(mRelativeDrawer));
 
-        solo.drag(300, 0, 300, 300, 1);
+        solo.drag(400, 0, 300, 300, 10);
         solo.sleep(5000);
         assertEquals("Slide Menu Open", false, slideMenu.isDrawerOpen(mRelativeDrawer));
 
-        solo.drag(300, 300, 300, 0, 1);
+        solo.drag(300, 300, 300, 0, 10);
         solo.sleep(2000);
         assertEquals("Slide Menu Open", false, slideMenu.isDrawerOpen(mRelativeDrawer));
 
-        solo.drag(300, 300, 50, 300, 1);
+        solo.drag(300, 300, 50, 300, 10);
         solo.sleep(2000);
         assertEquals("Slide Menu Open", false, slideMenu.isDrawerOpen(mRelativeDrawer));
 

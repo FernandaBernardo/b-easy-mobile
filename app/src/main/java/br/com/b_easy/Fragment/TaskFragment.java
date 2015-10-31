@@ -9,6 +9,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -71,6 +74,7 @@ public class TaskFragment extends Fragment implements DatePickerDialog.OnDateSet
         Log.d("SaveState", "OnCreateView");
 
         //setRetainInstance(true);
+        setHasOptionsMenu(true);
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -434,7 +438,7 @@ public class TaskFragment extends Fragment implements DatePickerDialog.OnDateSet
     public void createDialogAddSubject(){
 
         MaterialDialog dialog =  new MaterialDialog.Builder(getContext())
-                .title("Adicionar MatériaX")
+                .title("Adicionar Matéria")
                 .customView(R.layout.fragment_subject_create, true)
                 .positiveText("Concluir")
                 .negativeText("Cancelar")
@@ -472,6 +476,94 @@ public class TaskFragment extends Fragment implements DatePickerDialog.OnDateSet
                     }
                 }).build();
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE| WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        dialog.show();
+    }
+
+    public void createDialogEditSubject(){
+
+        MaterialDialog dialog =  new MaterialDialog.Builder(getContext())
+                .title("Adicionar Matéria")
+                .customView(R.layout.fragment_subject_create, true)
+                .positiveText("Concluir")
+                .negativeText("Cancelar")
+                .negativeColorRes(R.color.secondaryTextColor)
+                .autoDismiss(false)
+                .callback(new MaterialDialog.ButtonCallback() {
+                    @Override
+                    public void onPositive(MaterialDialog dialog) {
+
+                        boolean status = false;
+
+                        String sName = ((EditText) dialog.findViewById(R.id.etTitleFragmentSubjectCreate)).getText().toString();
+
+                        if (sName == null || sName.trim().equals("")) {
+                            Toast.makeText(getContext(), "Invalid Subject Name", Toast.LENGTH_SHORT).show();
+                            return;
+                        } else {
+                            subject.setName(sName);
+                            status = ((MainActivity) getActivity()).updateSubject(subject);
+
+                            if (status) {
+                                Log.d("DataBase", "SUCCESS: Saved Subject");
+                                Intent i = new Intent(getContext(),MainActivity.class);
+                                i.putExtras(createBundleState());
+                                getActivity().startActivity(i);
+                                getActivity().finish();
+                            } else
+                                Log.e("DataBase", "ERROR: Save Subject");
+
+                            dialog.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onNegative(MaterialDialog dialog) {
+                        super.onNegative(dialog);
+                        dialog.dismiss();
+                    }
+                }).build();
+
+        ((EditText) dialog.findViewById(R.id.etTitleFragmentSubjectCreate)).setText(subject.getName());
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        dialog.show();
+    }
+
+    public void deleteDialogEditSubject(){
+
+        MaterialDialog dialog =  new MaterialDialog.Builder(getContext())
+                .content("Deseja deletar a matéria " + subject.getName() + " juntamente com suas tarefas ? ")
+                .positiveText("Concluir")
+                .negativeText("Cancelar")
+                .negativeColorRes(R.color.secondaryTextColor)
+                .autoDismiss(false)
+                .callback(new MaterialDialog.ButtonCallback() {
+                    @Override
+                    public void onPositive(MaterialDialog dialog) {
+
+                        boolean status = false;
+
+                            status = ((MainActivity) getActivity()).deleteSubject(subject);
+
+                            if (status) {
+                                Log.d("DataBase", "SUCCESS: Saved Subject");
+                                Intent i = new Intent(getContext(),MainActivity.class);
+                                getActivity().startActivity(i);
+                                getActivity().finish();
+                            } else
+                                Log.e("DataBase", "ERROR: Save Subject");
+
+                            dialog.dismiss();
+
+                    }
+
+                    @Override
+                    public void onNegative(MaterialDialog dialog) {
+                        super.onNegative(dialog);
+                        dialog.dismiss();
+                    }
+                }).build();
+
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         dialog.show();
     }
 
@@ -532,6 +624,30 @@ public class TaskFragment extends Fragment implements DatePickerDialog.OnDateSet
 
     public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
         Toast.makeText(getContext(), "new date:" + year + "-" + month + "-" + day, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_task, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id){
+            case R.id.editItemMenuFragment :
+                Toast.makeText(getContext(), "Edit Clicked",Toast.LENGTH_SHORT).show();
+                createDialogEditSubject();
+                return true;
+            case R.id.deleteItemMenuFragment:
+                Toast.makeText(getContext(), "Delete Clicked",Toast.LENGTH_SHORT).show();
+                deleteDialogEditSubject();
+                return true;
+            default:
+                 return super.onOptionsItemSelected(item);
+        }
+
     }
 
     @Override

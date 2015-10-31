@@ -20,6 +20,8 @@
         <item name="android:colorBackground">@color/primaryColor</item>
         <item name="android:popupBackground">@color/primaryColor</item>
         <item name="android:textColor">#FFF</item>
+        <item name="android:icon">@color/white</item>
+
 
     </style>
 

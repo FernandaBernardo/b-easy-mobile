@@ -11,7 +11,8 @@
     <string name="next">next</string>
     <string name="title_activity_base_nav_drawer">BaseNavDrawerActivity</string>
 
-
+    <string name="menu_item.edit">Edit</string>
+    <string name="menu_item.delete">Delete</string>
 
     <!--Create Task-->
     <string name="createTask.titulo">Título:</string>

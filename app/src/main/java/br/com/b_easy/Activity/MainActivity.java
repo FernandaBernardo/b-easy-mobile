@@ -40,8 +40,8 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
     private int INITIAL_INDEX_TASKS;
     private int FINAL_INDEX_TASKS;
 
-    private final String TAG_HOME = "HOME";
-    private final String TAG_TASK = "TASK";
+    public static final String TAG_HOME = "HOME";
+    public static final String TAG_TASK = "TASK";
     private String ATUAL_TAG;
     private final String SUBJECT_KEY = "NEW_SUBJECT";
     private Fragment fragment;
@@ -187,12 +187,42 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
             SubjectDao subjectDao = new SubjectDao(Util.openBD().getConnectionSource());
 
             statusQ2 = subjectDao.create(nSubject);
-            statusQ1 = userSubjectDao.create(new UserSubjectBD(this.user,nSubject));
+            statusQ1 = userSubjectDao.create(new UserSubjectBD(this.user, nSubject));
 
         }catch (SQLException e) {
             e.printStackTrace();
         }
         return (statusQ1 == 1 && statusQ2 == 1) ? true : false;
+    }
+
+    public boolean updateSubject(SubjectBD nSubject){
+
+        if(user == null) return false;
+
+        int statusQ1 = 0;
+
+        try {
+            SubjectDao subjectDao = new SubjectDao(Util.openBD().getConnectionSource());
+            statusQ1 = subjectDao.update(nSubject);
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (statusQ1 == 1 ) ? true : false;
+    }
+
+    public boolean deleteSubject(SubjectBD nSubject){
+
+        if(user == null) return false;
+
+        int statusQ1 = 0;
+
+        try {
+            SubjectDao subjectDao = new SubjectDao(Util.openBD().getConnectionSource());
+            statusQ1 = subjectDao.delete(nSubject);
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (statusQ1 == 1 ) ? true : false;
     }
 
     /****************************************
