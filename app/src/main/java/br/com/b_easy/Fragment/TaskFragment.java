@@ -3,11 +3,9 @@ package br.com.b_easy.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,12 +19,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.fourmob.datetimepicker.date.DatePickerDialog;
-import com.melnykov.fab.FloatingActionButton;
 
-import org.w3c.dom.Text;
+
+import com.melnykov.fab.FloatingActionButton;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -46,7 +48,7 @@ import br.com.b_easy.customView.SlidingTabLayout;
 /**
  * Created by Tiago on 9/12/2015.
  */
-public class TaskFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
+public class TaskFragment extends Fragment implements DatePickerDialog.OnDateSetListener{
 
     private SubjectBD subject;
     private TextView tvTabToDo, tvTabDoing, tvTabDone;
@@ -59,6 +61,7 @@ public class TaskFragment extends Fragment implements DatePickerDialog.OnDateSet
     private RecyclerView rvToDo, rvDoing, rvDone;
     private TaskAdapter adTodo, adDoing, adDone;
     private FloatingActionButton fabTodo, fabDoing, fabDone;
+    private EditText datePickerHelper;
 
     private final String STATE_CURRENT_LAYOUT = "currentLayout";
     public static final String STATE_NEW_ACTIVITY = "newActivity";
@@ -340,7 +343,7 @@ public class TaskFragment extends Fragment implements DatePickerDialog.OnDateSet
         return false;
     }
 
-    public void createDialogTask(Util.Task_Enum cod, int index){
+    public void createDialogUpdateTask(Util.Task_Enum cod, int index){
 
         final TaskBD aux;
         final TaskAdapter adapter;
@@ -369,23 +372,49 @@ public class TaskFragment extends Fragment implements DatePickerDialog.OnDateSet
                 .positiveText("Concluir")
                 .negativeText("Cancelar")
                 .negativeColorRes(R.color.secondaryTextColor)
-                .callback(new MaterialDialog.ButtonCallback(){
+                .autoDismiss(false)
+                .callback(new MaterialDialog.ButtonCallback() {
                     @Override
                     public void onPositive(MaterialDialog dialog) {
-                        String sName = ((EditText)dialog.findViewById(R.id.etTitleFragmentTaskCreate)).getText().toString();
-                        String sDesc = ((EditText)dialog.findViewById(R.id.etDescritionFragmentTaskCreate)).getText().toString();
-                        String sRel  = ((EditText)dialog.findViewById(R.id.etRelevanciaFragmentTaskCreate)).getText().toString();
+                        String sName = ((EditText) dialog.findViewById(R.id.etTitleFragmentTaskCreate)).getText().toString();
+                        String sDesc = ((EditText) dialog.findViewById(R.id.etDescritionFragmentTaskCreate)).getText().toString();
+                        String sRel = ((EditText) dialog.findViewById(R.id.etRelevanciaFragmentTaskCreate)).getText().toString();
+                        String sDate = ((EditText) dialog.findViewById(R.id.etDateFragmentTaskCreate)).getText().toString();
+                        Date date = null;
 
-                        Log.d("CreateTask", "Name: " + sName + " Descricao: " + sDesc + " Relevancia: " + sRel);
+                        if (sName.trim().length() == 0) {
+                            Toast.makeText(getContext(), "Invalid Task Name", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
 
-                        if(aux != null && adapter != null){
+                        if (sName.trim().length() != 0) {
+                            boolean exception = false;
+                            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                            try {
+                                date = formatter.parse(sDate);
+                            } catch (ParseException e) {
+                                exception = true;
+                            }
+
+                            if (exception) {
+                                Toast.makeText(getContext(), "Invalid Date Format", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+
+                        } else {
+                            Toast.makeText(getContext(), "Invalid Date Format", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        if (aux != null && adapter != null) {
                             aux.setTitle(sName);
                             aux.setDescription(sDesc);
                             aux.setRelevance(sRel);
+                            aux.setFinalDate(date);
 
                             try {
                                 int status = new TaskDao(Util.openBD().getConnectionSource()).update(aux);
-                                if(status == 1)
+                                if (status == 1)
                                     adapter.notifyDataSetChanged();
                             } catch (SQLException e) {
                                 e.printStackTrace();
@@ -394,10 +423,8 @@ public class TaskFragment extends Fragment implements DatePickerDialog.OnDateSet
 
                         }
 
-                        // getData
-                        // createObject
-
                         super.onPositive(dialog);
+                        dialog.dismiss();
                     }
 
                     @Override
@@ -405,6 +432,18 @@ public class TaskFragment extends Fragment implements DatePickerDialog.OnDateSet
                         super.onNegative(dialog);
                     }
                 }).build();
+        datePickerHelper = (EditText) dialog.findViewById(R.id.etDateFragmentTaskCreate);
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        datePickerHelper.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar now = Calendar.getInstance();
+                now.setTime(aux.getFinalDate());
+                Log.d("DatePicker","Onclick");
+                DatePickerDialog dpd = DatePickerDialog.newInstance(TaskFragment.this, now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
+                dpd.show(TaskFragment.this.getActivity().getFragmentManager(), "Datepickerdialog");
+            }
+        });
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE| WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         dialog.show();
 
@@ -528,7 +567,7 @@ public class TaskFragment extends Fragment implements DatePickerDialog.OnDateSet
         dialog.show();
     }
 
-    public void deleteDialogEditSubject(){
+    public void createDialogDeleteSubject(){
 
         MaterialDialog dialog =  new MaterialDialog.Builder(getContext())
                 .content("Deseja deletar a matéria " + subject.getName() + " juntamente com suas tarefas ? ")
@@ -579,32 +618,40 @@ public class TaskFragment extends Fragment implements DatePickerDialog.OnDateSet
                     @Override
                     public void onPositive(MaterialDialog dialog) {
 
-                        final Calendar calendar = Calendar.getInstance();
-
-                        final DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(TaskFragment.this, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), true);
-
                         String sName = ((EditText) dialog.findViewById(R.id.etTitleFragmentTaskCreate)).getText().toString();
                         String sDesc = ((EditText) dialog.findViewById(R.id.etDescritionFragmentTaskCreate)).getText().toString();
                         String sRel = ((EditText) dialog.findViewById(R.id.etRelevanciaFragmentTaskCreate)).getText().toString();
-                        TextView tvDate = (TextView) dialog.findViewById(R.id.etDateFragmentTaskCreate);
+                        String sDate = ((EditText) dialog.findViewById(R.id.etDateFragmentTaskCreate)).getText().toString();
+                        Date date = null;
 
-                        if (sName == null || sName.toString().equals("")) {
+                        if (sName == null || sName.toString().trim().length() == 0) {
                             Toast.makeText(getContext(), "Invalid Task Name", Toast.LENGTH_SHORT).show();
                             return;
                         }
 
-                        tvDate.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                datePickerDialog.setYearRange(1985, 2028);
-                                datePickerDialog.setCloseOnSingleTapDay(true);
-                                // datePickerDialog.show()
+                        if(sDate != null && sName.toString().trim().length() != 0){
+                            boolean exception = false;
+                            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                            try {
+                                date = formatter.parse(sDate);
+                            } catch (ParseException e) {
+                                exception = true;
                             }
-                        });
+
+                            if(exception){
+                                Toast.makeText(getContext(), "Invalid Date Format", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+
+                        }
+                        else{
+                            Toast.makeText(getContext(), "Invalid Date Format", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
 
                         Log.d("CreateTask", "Name: " + sName + " Descricao: " + sDesc + " Relevancia: " + sRel);
 
-                        boolean success = createTask(null, tabVisible, new TaskBD(sName, sDesc, sRel, tabVisible.toString(), new Date(), subject));
+                        boolean success = createTask(null, tabVisible, new TaskBD(sName, sDesc, sRel, tabVisible.toString(), date, subject));
 
                         Log.d("Database", "Task Created: " + (success ? "SUCCESS" : "FAILED"));
 
@@ -618,13 +665,26 @@ public class TaskFragment extends Fragment implements DatePickerDialog.OnDateSet
                         dialog.dismiss();
                     }
                 }).build();
-        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE|WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+                    datePickerHelper = (EditText) dialog.findViewById(R.id.etDateFragmentTaskCreate);
+                    dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+                    datePickerHelper.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Calendar now = Calendar.getInstance();
+                            Log.d("DatePicker","Onclick");
+                            DatePickerDialog dpd = DatePickerDialog.newInstance(TaskFragment.this, now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
+                            dpd.show(TaskFragment.this.getActivity().getFragmentManager(), "Datepickerdialog");
+                        }
+                    });
         dialog.show();
     }
 
-    public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
-        Toast.makeText(getContext(), "new date:" + year + "-" + month + "-" + day, Toast.LENGTH_LONG).show();
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+        if(datePickerHelper != null)
+            datePickerHelper.setText(dayOfMonth + "/" + (++monthOfYear) + "/" + year);
     }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -642,7 +702,7 @@ public class TaskFragment extends Fragment implements DatePickerDialog.OnDateSet
                 return true;
             case R.id.deleteItemMenuFragment:
                 Toast.makeText(getContext(), "Delete Clicked",Toast.LENGTH_SHORT).show();
-                deleteDialogEditSubject();
+                createDialogDeleteSubject();
                 return true;
             default:
                  return super.onOptionsItemSelected(item);

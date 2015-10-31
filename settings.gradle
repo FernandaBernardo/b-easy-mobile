@@ -1,1 +1,1 @@
-include ':app', ':nLivio', ':nLivioDemo', ':FABLibray', ':FABDemo', ':materialDialog', ':commons', ':sample', ':core', ':datetimepicker-library'
+include ':app', ':nLivio', ':nLivioDemo', ':FABLibray', ':FABDemo', ':materialDialog', ':commons', ':sample', ':core'

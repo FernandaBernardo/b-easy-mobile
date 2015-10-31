@@ -21,18 +21,19 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:22.2.1'
+
     compile 'com.mcxiaoke.volley:library:1.0.19'
     compile project(':nLivio')
     compile project(':FABLibray')
-    compile 'com.android.support:cardview-v7:22.2.1'
-    compile 'com.android.support:recyclerview-v7:22.2.1'
-    compile 'com.android.support:gridlayout-v7:23.0.1'
+    compile 'com.android.support:appcompat-v7:23.1.0'
+    compile 'com.android.support:cardview-v7:23.1.0'
+    compile 'com.android.support:recyclerview-v7:23.1.0'
     compile project(':core')
     compile project(':commons')
     compile 'com.j256.ormlite:ormlite-android:4.48'
     compile 'com.j256.ormlite:ormlite-core:4.48'
-    compile project(':datetimepicker-library')
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'com.jayway.android.robotium:robotium-solo:5.5.2'
+    compile 'com.wdullaer:materialdatetimepicker:1.5.4'
+
 }

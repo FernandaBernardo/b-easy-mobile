@@ -99,7 +99,7 @@
         android:textColor="@color/primaryTextColor"
         android:textSize="@dimen/md_fontsize_subhead" />
 
-    <TextView
+    <EditText
         android:id="@+id/etDateFragmentTaskCreate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -111,5 +111,8 @@
         android:gravity="center"
         android:hint="Data Final"
         android:textColor="@color/primaryTextColor"
+        android:inputType="none"
+        android:editable="false"
+        android:focusable="false"
         android:textSize="@dimen/md_fontsize_subhead" />
 </RelativeLayout>

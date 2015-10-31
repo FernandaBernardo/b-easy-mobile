@@ -103,7 +103,7 @@ public class TaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(mContext, "Click on Edit", Toast.LENGTH_SHORT).show();
-                    fragment.createDialogTask(mCod,position);
+                    fragment.createDialogUpdateTask(mCod,position);
                 }
             });
 
