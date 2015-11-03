@@ -5,6 +5,9 @@
     <string name="app_font_bold">sans-serif-medium</string>
     <string name="app_font_light">sans-serif-light</string>
 
+    <string name="facebook_app_id">sss</string>
+
+
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -58,4 +61,35 @@
     <string name="trash">Trash</string>
     <string name="spam">Spam</string>
     <string name="settings">Settings</string>
+
+    <string name="button.entrar">ENTRAR</string>
+    <string name="button.criar_conta">CRIAR CONTA</string>
+
+    <!--Login-->
+    <string name="login.nome">Nome</string>
+    <string name="login.sobrenome">Sobrenome</string>
+    <string name="login.email">Email</string>
+    <string name="login.senha">Senha</string>
+    <string name="login.nascimento">Nascimento</string>
+    <string name="login.sexo_masculino">Masculino</string>
+    <string name="login.sexo_feminino">Feminino</string>
+    <string name="login.confirme_senha">Confirme a senha</string>
+    <string name="login.esqueceu_senha">Esqueceu a senha ?</string>
+    <string name="login.nao_possue_conta">Não possui conta ?</string>
+    <string name="login.cadastre">Cadastre-se agora.</string>
+    <string name="login.cadastre_facebook">Cadastre-se com o Facebook</string>
+    <string name="login.termo_de_uso">Termos de uso e privacidade</string>
+    <string name="login.dia">Dia</string>
+    <string name="login.mes">Mês</string>
+    <string name="login.ano">Ano</string>
+    <string name="login.erro.email">Email inválido.</string>
+    <string name="login.erro.senha">Senha inválida.</string>
+    <string name="login.erro.login">Email e senha não coincidem.</string>
+    <string name="login.erro.nome">Nome inválido.</string>
+    <string name="login.erro.sobrenome">Sobrenome inválido.</string>
+    <string name="login.erro.senhaConfirmacao">As senhas não coincidiem.</string>
+    <string name="login.erro.nascimento">Data inválida.</string>
+    <string name="login.msg">Complete com suas informações pessoais para podermos criar sua conta</string>
+
+
 </resources>

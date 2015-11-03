@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <RelativeLayout
+        android:layout_width="@dimen/login_width"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/padding_big_views"
+        android:layout_marginTop="@dimen/padding_gigantic_views">
+
+
+        <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignBottom="@+id/ivLogoFragmentLogin"-->
+        <!--android:layout_alignTop="@+id/ivLogoFragmentLogin"-->
+        <!--android:background="@color/azulBackground" />-->
+
+        <ImageView
+            android:id="@+id/ivLogoFragmentLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding_big_views"
+            android:layout_marginLeft="@dimen/padding_small_views"
+            android:layout_marginRight="@dimen/padding_small_views"
+            android:layout_marginTop="@dimen/padding_medium_views"
+            android:adjustViewBounds="true"
+
+            android:padding="@dimen/padding_gigantic_views"
+            android:scaleType="fitCenter"
+            android:src="@drawable/logo_branco" />
+
+
+        <RelativeLayout
+            android:id="@+id/rlContainerEmailFragmentLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ivLogoFragmentLogin"
+            android:background="@drawable/rectangule_white"
+            android:paddingLeft="@dimen/padding_medium_views"
+            android:paddingRight="@dimen/padding_medium_views"
+
+            >
+
+            <ImageView
+                android:id="@+id/ivEmailFragmentLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/login_field_height"
+                android:layout_centerVertical="true"
+                android:paddingRight="@dimen/padding_small_views"
+                android:src="@drawable/ic_email_white_24dp"
+                android:tint="@color/gray_light" />
+
+            <EditText
+                android:id="@+id/etEmailFragmentLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/ivEmailFragmentLogin"
+                android:background="@null"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:hint="@string/login.email"
+                android:singleLine="true"
+                android:textColor="@color/primaryTextColor"
+                android:textSize="@dimen/fontsize_conteudo" />
+
+            <TextView
+                android:id="@+id/tvEmailErroFragmentLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/etEmailFragmentLogin"
+                android:layout_alignParentBottom="true"
+                android:text="@string/login.erro.email"
+                android:textColor="@color/primaryColor"
+                android:textSize="@dimen/fontsize_pequeno"
+                android:visibility="invisible" />
+
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/viewDividerEmailFragmentLogin"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_size"
+            android:layout_below="@+id/rlContainerEmailFragmentLogin"
+            android:background="@color/dividerColor" />
+
+        <RelativeLayout
+            android:id="@+id/rlContainerSenhaFragmentLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/viewDividerEmailFragmentLogin"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/rectangule_white"
+            android:paddingLeft="@dimen/padding_medium_views"
+            android:paddingRight="@dimen/padding_medium_views"
+
+            >
+
+            <ImageView
+                android:id="@+id/ivSenhaFragmentLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/login_field_height"
+                android:layout_centerVertical="true"
+                android:paddingRight="@dimen/padding_small_views"
+                android:src="@drawable/ic_lock_white_24dp"
+                android:tint="@color/gray_light" />
+
+            <EditText
+                android:id="@+id/etSenhaFragmentLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/ivSenhaFragmentLogin"
+                android:background="@null"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:hint="@string/login.senha"
+                android:inputType="textPassword"
+                android:singleLine="true"
+                android:textColor="@color/primaryTextColor"
+                android:textSize="@dimen/fontsize_conteudo" />
+
+            <TextView
+                android:id="@+id/tvSenhaErroFragmentLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/etSenhaFragmentLogin"
+                android:layout_alignParentBottom="true"
+                android:text="@string/login.erro.senha"
+                android:textColor="@color/primaryColor"
+                android:textSize="@dimen/fontsize_pequeno"
+                android:visibility="invisible" />
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/tvEsqueceuSenhaFragmentLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/rlContainerEmailFragmentLogin"
+            android:layout_below="@+id/rlContainerSenhaFragmentLogin"
+            android:clickable="true"
+            android:fontFamily="sans-serif-light"
+            android:padding="@dimen/padding_medium_views"
+            android:text="@string/login.esqueceu_senha"
+            android:textColor="@color/white"
+            android:textSize="@dimen/fontsize_pequeno" />
+
+        <TextView
+            android:id="@+id/tvSemContaFragmentLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/rlContainerEmailFragmentLogin"
+            android:layout_below="@+id/tvEsqueceuSenhaFragmentLogin"
+            android:fontFamily="sans-serif"
+            android:text="@string/login.nao_possue_conta"
+            android:textColor="@color/white"
+            android:textSize="@dimen/fontsize_pequeno" />
+
+        <TextView
+            android:id="@+id/tvCadastroFragmentLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/rlContainerEmailFragmentLogin"
+            android:layout_below="@+id/tvSemContaFragmentLogin"
+            android:clickable="true"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="top"
+            android:paddingBottom="@dimen/padding_medium_views"
+            android:paddingRight="@dimen/padding_medium_views"
+            android:paddingTop="@dimen/padding_small_views"
+            android:text="@string/login.cadastre"
+            android:textColor="@color/white"
+            android:textSize="@dimen/fontsize_conteudo"
+
+            />
+
+        <TextView
+            android:id="@+id/tvEntrarFragmentLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tvCadastroFragmentLogin"
+            android:layout_alignLeft="@+id/tvEsqueceuSenhaFragmentLogin"
+            android:layout_alignRight="@+id/rlContainerEmailFragmentLogin"
+            android:layout_alignTop="@+id/tvSemContaFragmentLogin"
+            android:layout_below="@+id/tvSemContaFragmentLogin"
+            android:background="@drawable/button_red"
+            android:clickable="true"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:padding="@dimen/padding_divider"
+            android:text="@string/button.entrar"
+            android:textColor="@color/white"
+            android:textSize="@dimen/fontsize_conteudo"
+
+            />
+
+        <TextView
+            android:id="@+id/tvFacebookFragmentLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/rlContainerEmailFragmentLogin"
+            android:layout_alignRight="@+id/rlContainerEmailFragmentLogin"
+            android:layout_below="@+id/tvEntrarFragmentLogin"
+            android:layout_marginBottom="@dimen/padding_big_views"
+            android:layout_marginTop="@dimen/padding_medium_views"
+            android:background="@drawable/button_azul"
+            android:clickable="true"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:padding="@dimen/padding_medium_big_views"
+            android:text="@string/login.cadastre_facebook"
+            android:textColor="@color/white"
+            android:textSize="@dimen/fontsize_conteudo"
+
+            />
+
+    </RelativeLayout>
+</ScrollView>

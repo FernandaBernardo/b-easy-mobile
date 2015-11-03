@@ -35,5 +35,6 @@ dependencies {
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'com.jayway.android.robotium:robotium-solo:5.5.2'
     compile 'com.wdullaer:materialdatetimepicker:1.5.4'
+    compile 'com.facebook.android:facebook-android-sdk:4.7.0'
 
 }
