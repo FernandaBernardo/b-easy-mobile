@@ -29,7 +29,6 @@ import org.json.JSONObject;
 import br.com.b_easy.Activity.MainActivity;
 import br.com.b_easy.DataBaseModel.SubjectBD;
 import br.com.b_easy.R;
-import br.com.b_easy.Volley.VolleySingleton;
 import br.com.b_easy.pojo.ListJson;
 import br.com.b_easy.pojo.TesteJson;
 
@@ -58,41 +57,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        RequestQueue queue = VolleySingleton.getInstance().getRequestQueue();
-        String url = "http://jsonplaceholder.typicode.com/posts/1";
-
-//        JsonObjectRequest jsObjRequest = new JsonObjectRequest
-//                (Request.Method.GET, url, (String) null, new Response.Listener<JSONObject>() {
-//
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//                        //Toast.makeText(getContext(), "" + response , Toast.LENGTH_LONG ).show();
-//                        Log.d("Json", response.toString());
-//                        parseJSONResponse(response);
-//                    }
-//                }, new Response.ErrorListener() {
-//
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        Toast.makeText(getContext(), "ERRO VOLLEY" , Toast.LENGTH_LONG ).show();
-//
-//                    }
-//                });
-
-        StringRequest jsObjRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.d("Json", response);
-                parseJSONString(response);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("Json", "ERRO");
-            }
-        });
-
-    queue.add(jsObjRequest);
 
         return v;
     }

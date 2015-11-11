@@ -15,7 +15,7 @@ public class DatabaseManager {
     static private DatabaseHelper helper;
 
     public DatabaseManager(){
-        this.helper = new DatabaseHelper(ApplicationClass.getContext());
+        this.helper = new DatabaseHelper(ApplicationClass.getInstance());
     }
 
     public static DatabaseHelper getHelper() {

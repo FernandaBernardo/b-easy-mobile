@@ -129,8 +129,8 @@ public class FragmentLogin extends Fragment {
                             @Override
                             public void onCompleted(JSONObject object, GraphResponse response) {
 
-                                /*Usuario user = decodeJsonFacebook(response);
-                                Bundle bundle = new Bundle();
+                                decodeJsonFacebook(response);
+                                /*Bundle bundle = new Bundle();
                                 bundle.putSerializable(BUNDLE_USER, user);*/
                                 ((LoginActivity)getActivity()).trocaFragment(LoginActivity.TAG_CADASTRO, null);
 
@@ -168,8 +168,8 @@ public class FragmentLogin extends Fragment {
 
     }
 
-    /*public Usuario decodeJsonFacebook(GraphResponse response){
-        Usuario user = new Usuario();
+    public String decodeJsonFacebook(GraphResponse response){
+        //Usuario user = new Usuario();
 
         Log.v("Facebook","response: " + response.toString());
         JSONObject info = response.getJSONObject();
@@ -211,15 +211,15 @@ public class FragmentLogin extends Fragment {
             e.printStackTrace();
         }
 
-        user.setEmail(email);
-        user.setNome(name);
-        user.setSexo(gender);
-        user.setNascimento(birthday);
-        user.setFacebookId(idFace);
+//        user.setEmail(email);
+//        user.setNome(name);
+//        user.setSexo(gender);
+//        user.setNascimento(birthday);
+//        user.setFacebookId(idFace);
 
-        return user;
+        return null;
 
-    }*/
+    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
