@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import br.com.b_easy.Client.Status;
 import br.com.b_easy.Client.User;
 import br.com.b_easy.DAO.SubjectDao;
 import br.com.b_easy.DAO.TaskDao;
@@ -25,7 +26,10 @@ import br.com.b_easy.DataBaseModel.SubjectBD;
 import br.com.b_easy.DataBaseModel.TaskBD;
 import br.com.b_easy.DataBaseModel.UserBD;
 import br.com.b_easy.Model.Subject;
-import br.com.b_easy.Model.Task;
+
+import br.com.b_easy.Client.Task;
+
+import static br.com.b_easy.Client.Status.*;
 
 /**
  * Created by Tiago on 9/20/2015.
@@ -33,7 +37,7 @@ import br.com.b_easy.Model.Task;
 public class Util {
 
     public enum Task_Enum{
-        DO_TO(0,"TODO"), DOING(2,"DOING"), DONE(1,"DONE");
+        DO_TO(0,"TODO"), DOING(1,"DOING"), DONE(2,"DONE");
         private final int cod;
         private final String name;
         Task_Enum(int cod,String name){this.cod = cod; this.name = name;}
@@ -54,20 +58,6 @@ public class Util {
             v.addItemDecoration(new DividerItemDecoration(context, null, false, true));
     }
 
-    public static List<Task> getListTasks(){
-        return new ArrayList<Task>(){
-            {
-                add(new Task(1L, "Implementacao da RecycleView, Adapter, Fragments, XML Resources", "", "","Task #1", new Date()));
-                add(new Task(2L, "Description #2", "", "","Task #2", new Date()));
-                add(new Task(3L, "Description #3", "", "","Task #3", new Date()));
-                add(new Task(4L, "Description #4", "", "","Task #4", new Date()));
-                add(new Task(5L, "Description #5", "", "","Task #5", new Date()));
-                add(new Task(6L, "Description #6", "", "","Task #6", new Date()));
-                add(new Task(7L, "Description #7", "", "","Task #7", new Date()));
-                add(new Task(8L, "Description #8", "", "","Task #8", new Date()));
-            }
-        };
-    }
 
     public static List<Subject> getListSubject(){
         return new ArrayList<Subject>(){
@@ -188,7 +178,15 @@ public class Util {
             taskBD.setRelevance(task.getRelevance());
             taskBD.setDescription(task.getDescription());
             taskBD.setIdGlobal(task.getId());
-            taskBD.setStatus(task.getStatus());
+
+            switch (task.getStatus()){
+                case TODO: taskBD.setStatus(Task_Enum.DO_TO.name);
+                    break;
+                case DOING: taskBD.setStatus(Task_Enum.DOING.name);
+                    break;
+                case DONE: taskBD.setStatus(Task_Enum.DONE.name);
+                    break;
+            }
 
             return taskBD;
 
