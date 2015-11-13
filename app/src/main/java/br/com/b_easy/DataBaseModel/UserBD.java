@@ -13,13 +13,15 @@ import java.io.Serializable;
 @DatabaseTable(tableName = "user")
 public class UserBD implements Serializable {
 
+    public static final String USER_EMAIL = "email";
+
     @DatabaseField(generatedId=true)
     private long id;
 
     @DatabaseField
     private String name;
 
-    @DatabaseField
+    @DatabaseField(columnName = USER_EMAIL)
     private String email;
 
     @DatabaseField

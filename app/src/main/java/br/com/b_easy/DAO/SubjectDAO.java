@@ -7,6 +7,7 @@ import com.j256.ormlite.support.ConnectionSource;
 import java.sql.SQLException;
 import java.util.List;
 
+import br.com.b_easy.Client.Subject;
 import br.com.b_easy.DataBaseModel.SubjectBD;
 import br.com.b_easy.DataBaseModel.UserSubjectBD;
 
@@ -29,6 +30,22 @@ public class SubjectDao extends BaseDaoImpl<SubjectBD, Long> {
             QueryBuilder<SubjectBD,Long> subjectQb = this.queryBuilder();
             userSubjectQb.where().eq(UserSubjectBD.USER_ID_FIELD_NAME, userId);
             return subjectQb.join(userSubjectQb).query();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public SubjectBD getSubjectByIdGlogal(long idGlobal){
+        UserSubjectDao userSubjectDao = null;
+        try {
+            SubjectDao subjectDao = new SubjectDao(this.getConnectionSource());
+            QueryBuilder<SubjectBD, Long> taskQb = this.queryBuilder();
+            taskQb.where().eq(SubjectBD.SUBJECT_ID_GLOBAL,idGlobal);
+            List<SubjectBD> list = taskQb.query();
+            if(!list.isEmpty()) return list.get(0);
+            else return null;
         } catch (SQLException e) {
             e.printStackTrace();
         }

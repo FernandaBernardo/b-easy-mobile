@@ -18,11 +18,16 @@ import br.com.b_easy.Model.Task;
 @DatabaseTable(tableName = "subject")
 public class SubjectBD implements Serializable {
 
+    public static final String SUBJECT_ID_GLOBAL = "id_global";
+
     @DatabaseField(generatedId=true)
     private long id;
 
     @DatabaseField
     private String name;
+
+    @DatabaseField(columnName = SUBJECT_ID_GLOBAL)
+    private long idGlobal;
 
     @ForeignCollectionField
     private ForeignCollection<TaskBD> tasks;
@@ -53,6 +58,14 @@ public class SubjectBD implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public long getIdGlobal() {
+        return idGlobal;
+    }
+
+    public void setIdGlobal(long idGlobal) {
+        this.idGlobal = idGlobal;
     }
 
     public ForeignCollection<TaskBD> getTasks() {

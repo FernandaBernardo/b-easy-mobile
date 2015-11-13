@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -26,6 +29,10 @@ import java.util.Arrays;
 
 import br.com.b_easy.Activity.LoginActivity;
 import br.com.b_easy.R;
+import br.com.b_easy.Client.User;
+import br.com.b_easy.Util;
+import br.com.b_easy.Volley.JsonParser;
+import br.com.b_easy.Volley.Request;
 
 
 /**
@@ -38,6 +45,7 @@ public class FragmentLogin extends Fragment {
     private CallbackManager callbackManagerFacebook;
     private LoginButton facebookButton;
     private final String logClass = "FragmentLogin";
+    private MaterialDialog dialog;
 
     public static final String BUNDLE_USER = "USER";
 
@@ -103,7 +111,22 @@ public class FragmentLogin extends Fragment {
                 }
 
                 if(!erro) {
-                    //TODO REQUEST LOGIN SERVER
+                    User user = new User();
+                    user.setEmail(email);
+                    user.setPassword(Util.toMD5(senha));
+                    showProgressDialog(null, getString(R.string.conectando));
+                    Request.postDataJson(getString(R.string.url_login), JsonParser.objectToJson(user), new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            hideProgressDialog();
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            hideProgressDialog();
+                        }
+                    });
+
                 }
             }
         });
@@ -118,16 +141,27 @@ public class FragmentLogin extends Fragment {
 
         facebookButton.registerCallback(callbackManagerFacebook, new FacebookCallback<LoginResult>() {
             @Override
-            public void onSuccess(LoginResult loginResult) {
+            public void onSuccess(final LoginResult loginResult) {
                 Log.d(logClass,"Facebook Login " + loginResult.getAccessToken().getUserId());
-
-                //TODO CHECK IF USER ALREADY REGISTERED
 
                 GraphRequest request = GraphRequest.newMeRequest(
                         loginResult.getAccessToken(),
                         new GraphRequest.GraphJSONObjectCallback() {
                             @Override
                             public void onCompleted(JSONObject object, GraphResponse response) {
+                                Request.postDataJson(getString(R.string.url_login), JsonParser.objectToJson(loginResult.getAccessToken().getUserId()), new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        hideProgressDialog();
+                                    }
+                                }, new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        hideProgressDialog();
+                                    }
+                                });
+                                showProgressDialog(null, getString(R.string.conectando));
+
 
                                 decodeJsonFacebook(response);
                                 /*Bundle bundle = new Bundle();
@@ -219,6 +253,16 @@ public class FragmentLogin extends Fragment {
 
         return null;
 
+    }
+
+    private void showProgressDialog(String title, String content){
+        dialog = Util.buildProgressDialog(getContext(),title,content);
+        dialog.show();
+    }
+
+    private void hideProgressDialog(){
+        if(dialog != null)
+            dialog.dismiss();
     }
 
     @Override

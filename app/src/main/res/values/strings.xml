@@ -92,4 +92,11 @@
     <string name="login.msg">Complete com suas informações pessoais para podermos criar sua conta</string>
 
 
+    <!--URL-->
+    <string name="url.login">login</string>
+    <string name="url.loginFacebook">facebook/login</string>
+
+    <string name="conectando">Comunicando com o servidor ...</string>
+
+
 </resources>
