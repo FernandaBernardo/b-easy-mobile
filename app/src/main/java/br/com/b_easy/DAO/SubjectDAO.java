@@ -37,7 +37,8 @@ public class SubjectDao extends BaseDaoImpl<SubjectBD, Long> {
         return null;
     }
 
-    public SubjectBD getSubjectByIdGlogal(long idGlobal){
+    public SubjectBD getSubjectByIdGlogal(Long idGlobal){
+        if(idGlobal == null) return null;
         UserSubjectDao userSubjectDao = null;
         try {
             SubjectDao subjectDao = new SubjectDao(this.getConnectionSource());

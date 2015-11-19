@@ -16,6 +16,7 @@ public class Task {
     private Subject subject;
 
     public Long getId() {
+        if(id == null) return null;
         return id;
     }
     public void setId(Long id) {

@@ -25,9 +25,15 @@ import com.facebook.login.widget.LoginButton;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.SQLException;
 import java.util.Arrays;
 
 import br.com.b_easy.Activity.LoginActivity;
+import br.com.b_easy.Activity.MainActivity;
+import br.com.b_easy.DAO.UserDao;
+import br.com.b_easy.DataBase.DatabaseManager;
+import br.com.b_easy.DataBaseModel.UserBD;
+import br.com.b_easy.Preferences;
 import br.com.b_easy.R;
 import br.com.b_easy.Client.User;
 import br.com.b_easy.Util;
@@ -119,11 +125,26 @@ public class FragmentLogin extends Fragment {
                         @Override
                         public void onResponse(JSONObject response) {
                             hideProgressDialog();
+                            updateUserReferences(Util.getUser());
+                            startMainActivity();
                         }
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             hideProgressDialog();
+                            UserDao userDao = null;
+                            try {
+                                userDao = new UserDao(Util.openBD().getConnectionSource());
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
+                            UserBD userBD = userDao.getUserbyEmail("emanuelmissao@gmai.com");
+                            if(userBD != null){
+                                Preferences.getInstance().setUser(userBD);
+                                Log.d("database", "forced login");
+                            }
+                            else updateUserReferences(Util.getUser());
+                            startMainActivity();
                         }
                     });
 
@@ -149,24 +170,26 @@ public class FragmentLogin extends Fragment {
                         new GraphRequest.GraphJSONObjectCallback() {
                             @Override
                             public void onCompleted(JSONObject object, GraphResponse response) {
-                                Request.postDataJson(getString(R.string.url_login), JsonParser.objectToJson(loginResult.getAccessToken().getUserId()), new Response.Listener<JSONObject>() {
-                                    @Override
-                                    public void onResponse(JSONObject response) {
-                                        hideProgressDialog();
-                                    }
-                                }, new Response.ErrorListener() {
-                                    @Override
-                                    public void onErrorResponse(VolleyError error) {
-                                        hideProgressDialog();
-                                    }
-                                });
-                                showProgressDialog(null, getString(R.string.conectando));
+                                User user = new User();
+                                user.setFacebookId(loginResult.getAccessToken().getUserId());
+//                                Request.postDataJson(getString(R.string.url_login), JsonParser.objectToJson(user), new Response.Listener<JSONObject>() {
+//                                    @Override
+//                                    public void onResponse(JSONObject response) {
+//                                        hideProgressDialog();
+//                                    }
+//                                }, new Response.ErrorListener() {
+//                                    @Override
+//                                    public void onErrorResponse(VolleyError error) {
+//                                        hideProgressDialog();
+//                                    }
+//                                });
+//                                showProgressDialog(null, getString(R.string.conectando));
 
 
-                                decodeJsonFacebook(response);
-                                /*Bundle bundle = new Bundle();
-                                bundle.putSerializable(BUNDLE_USER, user);*/
-                                ((LoginActivity)getActivity()).trocaFragment(LoginActivity.TAG_CADASTRO, null);
+                                user = decodeJsonFacebook(response);
+                                Bundle bundle = new Bundle();
+                                bundle.putSerializable(BUNDLE_USER, user);
+                                ((LoginActivity)getActivity()).trocaFragment(LoginActivity.TAG_CADASTRO, bundle);
 
                             }
                         });
@@ -202,8 +225,8 @@ public class FragmentLogin extends Fragment {
 
     }
 
-    public String decodeJsonFacebook(GraphResponse response){
-        //Usuario user = new Usuario();
+    public User decodeJsonFacebook(GraphResponse response){
+        User user = new User();
 
         Log.v("Facebook","response: " + response.toString());
         JSONObject info = response.getJSONObject();
@@ -211,8 +234,6 @@ public class FragmentLogin extends Fragment {
         String email = null;
         String name =  null;
         String idFace = null;
-        String gender = null;
-        String birthday = null;
 
         try {
             if(info.has("email")){
@@ -223,36 +244,39 @@ public class FragmentLogin extends Fragment {
                 name = info.getString("name");
             }
 
-            if(info.has("gender")) {
-                gender = info.getString("gender");
-
-                if(gender.equals("male"))
-                    gender = "masculino";
-                else
-                    gender = "feminino";
-
-            }
-
-            if(info.has("birthday")) {
-                birthday = info.getString("birthday");
-                String[] aux = birthday.split("/");
-                birthday = aux[1] + "/" +  aux[0] + "/" +  aux[2];
-            }
-
             idFace = info.getString("id");
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-//        user.setEmail(email);
-//        user.setNome(name);
-//        user.setSexo(gender);
-//        user.setNascimento(birthday);
-//        user.setFacebookId(idFace);
+        user.setEmail(email);
+        user.setName(name);
+        user.setPictureUrl("https://graph.facebook.com/" + idFace + "/picture?type=normal");
+        user.setFacebookId(idFace);
 
-        return null;
+        return user;
 
+    }
+
+    private void updateUserReferences(User user){
+        try {
+            UserDao userDao = new UserDao(Util.openBD().getConnectionSource());
+            UserBD userBD = Util.fromModelUser(user);
+            Util.updateReferences(user);
+//            if(userDao.idExists(userBD.getId())) userDao.update(userBD);
+//            else userDao.create(userBD);
+
+            //Preferences.getInstance().setUser(userBD);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void startMainActivity(){
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        startActivity(intent);
+        getActivity().finish();
     }
 
     private void showProgressDialog(String title, String content){

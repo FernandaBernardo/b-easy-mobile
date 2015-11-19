@@ -47,58 +47,58 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, UserSubjectBD.class);
             TableUtils.createTable(connectionSource, TaskBD.class);
 
-            SubjectDao subjectDao = new SubjectDao(connectionSource);
-            UserDao userDao = new UserDao(connectionSource);
-            UserSubjectDao userSubjectDao = new UserSubjectDao(connectionSource);
-            TaskDao taskDao = new TaskDao(connectionSource);
-
-            UserBD user = new UserBD("Tiago","tiago.missao@usp.br","123",21,"USP","SI",8);
-            UserBD user2 = new UserBD("Tiago Missao","t.missao@gmail.com","456",21,"EACH","SI",8);
-            userDao.create(user);
-            userDao.create(user2);
-
-
-            for(int i=1;i<=5; i++){
-
-                List<TaskBD> tasks = new ArrayList<>();
-
-                SubjectBD subject = new SubjectBD("Subject #" + i);
-
-                for(int j=1; j<=3 ; j++){
-                    tasks.add(new TaskBD("Task #" + j, "DOING !", "", Util.Task_Enum.DOING.toString(),new Date(),subject));
-                    tasks.add(new TaskBD("Task #" + j, "DONE !", "", Util.Task_Enum.DONE.toString(),new Date(),subject));
-                    tasks.add(new TaskBD("Task #" + j, "DO !", "", Util.Task_Enum.DO_TO.toString(),new Date(),subject));
-                }
-
-                subjectDao.create(subject);
-                userSubjectDao.create(new UserSubjectBD(user,subject));
-
-                for(TaskBD aux : tasks){
-                    taskDao.create(aux);
-                }
-
-            }
-
-            for(int i=1;i<=3; i++){
-
-                List<TaskBD> tasks = new ArrayList<>();
-                SubjectBD subject = new SubjectBD("Subject #0" + i);
-
-                for(int j=1; j<=3 ; j++){
-                    tasks.add(new TaskBD("Task #" + j, "DOING !", "", Util.Task_Enum.DOING.toString(),new Date(),subject));
-                    tasks.add(new TaskBD("Task #" + j, "DONE !", "", Util.Task_Enum.DONE.toString(),new Date(),subject));
-                    tasks.add(new TaskBD("Task #" + j, "DO !", "", Util.Task_Enum.DO_TO.toString(),new Date(),subject));
-                }
-
-                subjectDao.create(subject);
-                userSubjectDao.create(new UserSubjectBD(user2,subject));
-
-                for(TaskBD aux : tasks){
-                    taskDao.create(aux);
-                }
-
-
-            }
+//            SubjectDao subjectDao = new SubjectDao(connectionSource);
+//            UserDao userDao = new UserDao(connectionSource);
+//            UserSubjectDao userSubjectDao = new UserSubjectDao(connectionSource);
+//            TaskDao taskDao = new TaskDao(connectionSource);
+//
+//            UserBD user = new UserBD("Tiago","tiago.missao@usp.br","123",21,"USP","SI",8);
+//            UserBD user2 = new UserBD("Tiago Missao","t.missao@gmail.com","456",21,"EACH","SI",8);
+//            userDao.create(user);
+//            userDao.create(user2);
+//
+//
+//            for(int i=1;i<=5; i++){
+//
+//                List<TaskBD> tasks = new ArrayList<>();
+//
+//                SubjectBD subject = new SubjectBD("Subject #" + i);
+//
+//                for(int j=1; j<=3 ; j++){
+//                    tasks.add(new TaskBD("Task #" + j, "DOING !", "", Util.Task_Enum.DOING.toString(),new Date(),subject));
+//                    tasks.add(new TaskBD("Task #" + j, "DONE !", "", Util.Task_Enum.DONE.toString(),new Date(),subject));
+//                    tasks.add(new TaskBD("Task #" + j, "DO !", "", Util.Task_Enum.DO_TO.toString(),new Date(),subject));
+//                }
+//
+//                subjectDao.create(subject);
+//                userSubjectDao.create(new UserSubjectBD(user,subject));
+//
+//                for(TaskBD aux : tasks){
+//                    taskDao.create(aux);
+//                }
+//
+//            }
+//
+//            for(int i=1;i<=3; i++){
+//
+//                List<TaskBD> tasks = new ArrayList<>();
+//                SubjectBD subject = new SubjectBD("Subject #0" + i);
+//
+//                for(int j=1; j<=3 ; j++){
+//                    tasks.add(new TaskBD("Task #" + j, "DOING !", "", Util.Task_Enum.DOING.toString(),new Date(),subject));
+//                    tasks.add(new TaskBD("Task #" + j, "DONE !", "", Util.Task_Enum.DONE.toString(),new Date(),subject));
+//                    tasks.add(new TaskBD("Task #" + j, "DO !", "", Util.Task_Enum.DO_TO.toString(),new Date(),subject));
+//                }
+//
+//                subjectDao.create(subject);
+//                userSubjectDao.create(new UserSubjectBD(user2,subject));
+//
+//                for(TaskBD aux : tasks){
+//                    taskDao.create(aux);
+//                }
+//
+//
+//            }
 
 
         } catch (SQLException e) {

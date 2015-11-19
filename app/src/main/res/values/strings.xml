@@ -95,6 +95,7 @@
     <!--URL-->
     <string name="url.login">login</string>
     <string name="url.loginFacebook">facebook/login</string>
+    <string name="url.createUser">/cadastro</string>
 
     <string name="conectando">Comunicando com o servidor ...</string>
 

@@ -74,7 +74,7 @@ public class TaskDao extends BaseDaoImpl<TaskBD,Long> {
     }
 
     public TaskBD getTaskByIdGlobal(Long idGlobal){
-
+        if(idGlobal == null) return null;
         try {
             TaskDao taskDao = new TaskDao(this.getConnectionSource());
             QueryBuilder<TaskBD, Long> taskQb = this.queryBuilder();

@@ -1,11 +1,12 @@
 package br.com.b_easy.Client;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Tiago on 11/12/2015.
  */
-public class User {
+public class User implements Serializable {
 
     private String email;
     private String password;

@@ -25,9 +25,11 @@ import br.com.b_easy.DataBase.DatabaseManager;
 import br.com.b_easy.DataBaseModel.SubjectBD;
 import br.com.b_easy.DataBaseModel.TaskBD;
 import br.com.b_easy.DataBaseModel.UserBD;
-import br.com.b_easy.Model.Subject;
+
 
 import br.com.b_easy.Client.Task;
+import br.com.b_easy.Client.Subject;
+import br.com.b_easy.DataBaseModel.UserSubjectBD;
 
 import static br.com.b_easy.Client.Status.*;
 
@@ -58,18 +60,6 @@ public class Util {
             v.addItemDecoration(new DividerItemDecoration(context, null, false, true));
     }
 
-
-    public static List<Subject> getListSubject(){
-        return new ArrayList<Subject>(){
-            {
-                add(new Subject("Inteligência Artificial"));
-                add(new Subject("Banco de Dados"));
-                add(new Subject("Matemática Discreta"));
-                add(new Subject("Sistemas Operacionais"));
-                add(new Subject("Cálculo I"));
-            }
-        };
-    }
 
     public static String toMD5(String s) {
         try {
@@ -137,6 +127,7 @@ public class Util {
             userBD.setCollege(user.getCollege());
             userBD.setCourse(user.getCourse());
             userBD.setSemester(user.getSemester());
+            userBD.setPictureURL(user.getPictureUrl());
 
             return userBD;
 
@@ -150,7 +141,11 @@ public class Util {
     public static SubjectBD fromModelSubject(Subject subject){
         try {
             SubjectDao subjectDao = new SubjectDao(Util.openBD().getConnectionSource());
-            SubjectBD subjectBD = subjectDao.getSubjectByIdGlogal(subject.getId());
+            SubjectBD subjectBD = null;
+
+            if(subject.getId() != null);
+                subjectBD = subjectDao.getSubjectByIdGlogal(subject.getId());
+
             if(subjectBD == null)
                 subjectBD = new SubjectBD();
 
@@ -169,7 +164,9 @@ public class Util {
     public static TaskBD fromModelTask(Task task){
         try {
             TaskDao taskDao = new TaskDao(Util.openBD().getConnectionSource());
-            TaskBD taskBD = taskDao.getTaskByIdGlobal(task.getId());
+            TaskBD taskBD = null;
+            if(task.getId() != null )
+               taskBD = taskDao.getTaskByIdGlobal(task.getId());
             if(taskBD == null)
                 taskBD = new TaskBD();
 
@@ -195,6 +192,94 @@ public class Util {
         }
 
         return null;
+    }
+
+    public static void updateReferences(User user){
+
+        try {
+            UserDao userDao = new UserDao(Util.openBD().getConnectionSource());
+            UserSubjectDao userSubjectDao = new UserSubjectDao(Util.openBD().getConnectionSource());
+            SubjectDao  subjectDao = new SubjectDao(Util.openBD().getConnectionSource());
+            TaskDao  taskDao = new TaskDao(Util.openBD().getConnectionSource());
+
+            taskDao.deleteBuilder().delete();
+            userSubjectDao.deleteBuilder().delete();
+            userDao.deleteBuilder().delete();
+            subjectDao.deleteBuilder().delete();
+
+            UserBD userBD = fromModelUser(user);
+            userDao.create(userBD);
+
+            for(Subject s : user.getSubjects()){
+                SubjectBD subjectBD = fromModelSubject(s);
+                subjectDao.create(subjectBD);
+                userSubjectDao.create(new UserSubjectBD(userBD,subjectBD));
+
+                for(Task t : s.getTasks()){
+                    TaskBD taskBD = fromModelTask(t);
+                    taskBD.setSubject(subjectBD);
+                    taskDao.create(taskBD);
+                }
+
+            }
+
+            Preferences.getInstance().setUser(userBD);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static User getUser(){
+
+        User user = new User();
+        user.setName("Tiago Emanuel");
+        user.setEmail("t.missao@gmail.com");
+
+        Subject s = new Subject();
+        s.setName("oi");
+        s.setId(1L);
+        Task t1 = new Task();
+        t1.setId(1L);
+        t1.setTitle("TO DO");
+        t1.setDescription("TO DO T1");
+        t1.setStatus(Status.TODO);
+        ArrayList<Task> at = new ArrayList<>();
+        at.add(t1);
+        ArrayList<Subject> as = new ArrayList<>();
+        s.setTasks(at);
+        as.add(s);
+
+        Subject s2 = new Subject();
+        s2.setName("oi2");
+        s2.setId(2L);
+        Task t2 = new Task();
+        t2.setId(2L);
+        t2.setTitle("DOing");
+        t2.setDescription("DOing T2");
+        t2.setStatus(Status.DOING);
+        ArrayList<Task> at2 = new ArrayList<>();
+        at2.add(t2);
+        s2.setTasks(at2);
+        as.add(s2);
+
+        Subject s3 = new Subject();
+        s3.setName("oi3");
+        s3.setId(3L);
+        Task t3 = new Task();
+        t3.setId(3L);
+        t3.setTitle("DONE");
+        t3.setDescription("DONE T3");
+        t3.setStatus(Status.DONE);
+        ArrayList<Task> at3 = new ArrayList<>();
+        at3.add(t3);
+        s3.setTasks(at3);
+        as.add(s3);
+
+        user.setSubjects(as);
+
+        return user;
     }
 
 

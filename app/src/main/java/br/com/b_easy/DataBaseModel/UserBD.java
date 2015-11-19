@@ -21,6 +21,9 @@ public class UserBD implements Serializable {
     @DatabaseField
     private String name;
 
+    @DatabaseField
+    private String pictureURL;
+
     @DatabaseField(columnName = USER_EMAIL)
     private String email;
 
@@ -124,5 +127,13 @@ public class UserBD implements Serializable {
 
     public void setSemester(int semester) {
         this.semester = semester;
+    }
+
+    public String getPictureURL() {
+        return pictureURL;
+    }
+
+    public void setPictureURL(String pictureURL) {
+        this.pictureURL = pictureURL;
     }
 }

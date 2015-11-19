@@ -150,7 +150,8 @@
             android:padding="@dimen/padding_medium_views"
             android:text="@string/login.esqueceu_senha"
             android:textColor="@color/white"
-            android:textSize="@dimen/fontsize_pequeno" />
+            android:textSize="@dimen/fontsize_pequeno"
+            android:visibility="invisible"/>
 
         <TextView
             android:id="@+id/tvSemContaFragmentLogin"

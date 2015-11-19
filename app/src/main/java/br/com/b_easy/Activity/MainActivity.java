@@ -1,5 +1,6 @@
 package br.com.b_easy.Activity;
 
+import android.net.Uri;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import br.com.b_easy.DataBaseModel.UserBD;
 import br.com.b_easy.DataBaseModel.UserSubjectBD;
 import br.com.b_easy.Fragment.HomeFragment;
 import br.com.b_easy.Fragment.TaskFragment;
+import br.com.b_easy.Preferences;
 import br.com.b_easy.R;
 import br.com.b_easy.Util;
 import br.liveo.Model.HelpLiveo;
@@ -118,7 +120,9 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
 
         this.userName.setText(user.getName());
         this.userEmail.setText(user.getEmail());
-        this.userPhoto.setImageResource(R.mipmap.ic_tiago);
+        Log.d("user","pictureURL: " + user.getPictureURL());
+        //this.userPhoto.setImageURI(Uri.parse(user.getPictureURL()));
+        //this.userPhoto.setImageResource(R.mipmap.ic_tiago);
         this.userBackground.setImageResource(R.drawable.ic_user_background_first);
 
         // Creating items navigation
@@ -164,8 +168,10 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
             UserDao userDao = new UserDao(Util.openBD().getConnectionSource());
             SubjectDao subjectDao = new SubjectDao(Util.openBD().getConnectionSource());
 
-            this.user = userDao.queryForId(Util.getUserId());
-            this.subjects = subjectDao.getUserSubjects(Util.getUserId());
+            this.user = userDao.queryForId(Preferences.getInstance().getUser().getId());
+            this.subjects = subjectDao.getUserSubjects(this.user.getId());
+
+            Log.d("database","user name:" + user.getName() + "\n" + "user email: " + user.getEmail() + "\n" + "user picture: " + user.getPictureURL());
 
             for(SubjectBD aux : subjectDao.queryForAll()){
                 Log.d("DataBase", aux.getName());

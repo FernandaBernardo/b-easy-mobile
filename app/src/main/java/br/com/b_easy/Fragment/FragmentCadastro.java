@@ -1,6 +1,7 @@
 package br.com.b_easy.Fragment;
 
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,27 +13,42 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import org.json.JSONObject;
+
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import br.com.b_easy.Activity.MainActivity;
+import br.com.b_easy.Client.User;
+import br.com.b_easy.DAO.UserDao;
+import br.com.b_easy.DataBaseModel.UserBD;
+import br.com.b_easy.Preferences;
 import br.com.b_easy.R;
+import br.com.b_easy.Util;
+import br.com.b_easy.Volley.JsonParser;
+import br.com.b_easy.Volley.Request;
 
 
 /**
  * Created by Tiago on 10/27/2015.
  */
-public class FragmentCadastro extends Fragment implements DatePickerDialog.OnDateSetListener{
+public class FragmentCadastro extends Fragment{
 
     private final String STATE_NASCIMENTO = "NASCIMENTO";
 
     private EditText etNome, etSobrenome, etEmail, etSenha, etSenhaConfirmacao;
-    private TextView tvErroNome, tvErroSobrenome, tvErroEmail, tvErroSenha, tvErroSenhaConfirmacao, tvNascimento, tvErroNascimento, tvCriarConta;
-    private RadioButton rbMasculino, rbFeminino;
+    private TextView tvErroNome, tvErroSobrenome, tvErroEmail, tvErroSenha, tvErroSenhaConfirmacao, tvCriarConta;
+    private MaterialDialog dialog;
+    private String pictureURL;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_cadastro, null);
@@ -43,26 +59,13 @@ public class FragmentCadastro extends Fragment implements DatePickerDialog.OnDat
         etEmail = (EditText) v.findViewById(R.id.etEmailFragmentCadastro);
         etSenha = (EditText) v.findViewById(R.id.etSenhaFragmentCadastro);
         etSenhaConfirmacao = (EditText) v.findViewById(R.id.etConfirmacaoSenhaFragmentCadastro);
-        tvNascimento = (TextView) v.findViewById(R.id.tvNascimentoFragmentCadastro);
         tvCriarConta = (TextView) v.findViewById(R.id.tvCriarContaFragmentCadastro);
         tvErroNome = (TextView) v.findViewById(R.id.tvNomeErroFragmentCadastro);
         tvErroSobrenome = (TextView) v.findViewById(R.id.tvSobrenomeErroFragmentCadastro);
         tvErroEmail = (TextView) v.findViewById(R.id.tvEmailErroFragmentCadastro);
         tvErroSenha = (TextView) v.findViewById(R.id.tvSenhaErroFragmentCadastro);
         tvErroSenhaConfirmacao = (TextView) v.findViewById(R.id.tvConfirmacaoSenhaErroFragmentCadastro);
-        tvErroNascimento = (TextView) v.findViewById(R.id.tvNascimentoErroFragmentCadastro);
-        rbMasculino = (RadioButton) v.findViewById(R.id.radioMasculinoSexoFragmentCadastro);
-        rbFeminino = (RadioButton) v.findViewById(R.id.radioFemininoSexoFragmentCadastro);
 
-        tvNascimento.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar now = Calendar.getInstance();
-                Log.d("DatePicker","Onclick");
-                DatePickerDialog dpd = DatePickerDialog.newInstance(FragmentCadastro.this, now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
-                dpd.show(getActivity().getFragmentManager(), "Datepickerdialog");
-            }
-        });
 
         tvCriarConta.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,8 +77,6 @@ public class FragmentCadastro extends Fragment implements DatePickerDialog.OnDat
                 String email = etEmail.getText().toString();
                 String senha = etSenha.getText().toString();
                 String cSenha = etSenhaConfirmacao.getText().toString();
-                String sNascimento = tvNascimento.getText().toString();
-                Date nascimento = null;
 
                 if(nome.trim().length() == 0){
                     erro = true;
@@ -121,82 +122,79 @@ public class FragmentCadastro extends Fragment implements DatePickerDialog.OnDat
                 }
 
 
-                if(sNascimento.trim().length() == 0 ){
-                    erro = true;
-                    tvErroNascimento.setVisibility(View.VISIBLE);
-                }
-                else{
-                    tvErroNascimento.setVisibility(View.INVISIBLE);
-                    DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-
-                    try {
-                        nascimento = formatter.parse(sNascimento);
-                    } catch (ParseException e) {
-                        erro = true;
-                        tvErroNascimento.setVisibility(View.VISIBLE);
+                if(!erro){
+                    final User user = new User();
+                    user.setEmail(email);
+                    user.setName(nome + " " + sobrenome);
+                    user.setPassword(Util.toMD5(senha));
+                    user.setPictureUrl(pictureURL);
+                    showProgressDialog(null, getString(R.string.conectando));
+                    Request.postDataJson(getString(R.string.url_createUser), JsonParser.objectToJson(user), new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        hideProgressDialog();
+                                        updateUserReferences(user);
+                                        startMainActivity();
+                                    }
+                                }, new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        hideProgressDialog();
+                                        updateUserReferences(user);
+                                        startMainActivity();
+                                    }
+                                });
+                                showProgressDialog(null, getString(R.string.conectando));
                     }
                 }
-
-
-                if(rbMasculino.isChecked()){
-                    masculino = true;
-                    Log.d("Sexo","Masculino");
-                }
-                else{
-                    masculino = false;
-                    Log.d("Sexo","Feminino");
-                }
-
-
-                if(!erro){
-                    //TODO REQUEST SERVIDOR CRIAR CONTA
-                    //TODO SAVE AT DATABASE
-                }
-            }
         });
 
         if(args != null && args.containsKey(FragmentLogin.BUNDLE_USER)){
-            /*Usuario user = (Usuario) args.getSerializable(FragmentLogin.BUNDLE_USER);
-            String[] nomes = user.getNome().split(" ");
+            User user = (User) args.getSerializable(FragmentLogin.BUNDLE_USER);
+            String[] nomes = user.getName().split(" ");
 
             etNome.setText(nomes[0]);
             if(nomes.length > 1){
                 etSobrenome.setText(nomes[nomes.length - 1]);
             }
             etEmail.setText(user.getEmail());
-            tvNascimento.setText(user.getNascimento());
-
-            if(user.getSexo().equals("masculino")){
-                rbMasculino.setChecked(true);
-                rbFeminino.setChecked(false);
-            }
-            else{
-                rbFeminino.setChecked(true);
-                rbMasculino.setChecked(false);
-            }*/
+            pictureURL = user.getPictureUrl();
 
         }
 
-        if(savedInstanceState != null){
-            tvNascimento.setText(savedInstanceState.getString(STATE_NASCIMENTO));
-        }
 
 
         return v;
     }
 
-    @Override
-    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        if(tvNascimento != null){
-            monthOfYear++;
-            tvNascimento.setText( (dayOfMonth < 10 ?  "0" + dayOfMonth : dayOfMonth) + "/" + (monthOfYear < 10 ?  "0" + monthOfYear : monthOfYear) + "/" + year);
-            tvErroNascimento.setVisibility(View.INVISIBLE);
+    private void updateUserReferences(User user){
+        try {
+            UserDao userDao = new UserDao(Util.openBD().getConnectionSource());
+            UserBD userBD = Util.fromModelUser(user);
+            if(userDao.idExists(userBD.getId())) userDao.update(userBD);
+            else userDao.create(userBD);
+
+            Preferences.getInstance().setUser(userBD);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        outState.putString(STATE_NASCIMENTO, tvNascimento.getText().toString());
-        super.onSaveInstanceState(outState);
+    private void startMainActivity(){
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        startActivity(intent);
+        getActivity().finish();
     }
+
+    private void showProgressDialog(String title, String content){
+        dialog = Util.buildProgressDialog(getContext(), title, content);
+        dialog.show();
+    }
+
+    private void hideProgressDialog(){
+        if(dialog != null)
+            dialog.dismiss();
+    }
+
 }
