@@ -99,6 +99,9 @@
     <string name="url.createSubject">mobile/add-subject/</string>
     <string name="url.updateSubject">mobile/edit-subject/</string>
     <string name="url.deleteSubject">mobile/remove-subject/</string>
+    <string name="url.createTask">mobile/add-subject/</string>
+    <string name="url.updateTask">mobile/edit-subject/</string>
+    <string name="url.deleteTask">mobile/remove-subject/</string>
 
     <string name="conectando">Comunicando com o servidor ...</string>
 

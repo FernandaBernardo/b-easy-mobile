@@ -72,10 +72,10 @@ public class TaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
                     Toast.makeText(mContext, "Click on Next", Toast.LENGTH_SHORT).show();
                     if(mCod == Util.Task_Enum.DO_TO)
-                       success = fragment.createTask(mCod,Util.Task_Enum.DOING, mTasks.get(position));
+                      fragment.createTask(mCod,Util.Task_Enum.DOING, mTasks.get(position));
 
                     else if(mCod == Util.Task_Enum.DOING)
-                       success =  fragment.createTask(mCod,Util.Task_Enum.DONE, mTasks.get(position));
+                       fragment.createTask(mCod,Util.Task_Enum.DONE, mTasks.get(position));
 
                     Log.d("DataBase", "Move: " + (success ? "SUCCESS" : "FAIL"));
                 }
@@ -89,10 +89,10 @@ public class TaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
                     Toast.makeText(mContext, "Click on Back", Toast.LENGTH_SHORT).show();
                     if(mCod == Util.Task_Enum.DONE)
-                        success = fragment.createTask(mCod,Util.Task_Enum.DOING, mTasks.get(position));
+                        fragment.createTask(mCod,Util.Task_Enum.DOING, mTasks.get(position));
 
                     else if(mCod == Util.Task_Enum.DOING)
-                        success = fragment.createTask(mCod,Util.Task_Enum.DO_TO,mTasks.get(position));
+                        fragment.createTask(mCod,Util.Task_Enum.DO_TO,mTasks.get(position));
 
                     Log.d("DataBase", "Move: " + (success ? "SUCCESS" : "FAIL"));
 

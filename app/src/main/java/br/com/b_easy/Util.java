@@ -175,6 +175,7 @@ public class Util {
             taskBD.setRelevance(task.getRelevance());
             taskBD.setDescription(task.getDescription());
             taskBD.setIdGlobal(task.getId());
+            taskBD.setSubject(fromModelSubject(task.getSubject()));
 
             switch (task.getStatus()){
                 case TODO: taskBD.setStatus(Task_Enum.DO_TO.name);
@@ -192,6 +193,25 @@ public class Util {
         }
 
         return null;
+    }
+
+    public static Task toModelTask(TaskBD task){
+
+        br.com.b_easy.Client.Task t = new br.com.b_easy.Client.Task();
+        br.com.b_easy.Client.Subject s = new br.com.b_easy.Client.Subject();
+        s.setId(task.getSubject().getIdGlobal());
+        t.setSubject(s);
+        t.setTitle(task.getTitle());
+        t.setDescription(task.getDescription());
+        t.setFinalDate(task.getFinalDate());
+        t.setRelevance(task.getRelevance());
+
+        if(task.getStatus().equals(Task_Enum.DO_TO.name)) t.setStatus(TODO);
+        else if(task.getStatus().equals(Task_Enum.DOING)) t.setStatus(DOING);
+        else if(task.getStatus().equals(Task_Enum.DONE)) t.setStatus(DONE);
+
+        return t;
+
     }
 
     public static void updateReferences(User user){

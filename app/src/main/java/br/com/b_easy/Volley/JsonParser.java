@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import java.lang.reflect.Type;
 
 import br.com.b_easy.Client.Subject;
+import br.com.b_easy.Client.Task;
 import br.com.b_easy.Client.User;
 
 
@@ -59,6 +60,18 @@ public class JsonParser {
         }
 
         return s;
+    }
+
+    public static Task JsontoTask(JSONObject json){
+        Task t = null;
+        try {
+            Log.d("json", json.get("task").toString());
+            t = gson.fromJson(json.get("task").toString(),Task.class);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return t;
     }
 
 

@@ -290,6 +290,21 @@ public class TaskFragment extends Fragment implements DatePickerDialog.OnDateSet
         }
 
         if(aux != null){
+            br.com.b_easy.Client.Task t = Util.toModelTask(aux);
+            br.com.b_easy.Volley.Request.postDataJson(getString(R.string.url_deleteTask), JsonParser.objectToJson(t), new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    Log.d("volleyTask", "response" + response);
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.d("volleyTask", "error" + error.toString());
+                }
+            });
+
+
             try {
 
                 int status = new TaskDao(Util.openBD().getConnectionSource()).delete(aux);
@@ -303,7 +318,7 @@ public class TaskFragment extends Fragment implements DatePickerDialog.OnDateSet
         return false;
     }
 
-    public boolean createTask(Util.Task_Enum from, Util.Task_Enum to, TaskBD new_Task){
+    public void createTask(Util.Task_Enum from, Util.Task_Enum to, TaskBD new_Task){
 
         switch(to){
             case DO_TO:
@@ -319,7 +334,7 @@ public class TaskFragment extends Fragment implements DatePickerDialog.OnDateSet
                 adDone.notifyDataSetChanged();
                 break;
             default:
-                return false;
+                return;
         }
 
         if(from != null){
@@ -338,17 +353,57 @@ public class TaskFragment extends Fragment implements DatePickerDialog.OnDateSet
                     break;
             }
         }
-
+        new_Task.setStatus(to.toString());
+        br.com.b_easy.Client.Task t = Util.toModelTask(new_Task);
+        TaskDao taskDao = null;
         try {
-            new_Task.setStatus(to.toString());
-            TaskDao taskDao = new TaskDao(Util.openBD().getConnectionSource());
-            int status = taskDao.idExists(new_Task.getId()) ? taskDao.update(new_Task) : taskDao.create(new_Task);
-            return status == 1 ? true : false;
-
+            taskDao = new TaskDao(Util.openBD().getConnectionSource());
+            if(taskDao.idExists(new_Task.getId())){
+                br.com.b_easy.Volley.Request.postDataJson(getString(R.string.url_updateTask), JsonParser.objectToJson(t), new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("volleyTask", "response" + response);
+                        br.com.b_easy.Client.Task task = JsonParser.JsontoTask(response);
+                        TaskBD tbd = Util.fromModelTask(task);
+                        try {
+                            TaskDao taskDao = new TaskDao(Util.openBD().getConnectionSource());
+                            taskDao.update(tbd);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("volleyTask", "error" + error.toString());
+                    }
+                });
+            }
+            else{
+                br.com.b_easy.Volley.Request.postDataJson(getString(R.string.url_createTask), JsonParser.objectToJson(t), new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("volleyTask", "response" + response);
+                        br.com.b_easy.Client.Task task = JsonParser.JsontoTask(response);
+                        TaskBD tbd = Util.fromModelTask(task);
+                        try {
+                            TaskDao taskDao = new TaskDao(Util.openBD().getConnectionSource());
+                            taskDao.create(tbd);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("volleyTask", "error" + error.toString());
+                    }
+                });
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+
     }
 
     public void createDialogUpdateTask(Util.Task_Enum cod, int index){
@@ -419,15 +474,28 @@ public class TaskFragment extends Fragment implements DatePickerDialog.OnDateSet
                             aux.setDescription(sDesc);
                             aux.setRelevance(sRel);
                             aux.setFinalDate(date);
+                            br.com.b_easy.Client.Task t = Util.toModelTask(aux);
 
-                            try {
-                                int status = new TaskDao(Util.openBD().getConnectionSource()).update(aux);
-                                if (status == 1)
-                                    adapter.notifyDataSetChanged();
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            }
-
+                            br.com.b_easy.Volley.Request.postDataJson(getString(R.string.url_updateTask), JsonParser.objectToJson(t), new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    Log.d("volleyTask", "response" + response);
+                                    br.com.b_easy.Client.Task task = JsonParser.JsontoTask(response);
+                                    TaskBD tbd = Util.fromModelTask(task);
+                                    try {
+                                        TaskDao taskDao = new TaskDao(Util.openBD().getConnectionSource());
+                                        taskDao.update(tbd);
+                                        adapter.notifyDataSetChanged();
+                                    } catch (SQLException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Log.d("volleyTask", "error" + error.toString());
+                                }
+                            });
 
                         }
 
@@ -701,34 +769,8 @@ public class TaskFragment extends Fragment implements DatePickerDialog.OnDateSet
 
                         Log.d("CreateTask", "Name: " + sName + " Descricao: " + sDesc + " Relevancia: " + sRel);
 
-                        br.com.b_easy.Volley.Request.postDataJson(getString(R.string.url_createSubject), JsonParser.objectToJson(s), new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                Log.d("volleySubject", "response" + response);
-                                br.com.b_easy.Client.Subject subject = JsonParser.JsontoSubject(response);
-                                SubjectBD sbd = new SubjectBD(subject.getName());
-                                sbd.setIdGlobal(subject.getId());
-                                boolean status = ((MainActivity) getActivity()).saveSubject(sbd);
 
-                                if (status) {
-                                    Log.d("DataBase", "SUCCESS: Saved Subject");
-                                    getActivity().startActivity(new Intent(getContext(), MainActivity.class));
-                                    getActivity().finish();
-                                } else
-                                    Log.e("DataBase", "ERROR: Save Subject");
-
-
-                            }
-                        }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Log.d("volleySubject", "error" + error.toString());
-                            }
-                        });
-
-                        boolean success = createTask(null, tabVisible, new TaskBD(sName, sDesc, sRel, tabVisible.toString(), date, subject));
-
-                        Log.d("Database", "Task Created: " + (success ? "SUCCESS" : "FAILED"));
+                        createTask(null, tabVisible, new TaskBD(sName, sDesc, sRel, tabVisible.toString(), date, subject));
 
                         super.onPositive(dialog);
                         dialog.dismiss();
