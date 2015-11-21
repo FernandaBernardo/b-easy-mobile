@@ -70,19 +70,26 @@ public class Request {
 	private static void makePost(String url, int method, JSONObject json, Listener<JSONObject> listener, ErrorListener errorListener) {
 		url = setupUrl(url);
 
-        Log.d("JSON_OBJECT", "connecting to: " + url);
+        Log.d("JSON_OBJECT", "connecting to: " + url + "\n" + "passing json " + json.toString());
+
 		
 		JsonObjectRequest request = new JsonObjectRequest(method, url, json, listener, errorListener) {
 			@Override
 			public Map<String, String> getHeaders() throws AuthFailureError {
-				HashMap<String, String> params = new HashMap<>(super.getHeaders());
-				String creds = String.format("%s:%s", Preferences.USER_TOMCAT_AUTH, Preferences.PASSWORD_TOMCAT_AUTH);
-				String auth = "Basic " + Base64.encodeToString(creds.getBytes(), Base64.DEFAULT);
-				params.put("Authorization", auth);
+				HashMap<String, String> params = new HashMap<String,String>();
+//				String creds = String.format("%s:%s", Preferences.USER_TOMCAT_AUTH, Preferences.PASSWORD_TOMCAT_AUTH);
+//				String auth = "Basic " + Base64.encodeToString(creds.getBytes(), Base64.DEFAULT);
+//				params.put("Authorization", auth);
+				params.put("Content-Type","application/json");
 				return params;
 			}
+
+			@Override
+			public String getBodyContentType() {
+				return "application/json";
+			}
 		};
-		request.setRetryPolicy(new DefaultRetryPolicy(10000, 2, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+//		request.setRetryPolicy(new DefaultRetryPolicy(10000, 2, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 		ApplicationClass.getInstance().addToRequestQueue(request);
 	}
 	

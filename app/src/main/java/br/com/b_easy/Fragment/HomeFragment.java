@@ -27,8 +27,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import br.com.b_easy.Activity.MainActivity;
+import br.com.b_easy.Client.Subject;
+import br.com.b_easy.Client.User;
 import br.com.b_easy.DataBaseModel.SubjectBD;
+import br.com.b_easy.Preferences;
 import br.com.b_easy.R;
+import br.com.b_easy.Volley.JsonParser;
 import br.com.b_easy.pojo.ListJson;
 import br.com.b_easy.pojo.TesteJson;
 
@@ -112,16 +116,39 @@ public class HomeFragment extends Fragment {
                             Toast.makeText(getContext(), "Invalid Subject Name", Toast.LENGTH_SHORT).show();
                             return;
                         } else {
-                            status = ((MainActivity) getActivity()).saveSubject(new SubjectBD(sName));
 
-                            if (status) {
-                                Log.d("DataBase", "SUCCESS: Saved Subject");
-                                getActivity().startActivity(new Intent(getContext(), MainActivity.class));
-                                getActivity().finish();
-                            } else
-                                Log.e("DataBase", "ERROR: Save Subject");
+                            Subject s = new Subject();
+                            s.setName(sName);
+                            User user = new User();
+                            user.setEmail(Preferences.getInstance().getUser().getEmail());
+                            s.setUser(user);
+                            br.com.b_easy.Volley.Request.postDataJson(getString(R.string.url_createSubject), JsonParser.objectToJson(s), new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    Log.d("volleySubject", "response" + response);
+                                    Subject subject = JsonParser.JsontoSubject(response);
+                                    SubjectBD sbd = new SubjectBD(subject.getName());
+                                    sbd.setIdGlobal(subject.getId());
+                                    boolean status = ((MainActivity) getActivity()).saveSubject(sbd);
+
+                                    if (status) {
+                                        Log.d("DataBase", "SUCCESS: Saved Subject");
+                                        getActivity().startActivity(new Intent(getContext(), MainActivity.class));
+                                        getActivity().finish();
+                                    } else
+                                        Log.e("DataBase", "ERROR: Save Subject");
+
+
+                                }
+                            }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Log.d("volleySubject", "error" + error.toString());
+                                }
+                            });
 
                             dialog.dismiss();
+
                         }
                     }
 

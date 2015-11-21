@@ -64,8 +64,8 @@ public class Util {
     public static String toMD5(String s) {
         try {
             // Create MD5 Hash
-            MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
-            String input = Preferences.PASSWORD_BASE + s;
+            MessageDigest digest = java.security.MessageDigest.getInstance("SHA-256");
+            String input = s;
             digest.update(input.getBytes());
             byte messageDigest[] = digest.digest();
 
@@ -210,17 +210,21 @@ public class Util {
             UserBD userBD = fromModelUser(user);
             userDao.create(userBD);
 
-            for(Subject s : user.getSubjects()){
-                SubjectBD subjectBD = fromModelSubject(s);
-                subjectDao.create(subjectBD);
-                userSubjectDao.create(new UserSubjectBD(userBD,subjectBD));
+            if(user.getSubjects() != null ) {
+                for (Subject s : user.getSubjects()) {
+                    SubjectBD subjectBD = fromModelSubject(s);
+                    subjectDao.create(subjectBD);
+                    userSubjectDao.create(new UserSubjectBD(userBD, subjectBD));
 
-                for(Task t : s.getTasks()){
-                    TaskBD taskBD = fromModelTask(t);
-                    taskBD.setSubject(subjectBD);
-                    taskDao.create(taskBD);
+                    if(s.getTasks() != null) {
+                        for (Task t : s.getTasks()) {
+                            TaskBD taskBD = fromModelTask(t);
+                            taskBD.setSubject(subjectBD);
+                            taskDao.create(taskBD);
+                        }
+                    }
+
                 }
-
             }
 
             Preferences.getInstance().setUser(userBD);

@@ -119,32 +119,22 @@ public class FragmentLogin extends Fragment {
                 if(!erro) {
                     User user = new User();
                     user.setEmail(email);
-                    user.setPassword(Util.toMD5(senha));
+                    user.setPassword(senha);
                     showProgressDialog(null, getString(R.string.conectando));
                     Request.postDataJson(getString(R.string.url_login), JsonParser.objectToJson(user), new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
+                            Log.d("volley", "response" + response);
+                            User user = JsonParser.JsontoUser(response);
+                            Log.d("json", user.getName() + "\n" + user.getEmail());
                             hideProgressDialog();
-                            updateUserReferences(Util.getUser());
+                            updateUserReferences(user);
                             startMainActivity();
                         }
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             hideProgressDialog();
-                            UserDao userDao = null;
-                            try {
-                                userDao = new UserDao(Util.openBD().getConnectionSource());
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            }
-                            UserBD userBD = userDao.getUserbyEmail("emanuelmissao@gmai.com");
-                            if(userBD != null){
-                                Preferences.getInstance().setUser(userBD);
-                                Log.d("database", "forced login");
-                            }
-                            else updateUserReferences(Util.getUser());
-                            startMainActivity();
                         }
                     });
 

@@ -12,11 +12,11 @@ public class Preferences {
 
     //SERVER CONFIG
     //public static final String SERVER_URL = "http://192.168.1.105:8080/SocialMenuServer/rest/";
-    public static final String SERVER_URL = "http://10.0.3.2:8080/SocialMenuServer/rest/";
+    public static final String SERVER_URL = "http://b-easy.herokuapp.com/";
     //public static final String SERVER_URL = "http://104.131.62.76:8080/SocialMenu/rest/";
     public static final String USER_TOMCAT_AUTH = "admin";
     public static final String PASSWORD_TOMCAT_AUTH = "admin";
-    public static final String PASSWORD_BASE = "b_easy";
+    public static final String PASSWORD_BASE = "";
 
     private static Preferences mInstance;
     private UserBD user;

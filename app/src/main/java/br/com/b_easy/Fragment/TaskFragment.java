@@ -21,9 +21,14 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.melnykov.fab.FloatingActionButton;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -35,13 +40,16 @@ import java.util.List;
 
 import br.com.b_easy.Activity.MainActivity;
 import br.com.b_easy.Adapter.TaskAdapter;
+import br.com.b_easy.Client.User;
 import br.com.b_easy.DAO.TaskDao;
 import br.com.b_easy.DataBaseModel.SubjectBD;
 import br.com.b_easy.DataBaseModel.TaskBD;
 import br.com.b_easy.Model.Subject;
 import br.com.b_easy.Model.Task;
+import br.com.b_easy.Preferences;
 import br.com.b_easy.R;
 import br.com.b_easy.Util;
+import br.com.b_easy.Volley.JsonParser;
 import br.com.b_easy.customView.SlidingTabLayout;
 
 
@@ -539,6 +547,26 @@ public class TaskFragment extends Fragment implements DatePickerDialog.OnDateSet
                             Toast.makeText(getContext(), "Invalid Subject Name", Toast.LENGTH_SHORT).show();
                             return;
                         } else {
+
+                            br.com.b_easy.Client.Subject s = new br.com.b_easy.Client.Subject();
+                            s.setName(sName);
+                            User user = new User();
+                            user.setEmail(Preferences.getInstance().getUser().getEmail());
+                            s.setUser(user);
+                            s.setId(subject.getIdGlobal());
+                            br.com.b_easy.Volley.Request.postDataJson(getString(R.string.url_updateSubject), JsonParser.objectToJson(s), new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    Log.d("volleySubject", "response" + response);
+
+                                }
+                            }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Log.d("volleySubject", "error" + error.toString());
+                                }
+                            });
+
                             subject.setName(sName);
                             status = ((MainActivity) getActivity()).updateSubject(subject);
 
@@ -578,6 +606,28 @@ public class TaskFragment extends Fragment implements DatePickerDialog.OnDateSet
                 .callback(new MaterialDialog.ButtonCallback() {
                     @Override
                     public void onPositive(MaterialDialog dialog) {
+
+                        br.com.b_easy.Client.Subject s = new br.com.b_easy.Client.Subject();
+                        s.setId(subject.getIdGlobal());
+                        JSONObject json = JsonParser.objectToJson(s);
+                        JSONObject json2 = new JSONObject();
+                        try {
+                            json2.put("subject",json);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        br.com.b_easy.Volley.Request.postDataJson(getString(R.string.url_deleteSubject), json2, new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                Log.d("volleySubject", "response" + response);
+
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.d("volleySubject", "error" + error.toString());
+                            }
+                        });
 
                         boolean status = false;
 
@@ -650,6 +700,31 @@ public class TaskFragment extends Fragment implements DatePickerDialog.OnDateSet
                         }
 
                         Log.d("CreateTask", "Name: " + sName + " Descricao: " + sDesc + " Relevancia: " + sRel);
+
+                        br.com.b_easy.Volley.Request.postDataJson(getString(R.string.url_createSubject), JsonParser.objectToJson(s), new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                Log.d("volleySubject", "response" + response);
+                                br.com.b_easy.Client.Subject subject = JsonParser.JsontoSubject(response);
+                                SubjectBD sbd = new SubjectBD(subject.getName());
+                                sbd.setIdGlobal(subject.getId());
+                                boolean status = ((MainActivity) getActivity()).saveSubject(sbd);
+
+                                if (status) {
+                                    Log.d("DataBase", "SUCCESS: Saved Subject");
+                                    getActivity().startActivity(new Intent(getContext(), MainActivity.class));
+                                    getActivity().finish();
+                                } else
+                                    Log.e("DataBase", "ERROR: Save Subject");
+
+
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.d("volleySubject", "error" + error.toString());
+                            }
+                        });
 
                         boolean success = createTask(null, tabVisible, new TaskBD(sName, sDesc, sRel, tabVisible.toString(), date, subject));
 
