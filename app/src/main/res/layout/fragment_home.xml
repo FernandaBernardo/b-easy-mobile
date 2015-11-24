@@ -3,39 +3,51 @@
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="@dimen/md_activity_left_margin"
-    android:layout_marginRight="@dimen/md_activity_right_margin"
-    android:orientation="vertical">
 
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Bem-Vindo ao "-->
-        <!--android:textColor="@color/primaryTextColor"-->
-        <!--android:fontFamily="@string/app_font_bold"-->
-        <!--android:textSize="@dimen/md_fontsize_headline"-->
-        <!--android:paddingTop="100dp"-->
-        <!--/>-->
+    android:background="@color/primaryColor"
+    >
 
-    <!--<ImageView-->
-        <!--android:id="@+id/ivLogo"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:src="@drawable/beasy_launcher_icon"-->
-        <!--android:layout_centerInParent="true"-->
-        <!--/>-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
 
-    <!--<TextView-->
-        <!--android:layout_below="@+id/ivLogo"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text=" Texte"-->
-        <!--android:textColor="@color/primaryTextColor"-->
-        <!--android:fontFamily="@string/app_font_bold"-->
-        <!--android:textSize="@dimen/md_fontsize_headline"-->
-        <!--android:paddingTop="100dp"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--/>-->
+        >
+
+        <ImageView
+            android:id="@+id/ivLogoFragmentCadastro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding_medium_views"
+            android:layout_marginLeft="@dimen/padding_gigantic_views"
+            android:layout_marginRight="@dimen/padding_gigantic_views"
+            android:layout_marginTop="@dimen/padding_gigantic_views"
+            android:adjustViewBounds="true"
+            android:padding="@dimen/padding_gigantic_views"
+            android:scaleType="fitCenter"
+            android:src="@drawable/logo_branco" />
+
+        <TextView
+            android:id="@+id/tvMensagemFragmentCadastro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/ivLogoFragmentCadastro"
+            android:layout_alignRight="@id/ivLogoFragmentCadastro"
+            android:layout_below="@id/ivLogoFragmentCadastro"
+            android:layout_marginBottom="@dimen/padding_big_views"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:lineSpacingExtra="@dimen/padding_small_views"
+            android:text="@string/home.msg"
+            android:textColor="@color/white"
+            android:textSize="@dimen/fontsize_subtitulo"
+
+            />
+
+    </RelativeLayout>
+
+
+
 
     <com.melnykov.fab.FloatingActionButton
         android:id="@+id/fabHomeFragment"

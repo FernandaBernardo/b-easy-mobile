@@ -6,8 +6,7 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="JSON" />
-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9d5db930-d15f-4f38-82b8-885ee5dec800" name="Default" comment="" />
@@ -37,56 +36,89 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="strings.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-17.592592">
-              <caret line="103" column="32" selection-start-line="103" selection-start-column="32" selection-end-line="103" selection-end-column="32" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="TaskFragment.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Fragment/TaskFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3807947">
-              <caret line="297" column="0" selection-start-line="297" selection-start-column="0" selection-end-line="297" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.39298245">
+              <caret line="481" column="8" selection-start-line="481" selection-start-column="8" selection-end-line="481" selection-end-column="8" />
               <folding>
                 <element signature="e#10561#10783#0" expanded="true" />
                 <element signature="e#10782#10783#0" expanded="true" />
                 <element signature="e#10785#11007#0" expanded="true" />
                 <element signature="e#11006#11007#0" expanded="true" />
-                <element signature="e#12813#13508#0" expanded="true" />
-                <element signature="e#13507#13508#0" expanded="true" />
-                <element signature="e#13510#13752#0" expanded="true" />
-                <element signature="e#13751#13752#0" expanded="true" />
-                <element signature="e#13909#14604#0" expanded="true" />
-                <element signature="e#14603#14604#0" expanded="true" />
-                <element signature="e#14606#14848#0" expanded="true" />
-                <element signature="e#14847#14848#0" expanded="true" />
-                <element signature="e#18235#19158#0" expanded="true" />
-                <element signature="e#19157#19158#0" expanded="true" />
-                <element signature="e#19160#19462#0" expanded="true" />
-                <element signature="e#19461#19462#0" expanded="true" />
-                <element signature="e#25454#25759#0" expanded="true" />
-                <element signature="e#25758#25759#0" expanded="true" />
-                <element signature="e#25761#26066#0" expanded="true" />
-                <element signature="e#26065#26066#0" expanded="true" />
-                <element signature="e#28518#28803#0" expanded="true" />
-                <element signature="e#28802#28803#0" expanded="true" />
-                <element signature="e#28805#29090#0" expanded="true" />
-                <element signature="e#29089#29090#0" expanded="true" />
+                <element signature="e#12860#13555#0" expanded="true" />
+                <element signature="e#13554#13555#0" expanded="true" />
+                <element signature="e#13557#13799#0" expanded="true" />
+                <element signature="e#13798#13799#0" expanded="true" />
+                <element signature="e#13955#14650#0" expanded="true" />
+                <element signature="e#14649#14650#0" expanded="true" />
+                <element signature="e#14652#14894#0" expanded="true" />
+                <element signature="e#14893#14894#0" expanded="true" />
+                <element signature="e#18394#19245#0" expanded="true" />
+                <element signature="e#19244#19245#0" expanded="true" />
+                <element signature="e#19247#19549#0" expanded="true" />
+                <element signature="e#19548#19549#0" expanded="true" />
+                <element signature="e#25571#25876#0" expanded="true" />
+                <element signature="e#25875#25876#0" expanded="true" />
+                <element signature="e#25878#26183#0" expanded="true" />
+                <element signature="e#26182#26183#0" expanded="true" />
+                <element signature="e#28635#28920#0" expanded="true" />
+                <element signature="e#28919#28920#0" expanded="true" />
+                <element signature="e#28922#29207#0" expanded="true" />
+                <element signature="e#29206#29207#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JsonParser.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Volley/JsonParser.java">
+      <file leaf-file-name="strings.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-15.444445">
+              <caret line="105" column="32" selection-start-line="105" selection-start-column="32" selection-end-line="105" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="activity_main.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="67" column="40" selection-start-line="67" selection-start-column="40" selection-end-line="67" selection-end-column="40" />
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Activity/MainActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="265" column="75" selection-start-line="265" selection-start-column="75" selection-end-line="265" selection-end-column="75" />
+              <folding>
+                <element signature="e#3150#3206#0" expanded="true" />
+                <element signature="e#5067#5105#0" expanded="true" />
+                <element signature="e#5197#5235#0" expanded="true" />
+                <element signature="e#5468#5504#0" expanded="true" />
+                <element signature="e#9584#10011#0" expanded="true" />
+                <element signature="e#10010#10011#0" expanded="true" />
+                <element signature="e#10013#10235#0" expanded="true" />
+                <element signature="e#10234#10235#0" expanded="true" />
+                <element signature="e#11398#11454#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FragmentLogin.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Fragment/FragmentLogin.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="128" column="44" selection-start-line="128" selection-start-column="44" selection-end-line="128" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -95,14 +127,13 @@
       <file leaf-file-name="Util.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Util.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.4827585">
-              <caret line="178" column="0" selection-start-line="178" selection-start-column="0" selection-end-line="178" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="301" column="43" selection-start-line="301" selection-start-column="43" selection-end-line="301" selection-end-column="43" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1424#1425#0" expanded="true" />
-                <element signature="e#1464#1465#0" expanded="true" />
-                <element signature="e#3405#3406#0" expanded="true" />
-                <element signature="e#3430#3431#0" expanded="true" />
+                <element signature="e#3319#3320#0" expanded="true" />
+                <element signature="e#3370#3371#0" expanded="true" />
+                <element signature="e#3407#3408#0" expanded="true" />
+                <element signature="e#3432#3433#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -114,8 +145,39 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="108" column="18" selection-start-line="108" selection-start-column="18" selection-end-line="108" selection-end-column="18" />
               <folding>
-                <element signature="e#2972#2973#0" expanded="true" />
-                <element signature="e#3001#3002#0" expanded="true" />
+                <element signature="imports" expanded="false" />
+                <element signature="e#2384#2385#0" expanded="false" />
+                <element signature="e#2409#2410#0" expanded="false" />
+                <element signature="e#2443#2444#0" expanded="false" />
+                <element signature="e#2471#2472#0" expanded="false" />
+                <element signature="e#2503#2504#0" expanded="false" />
+                <element signature="e#2531#2532#0" expanded="false" />
+                <element signature="e#2573#2574#0" expanded="false" />
+                <element signature="e#2607#2608#0" expanded="false" />
+                <element signature="e#2645#2646#0" expanded="false" />
+                <element signature="e#2679#2680#0" expanded="false" />
+                <element signature="e#2733#2734#0" expanded="false" />
+                <element signature="e#2779#2780#0" expanded="false" />
+                <element signature="e#2815#2816#0" expanded="false" />
+                <element signature="e#2847#2848#0" expanded="false" />
+                <element signature="e#2897#2898#0" expanded="false" />
+                <element signature="e#2939#2940#0" expanded="false" />
+                <element signature="e#2972#2973#0" expanded="false" />
+                <element signature="e#3001#3002#0" expanded="false" />
+                <element signature="e#3045#3046#0" expanded="false" />
+                <element signature="e#3081#3082#0" expanded="false" />
+                <element signature="e#3118#3119#0" expanded="false" />
+                <element signature="e#3148#3149#0" expanded="false" />
+                <element signature="e#3197#3198#0" expanded="false" />
+                <element signature="e#3235#3236#0" expanded="false" />
+                <element signature="e#3269#3270#0" expanded="false" />
+                <element signature="e#3301#3302#0" expanded="false" />
+                <element signature="e#3557#3558#0" expanded="false" />
+                <element signature="e#3599#3600#0" expanded="false" />
+                <element signature="e#3632#3633#0" expanded="false" />
+                <element signature="e#3663#3664#0" expanded="false" />
+                <element signature="e#3709#3710#0" expanded="false" />
+                <element signature="e#3749#3750#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -125,22 +187,8 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Client/Task.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="18" column="35" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
+              <caret line="17" column="16" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="16" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HomeFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Fragment/HomeFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="147" column="31" selection-start-line="124" selection-start-column="27" selection-end-line="147" selection-end-column="31" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#1867#1868#0" expanded="false" />
-                <element signature="e#1923#1924#0" expanded="false" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -149,11 +197,18 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Adapter/TaskAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="113" column="50" selection-start-line="113" selection-start-column="50" selection-end-line="113" selection-end-column="50" />
-              <folding>
-                <element signature="e#3973#4360#0" expanded="true" />
-                <element signature="e#4359#4360#0" expanded="true" />
-              </folding>
+              <caret line="105" column="41" selection-start-line="105" selection-start-column="41" selection-end-line="105" selection-end-column="41" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JsonParser.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Volley/JsonParser.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="58" column="32" selection-start-line="58" selection-start-column="32" selection-end-line="58" selection-end-column="32" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -7454,20 +7509,21 @@
         <option value="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/DataBase/DatabaseHelper.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/DataBaseModel/UserBD.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Fragment/FragmentCadastro.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Activity/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Client/Subject.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Client/Task.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/DAO/SubjectDao.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/DAO/TaskDao.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Preferences.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Client/User.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Fragment/FragmentLogin.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Volley/Request.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Fragment/HomeFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Volley/JsonParser.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Util.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Adapter/TaskAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_home.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Fragment/FragmentLogin.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Util.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Activity/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Volley/JsonParser.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Fragment/TaskFragment.java" />
       </list>
     </option>
@@ -7511,19 +7567,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="b-easy-mobile" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -7552,6 +7595,38 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="values" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="b-easy-mobile" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="b-easy-mobile" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="java" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
             </PATH_ELEMENT>
@@ -7592,12 +7667,25 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Client" />
+              <option name="myItemId" value="Activity" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="b-easy-mobile" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -7913,7 +8001,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -7922,7 +8010,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32694355" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33226836" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -7961,21 +8049,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Application/ApplicationClass.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="8" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -8145,55 +8218,29 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.43521595">
           <caret line="24" column="12" selection-start-line="24" selection-start-column="12" selection-end-line="29" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_cadastro.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.08027923">
-          <caret line="290" column="6" selection-start-line="290" selection-start-column="6" selection-end-line="290" selection-end-column="6" />
-          <folding>
-            <element signature="e#7395#7422#0" expanded="true" />
-            <element signature="e#7513#7541#0" expanded="true" />
-            <element signature="e#9461#9488#0" expanded="true" />
-            <element signature="e#9653#9681#0" expanded="true" />
-            <element signature="e#9715#9744#0" expanded="true" />
-            <element signature="e#12001#12027#0" expanded="true" />
-            <element signature="e#12117#12142#0" expanded="true" />
-            <element signature="e#12486#12515#0" expanded="true" />
-            <element signature="e#12715#12745#0" expanded="true" />
-            <element signature="e#12930#12956#0" expanded="true" />
-            <element signature="e#13069#13090#0" expanded="true" />
-            <element signature="e#13763#13789#0" expanded="true" />
-            <element signature="e#13879#13904#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_login.xml">
       <provider editor-type-id="android-designer">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_login.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.80104715">
           <caret line="153" column="41" selection-start-line="153" selection-start-column="41" selection-end-line="153" selection-end-column="41" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/br/com/b_easy/DataBase/DatabaseConfigUtil.java">
@@ -8214,11 +8261,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="131" column="35" selection-start-line="131" selection-start-column="35" selection-end-line="131" selection-end-column="35" />
-          <folding>
-            <element signature="e#2678#2679#0" expanded="false" />
-            <element signature="e#2730#2731#0" expanded="false" />
-            <element signature="e#2774#2775#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -8226,15 +8268,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="146" column="69" selection-start-line="146" selection-start-column="69" selection-end-line="146" selection-end-column="69" />
-          <folding>
-            <element signature="e#2703#6215#0" expanded="false" />
-            <element signature="e#5078#5108#0" expanded="false" />
-            <element signature="e#5219#5647#0" expanded="false" />
-            <element signature="e#5646#5647#0" expanded="false" />
-            <element signature="e#5649#6073#0" expanded="false" />
-            <element signature="e#6072#6073#0" expanded="false" />
-            <element signature="e#6214#6215#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -8242,7 +8275,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -8268,7 +8300,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="40" column="41" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="41" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -8287,8 +8318,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="18" column="48" selection-start-line="18" selection-start-column="48" selection-end-line="18" selection-end-column="48" />
           <folding>
-            <element signature="e#993#994#0" expanded="true" />
-            <element signature="e#1025#1026#0" expanded="true" />
+            <element signature="e#993#994#0" expanded="false" />
+            <element signature="e#1025#1026#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -8341,28 +8372,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Fragment/FragmentLogin.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="131" column="48" selection-start-line="131" selection-start-column="48" selection-end-line="131" selection-end-column="48" />
-          <folding>
-            <element signature="e#4498#4528#0" expanded="false" />
-            <element signature="e#4634#5203#0" expanded="false" />
-            <element signature="e#5202#5203#0" expanded="false" />
-            <element signature="e#5205#5440#0" expanded="false" />
-            <element signature="e#5439#5440#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Activity/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="218" column="19" selection-start-line="218" selection-start-column="19" selection-end-line="218" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Volley/Request.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.111111">
@@ -8375,42 +8384,41 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="147" column="31" selection-start-line="124" selection-start-column="27" selection-end-line="147" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1867#1868#0" expanded="false" />
-            <element signature="e#1923#1924#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-17.592592">
-          <caret line="103" column="32" selection-start-line="103" selection-start-column="32" selection-end-line="103" selection-end-column="32" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Volley/JsonParser.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_cadastro.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="67" column="40" selection-start-line="67" selection-start-column="40" selection-end-line="67" selection-end-column="40" />
+          <caret line="49" column="0" selection-start-line="20" selection-start-column="8" selection-end-line="49" selection-end-column="0" />
           <folding />
         </state>
       </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Util.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_home.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.4827585">
-          <caret line="178" column="0" selection-start-line="178" selection-start-column="0" selection-end-line="178" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1424#1425#0" expanded="true" />
-            <element signature="e#1464#1465#0" expanded="true" />
-            <element signature="e#3405#3406#0" expanded="true" />
-            <element signature="e#3430#3431#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.0">
+          <caret line="51" column="42" selection-start-line="51" selection-start-column="42" selection-end-line="51" selection-end-column="42" />
+          <folding />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/br/com/b_easy/DataBaseModel/TaskBD.java">
@@ -8418,8 +8426,39 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="108" column="18" selection-start-line="108" selection-start-column="18" selection-end-line="108" selection-end-column="18" />
           <folding>
-            <element signature="e#2972#2973#0" expanded="true" />
-            <element signature="e#3001#3002#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#2384#2385#0" expanded="false" />
+            <element signature="e#2409#2410#0" expanded="false" />
+            <element signature="e#2443#2444#0" expanded="false" />
+            <element signature="e#2471#2472#0" expanded="false" />
+            <element signature="e#2503#2504#0" expanded="false" />
+            <element signature="e#2531#2532#0" expanded="false" />
+            <element signature="e#2573#2574#0" expanded="false" />
+            <element signature="e#2607#2608#0" expanded="false" />
+            <element signature="e#2645#2646#0" expanded="false" />
+            <element signature="e#2679#2680#0" expanded="false" />
+            <element signature="e#2733#2734#0" expanded="false" />
+            <element signature="e#2779#2780#0" expanded="false" />
+            <element signature="e#2815#2816#0" expanded="false" />
+            <element signature="e#2847#2848#0" expanded="false" />
+            <element signature="e#2897#2898#0" expanded="false" />
+            <element signature="e#2939#2940#0" expanded="false" />
+            <element signature="e#2972#2973#0" expanded="false" />
+            <element signature="e#3001#3002#0" expanded="false" />
+            <element signature="e#3045#3046#0" expanded="false" />
+            <element signature="e#3081#3082#0" expanded="false" />
+            <element signature="e#3118#3119#0" expanded="false" />
+            <element signature="e#3148#3149#0" expanded="false" />
+            <element signature="e#3197#3198#0" expanded="false" />
+            <element signature="e#3235#3236#0" expanded="false" />
+            <element signature="e#3269#3270#0" expanded="false" />
+            <element signature="e#3301#3302#0" expanded="false" />
+            <element signature="e#3557#3558#0" expanded="false" />
+            <element signature="e#3599#3600#0" expanded="false" />
+            <element signature="e#3632#3633#0" expanded="false" />
+            <element signature="e#3663#3664#0" expanded="false" />
+            <element signature="e#3709#3710#0" expanded="false" />
+            <element signature="e#3749#3750#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -8427,7 +8466,62 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Client/Task.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="35" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
+          <caret line="17" column="16" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Fragment/FragmentLogin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="128" column="44" selection-start-line="128" selection-start-column="44" selection-end-line="128" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-15.444445">
+          <caret line="105" column="32" selection-start-line="105" selection-start-column="32" selection-end-line="105" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Util.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="301" column="43" selection-start-line="301" selection-start-column="43" selection-end-line="301" selection-end-column="43" />
+          <folding>
+            <element signature="e#3319#3320#0" expanded="true" />
+            <element signature="e#3370#3371#0" expanded="true" />
+            <element signature="e#3407#3408#0" expanded="true" />
+            <element signature="e#3432#3433#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Activity/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="265" column="75" selection-start-line="265" selection-start-column="75" selection-end-line="265" selection-end-column="75" />
+          <folding>
+            <element signature="e#3150#3206#0" expanded="true" />
+            <element signature="e#5067#5105#0" expanded="true" />
+            <element signature="e#5197#5235#0" expanded="true" />
+            <element signature="e#5468#5504#0" expanded="true" />
+            <element signature="e#9584#10011#0" expanded="true" />
+            <element signature="e#10010#10011#0" expanded="true" />
+            <element signature="e#10013#10235#0" expanded="true" />
+            <element signature="e#10234#10235#0" expanded="true" />
+            <element signature="e#11398#11454#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Volley/JsonParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="58" column="32" selection-start-line="58" selection-start-column="32" selection-end-line="58" selection-end-column="32" />
           <folding />
         </state>
       </provider>
@@ -8435,43 +8529,40 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Adapter/TaskAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="113" column="50" selection-start-line="113" selection-start-column="50" selection-end-line="113" selection-end-column="50" />
-          <folding>
-            <element signature="e#3973#4360#0" expanded="true" />
-            <element signature="e#4359#4360#0" expanded="true" />
-          </folding>
+          <caret line="105" column="41" selection-start-line="105" selection-start-column="41" selection-end-line="105" selection-end-column="41" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/br/com/b_easy/Fragment/TaskFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3807947">
-          <caret line="297" column="0" selection-start-line="297" selection-start-column="0" selection-end-line="297" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.39298245">
+          <caret line="481" column="8" selection-start-line="481" selection-start-column="8" selection-end-line="481" selection-end-column="8" />
           <folding>
             <element signature="e#10561#10783#0" expanded="true" />
             <element signature="e#10782#10783#0" expanded="true" />
             <element signature="e#10785#11007#0" expanded="true" />
             <element signature="e#11006#11007#0" expanded="true" />
-            <element signature="e#12813#13508#0" expanded="true" />
-            <element signature="e#13507#13508#0" expanded="true" />
-            <element signature="e#13510#13752#0" expanded="true" />
-            <element signature="e#13751#13752#0" expanded="true" />
-            <element signature="e#13909#14604#0" expanded="true" />
-            <element signature="e#14603#14604#0" expanded="true" />
-            <element signature="e#14606#14848#0" expanded="true" />
-            <element signature="e#14847#14848#0" expanded="true" />
-            <element signature="e#18235#19158#0" expanded="true" />
-            <element signature="e#19157#19158#0" expanded="true" />
-            <element signature="e#19160#19462#0" expanded="true" />
-            <element signature="e#19461#19462#0" expanded="true" />
-            <element signature="e#25454#25759#0" expanded="true" />
-            <element signature="e#25758#25759#0" expanded="true" />
-            <element signature="e#25761#26066#0" expanded="true" />
-            <element signature="e#26065#26066#0" expanded="true" />
-            <element signature="e#28518#28803#0" expanded="true" />
-            <element signature="e#28802#28803#0" expanded="true" />
-            <element signature="e#28805#29090#0" expanded="true" />
-            <element signature="e#29089#29090#0" expanded="true" />
+            <element signature="e#12860#13555#0" expanded="true" />
+            <element signature="e#13554#13555#0" expanded="true" />
+            <element signature="e#13557#13799#0" expanded="true" />
+            <element signature="e#13798#13799#0" expanded="true" />
+            <element signature="e#13955#14650#0" expanded="true" />
+            <element signature="e#14649#14650#0" expanded="true" />
+            <element signature="e#14652#14894#0" expanded="true" />
+            <element signature="e#14893#14894#0" expanded="true" />
+            <element signature="e#18394#19245#0" expanded="true" />
+            <element signature="e#19244#19245#0" expanded="true" />
+            <element signature="e#19247#19549#0" expanded="true" />
+            <element signature="e#19548#19549#0" expanded="true" />
+            <element signature="e#25571#25876#0" expanded="true" />
+            <element signature="e#25875#25876#0" expanded="true" />
+            <element signature="e#25878#26183#0" expanded="true" />
+            <element signature="e#26182#26183#0" expanded="true" />
+            <element signature="e#28635#28920#0" expanded="true" />
+            <element signature="e#28919#28920#0" expanded="true" />
+            <element signature="e#28922#29207#0" expanded="true" />
+            <element signature="e#29206#29207#0" expanded="true" />
           </folding>
         </state>
       </provider>

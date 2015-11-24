@@ -124,7 +124,7 @@ public class FragmentLogin extends Fragment {
                     Request.postDataJson(getString(R.string.url_login), JsonParser.objectToJson(user), new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            Log.d("volley", "response" + response);
+                            Log.d("volley", "responseXXX " + response);
                             User user = JsonParser.JsontoUser(response);
                             Log.d("json", user.getName() + "\n" + user.getEmail());
                             hideProgressDialog();

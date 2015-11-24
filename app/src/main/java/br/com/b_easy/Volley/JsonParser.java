@@ -3,12 +3,15 @@ package br.com.b_easy.Volley;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 import br.com.b_easy.Client.Subject;
 import br.com.b_easy.Client.Task;
@@ -35,6 +38,28 @@ public class JsonParser {
             e.printStackTrace();
         }
         return jsonObject;
+    }
+
+    public static JSONObject taskToJson(Task task){
+        JSONObject jTask = null;
+        JSONObject jSubject = null;
+        JSONObject jObject = null;
+        jTask = new JSONObject();
+        jSubject = new JSONObject();
+        jObject = new JSONObject();
+        try {
+            if(task.getId() != null)jTask.put("id", task.getId());
+            jSubject.put("id",task.getSubject().getId());
+            jTask.put("title", task.getTitle());
+            jTask.put("description", task.getDescription());
+            jTask.put("status", task.getStatus());
+            jTask.put("subject", jSubject);
+            jObject.put("task", jTask);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.d("JSON_OBJECT", jObject.toString());
+        return jObject;
     }
 
 
@@ -72,6 +97,24 @@ public class JsonParser {
         }
 
         return t;
+    }
+
+    public static ArrayList<Task> JsontoListTask(JSONObject json){
+        ArrayList<Task> tasks = new ArrayList();
+        try {
+            JSONArray array = json.getJSONArray("list");
+            for(int i=0;i<array.length();i++){
+                Task t = gson.fromJson(array.get(i).toString(), Task.class);
+                tasks.add(t);
+            }
+            for(Task t : tasks){
+                Log.d("json", "Task Id: " + t.getId() + " Task Title: " + t.getTitle() + " Task Status: " + t.getStatus());
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return tasks;
     }
 
 

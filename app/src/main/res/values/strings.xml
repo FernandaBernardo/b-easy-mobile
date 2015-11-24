@@ -90,6 +90,7 @@
     <string name="login.erro.senhaConfirmacao">As senhas não coincidiem.</string>
     <string name="login.erro.nascimento">Data inválida.</string>
     <string name="login.msg">Complete com suas informações pessoais para podermos criar sua conta</string>
+    <string name="home.msg">Bem-vindo ao B-Easy, a maneira mais fácil de organizar, seus estudos, trabalhos e tarefas</string>
 
 
     <!--URL-->
@@ -99,9 +100,10 @@
     <string name="url.createSubject">mobile/add-subject/</string>
     <string name="url.updateSubject">mobile/edit-subject/</string>
     <string name="url.deleteSubject">mobile/remove-subject/</string>
-    <string name="url.createTask">mobile/add-subject/</string>
-    <string name="url.updateTask">mobile/edit-subject/</string>
-    <string name="url.deleteTask">mobile/remove-subject/</string>
+    <string name="url.createTask">mobile/add-task/</string>
+    <string name="url.updateTask">mobile/edit-task/</string>
+    <string name="url.deleteTask">mobile/remove-task/</string>
+    <string name="url.getTasks">mobile/get-tasks/</string>
 
     <string name="conectando">Comunicando com o servidor ...</string>
 

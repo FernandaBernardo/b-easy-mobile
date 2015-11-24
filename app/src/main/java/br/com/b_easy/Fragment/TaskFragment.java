@@ -359,7 +359,8 @@ public class TaskFragment extends Fragment implements DatePickerDialog.OnDateSet
         try {
             taskDao = new TaskDao(Util.openBD().getConnectionSource());
             if(taskDao.idExists(new_Task.getId())){
-                br.com.b_easy.Volley.Request.postDataJson(getString(R.string.url_updateTask), JsonParser.objectToJson(t), new Response.Listener<JSONObject>() {
+                t.setId(new_Task.getIdGlobal());
+                br.com.b_easy.Volley.Request.postDataJson(getString(R.string.url_updateTask), JsonParser.taskToJson(t), new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("volleyTask", "response" + response);
@@ -380,7 +381,8 @@ public class TaskFragment extends Fragment implements DatePickerDialog.OnDateSet
                 });
             }
             else{
-                br.com.b_easy.Volley.Request.postDataJson(getString(R.string.url_createTask), JsonParser.objectToJson(t), new Response.Listener<JSONObject>() {
+
+                br.com.b_easy.Volley.Request.postDataJson(getString(R.string.url_createTask), JsonParser.taskToJson(t), new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("volleyTask", "response" + response);
@@ -474,9 +476,10 @@ public class TaskFragment extends Fragment implements DatePickerDialog.OnDateSet
                             aux.setDescription(sDesc);
                             aux.setRelevance(sRel);
                             aux.setFinalDate(date);
+                            adapter.notifyDataSetChanged();
                             br.com.b_easy.Client.Task t = Util.toModelTask(aux);
-
-                            br.com.b_easy.Volley.Request.postDataJson(getString(R.string.url_updateTask), JsonParser.objectToJson(t), new Response.Listener<JSONObject>() {
+                            t.setId(aux.getIdGlobal());
+                            br.com.b_easy.Volley.Request.postDataJson(getString(R.string.url_updateTask), JsonParser.taskToJson(t), new Response.Listener<JSONObject>() {
                                 @Override
                                 public void onResponse(JSONObject response) {
                                     Log.d("volleyTask", "response" + response);
@@ -485,7 +488,6 @@ public class TaskFragment extends Fragment implements DatePickerDialog.OnDateSet
                                     try {
                                         TaskDao taskDao = new TaskDao(Util.openBD().getConnectionSource());
                                         taskDao.update(tbd);
-                                        adapter.notifyDataSetChanged();
                                     } catch (SQLException e) {
                                         e.printStackTrace();
                                     }
@@ -514,7 +516,7 @@ public class TaskFragment extends Fragment implements DatePickerDialog.OnDateSet
             @Override
             public void onClick(View v) {
                 Calendar now = Calendar.getInstance();
-                now.setTime(aux.getFinalDate());
+                if(aux.getFinalDate() != null)now.setTime(aux.getFinalDate());
                 Log.d("DatePicker","Onclick");
                 DatePickerDialog dpd = DatePickerDialog.newInstance(TaskFragment.this, now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
                 dpd.show(TaskFragment.this.getActivity().getFragmentManager(), "Datepickerdialog");

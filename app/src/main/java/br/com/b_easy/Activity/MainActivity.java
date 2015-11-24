@@ -12,15 +12,23 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.melnykov.fab.FloatingActionButton;
+
+import org.json.JSONObject;
 
 import java.sql.SQLException;
 import java.util.List;
 
+import br.com.b_easy.Client.Subject;
+import br.com.b_easy.Client.Task;
 import br.com.b_easy.DAO.SubjectDao;
+import br.com.b_easy.DAO.TaskDao;
 import br.com.b_easy.DAO.UserDao;
 import br.com.b_easy.DAO.UserSubjectDao;
 import br.com.b_easy.DataBaseModel.SubjectBD;
+import br.com.b_easy.DataBaseModel.TaskBD;
 import br.com.b_easy.DataBaseModel.UserBD;
 import br.com.b_easy.DataBaseModel.UserSubjectBD;
 import br.com.b_easy.Fragment.HomeFragment;
@@ -28,6 +36,7 @@ import br.com.b_easy.Fragment.TaskFragment;
 import br.com.b_easy.Preferences;
 import br.com.b_easy.R;
 import br.com.b_easy.Util;
+import br.com.b_easy.Volley.JsonParser;
 import br.liveo.Model.HelpLiveo;
 import br.liveo.interfaces.OnItemClickListener;
 import br.liveo.interfaces.OnPrepareOptionsMenuLiveo;
@@ -248,7 +257,22 @@ public class MainActivity extends NavigationLiveo implements OnItemClickListener
         }
         else if( !subjects.isEmpty() && position >= INITIAL_INDEX_TASKS && position <= FINAL_INDEX_TASKS){
             setSelectedSubject(subjects.get(getSubjectIndexOnList(position)));
-            trocaFragment(TAG_TASK, null);
+            Subject s = new Subject();
+            s.setId(getSelectedSubject().getIdGlobal());
+            br.com.b_easy.Volley.Request.postDataJson(getString(R.string.url_getTasks), JsonParser.objectToJson(s), new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    Log.d("volleyTask", "get ALL response" + response);
+                    List<Task> tasks = JsonParser.JsontoListTask(response);
+                    Util.updateReferences(getSelectedSubject(),tasks);
+                    trocaFragment(TAG_TASK, null);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.d("volleyTask", "error" + error.toString());
+                }
+            });
         }
         else{
             // Fragment About

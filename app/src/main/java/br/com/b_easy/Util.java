@@ -38,6 +38,8 @@ import static br.com.b_easy.Client.Status.*;
  */
 public class Util {
 
+
+
     public enum Task_Enum{
         DO_TO(0,"TODO"), DOING(1,"DOING"), DONE(2,"DONE");
         private final int cod;
@@ -195,6 +197,40 @@ public class Util {
         return null;
     }
 
+    public static TaskBD fromModelTask(Task task, SubjectBD s){
+        try {
+            TaskDao taskDao = new TaskDao(Util.openBD().getConnectionSource());
+            TaskBD taskBD = null;
+            if(task.getId() != null )
+                taskBD = taskDao.getTaskByIdGlobal(task.getId());
+            if(taskBD == null)
+                taskBD = new TaskBD();
+
+            taskBD.setTitle(task.getTitle());
+            taskBD.setFinalDate(task.getFinalDate());
+            taskBD.setRelevance(task.getRelevance());
+            taskBD.setDescription(task.getDescription());
+            taskBD.setIdGlobal(task.getId());
+            taskBD.setSubject(s);
+
+            switch (task.getStatus()){
+                case TODO: taskBD.setStatus(Task_Enum.DO_TO.name);
+                    break;
+                case DOING: taskBD.setStatus(Task_Enum.DOING.name);
+                    break;
+                case DONE: taskBD.setStatus(Task_Enum.DONE.name);
+                    break;
+            }
+
+            return taskBD;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     public static Task toModelTask(TaskBD task){
 
         br.com.b_easy.Client.Task t = new br.com.b_easy.Client.Task();
@@ -253,6 +289,22 @@ public class Util {
             e.printStackTrace();
         }
 
+    }
+
+    public static void updateReferences(SubjectBD selectedSubject, List<Task> tasks) {
+        try {
+            TaskDao  taskDao = new TaskDao(Util.openBD().getConnectionSource());
+            for(Task t : tasks){
+                TaskBD taskBD = Util.fromModelTask(t,selectedSubject);
+                if(taskDao.idExists(taskBD.getId()))
+                    taskDao.update(taskBD);
+                else
+                    taskDao.create(taskBD);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public static User getUser(){
